@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-14 15:36:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-10-14 17:57:04
+ * @LastEditTime: 2021-10-22 15:10:43
  * @Description: file content
  */
 /// <reference types="vite/client" />
@@ -20,4 +20,8 @@ interface ImportMetaEnv extends Readonly<Record<string, any>> {
 
 interface ImportMeta {
     readonly env: ImportMetaEnv
+}
+
+interface Icon {
+    (src: string): string
 }
