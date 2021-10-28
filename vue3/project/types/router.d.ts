@@ -2,10 +2,10 @@
  * @Author: maggot-code
  * @Date: 2021-10-22 13:59:53
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-10-22 15:10:07
+ * @LastEditTime: 2021-10-28 10:38:12
  * @Description: file content
  */
-import 'vue-router'
+import "vue-router";
 
 /**
  * @description: 路由信息定义
@@ -17,7 +17,7 @@ import 'vue-router'
  * @title 标题
  * @icon 图标
  */
-declare module 'vue-router' {
+declare module "vue-router" {
     interface RouteMeta {
         hasPower?: boolean,
         hasChildrenPower?: boolean,

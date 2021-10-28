@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-14 15:36:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-10-14 18:01:50
+ * @LastEditTime: 2021-10-27 15:17:36
  * @Description: file content
  */
 import { defineConfig, searchForWorkspaceRoot } from 'vite';
@@ -23,6 +23,7 @@ export default defineConfig(({ command, mode }) => {
         cacheDir: "node_modules/.vite",
         resolve: {
             alias: {
+                '/\/#\//': resolve(__dirname, "src/types"),
                 '@': resolve(__dirname, 'src') // 设置 `@` 指向 `src` 目录
             },
             extensions: [".ts", ".js", ".tsx", "jsx", ".json"],
