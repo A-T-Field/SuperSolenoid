@@ -2,29 +2,42 @@
  * @Author: maggot-code
  * @Date: 2021-10-22 13:59:53
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-10-28 10:38:12
+ * @LastEditTime: 2021-10-28 17:37:42
  * @Description: file content
  */
+import type { VNode } from 'vue';
 import "vue-router";
 
+export declare type powerGather = string[];
+
 /**
- * @description: 路由信息定义
- * @hasPower 是否需要权限 false 不需要
- * @hasChildrenPower 是否子集需要权限 false 不需要 (如果hasPower true 则 hasChildrenPower 一定为 true)
- * @hasRender 是否使用此路由 true 使用
- * @hasNav 是否用于导航 false 不使用
- * @hasMenu 是否用于菜单 false 不使用
- * @title 标题
- * @icon 图标
+ * @description: 自定义路由额外携带信息
  */
 declare module "vue-router" {
     interface RouteMeta {
-        hasPower?: boolean,
-        hasChildrenPower?: boolean,
-        hasRender?: boolean,
-        hasNav?: boolean,
-        hasMenu?: boolean,
-        title?: string,
-        icon?: string | Icon
+        readonly title?: string;
+        readonly icon?: VNode;
+
+        readonly isDisabled?: boolean;
+
+        readonly isKeepAlive?: boolean;
+
+        readonly isNavRoute?: boolean;
+        readonly activeNav?: string;
+
+        readonly isMenuRoute?: boolean;
+        readonly arctiveMenu?: string;
+
+        readonly hasPower?: boolean;
+        readonly hasChildrenPower?: boolean;
+        readonly powerGather?: powerGather;
+
+        readonly hasSort?: boolean;
+        readonly sort?: number;
+
+        readonly hasFrameSrc?: boolean;
+        readonly frameSrc?: string;
+
+        readonly [key: string]: any;
     }
 }

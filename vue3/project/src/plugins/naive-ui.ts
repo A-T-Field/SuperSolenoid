@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-28 11:27:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-10-28 14:46:27
+ * @LastEditTime: 2021-10-28 17:43:26
  * @Description: file content
  */
 import type { App } from 'vue';
@@ -20,7 +20,9 @@ const naiveUI = createNaiveUI({
     ]
 });
 
-const UseNaiveUI = (app: App<Element>) => app.use(naiveUI);
+function UseNaiveUI(app: App<Element>): void {
+    app.use(naiveUI)
+}
 
 export {
     naiveUI

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-14 17:46:24
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-10-28 15:02:58
+ * @LastEditTime: 2021-10-28 17:44:15
  * @Description: file content
  */
 import type { App } from 'vue';
@@ -19,8 +19,7 @@ const RootRoute = UseRouteRecordRaw({
     name: PagesEnum.BASE_ROOT_NAME,
     path: PagesEnum.BASE_ROOT,
     meta: {
-        hasChildrenPower: true,
-        title: PagesEnum.BASE_ROOT_TITLE
+        title: PagesEnum.BASE_ROOT_TITLE,
     },
     component: () => import(/* webpackChunkName: "group-base" */ "@/App.vue"),
 });
@@ -99,7 +98,9 @@ const router = createRouter({
     scrollBehavior: () => ({ left: 0, top: 0 }),
 });
 
-const UseVueRouter = (app: App<Element>) => app.use(UseRouterGuards(router));
+function UseVueRouter(app: App<Element>): void {
+    app.use(UseRouterGuards(router))
+}
 
 export {
     router,

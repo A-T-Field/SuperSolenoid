@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-28 13:24:43
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-10-28 14:36:28
+ * @LastEditTime: 2021-10-28 17:44:38
  * @Description: file content
  */
 import type { Router, RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
@@ -25,7 +25,7 @@ const routerError = (error: any) => {
     console.log(error, '路由异常!');
 }
 
-const UseRouterGuards = (router: Router): Router => {
+function UseRouterGuards(router: Router): Router {
     router.beforeEach(routerBeforeEach);
     router.afterEach(routerAfterEach);
     router.onError(routerError);
