@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-22 13:59:53
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-10-28 17:37:42
+ * @LastEditTime: 2021-10-29 15:03:13
  * @Description: file content
  */
 import type { VNode } from 'vue';
@@ -16,7 +16,7 @@ export declare type powerGather = string[];
 declare module "vue-router" {
     interface RouteMeta {
         readonly title?: string;
-        readonly icon?: VNode;
+        readonly icon?: string;
 
         readonly isDisabled?: boolean;
 
@@ -26,7 +26,7 @@ declare module "vue-router" {
         readonly activeNav?: string;
 
         readonly isMenuRoute?: boolean;
-        readonly arctiveMenu?: string;
+        readonly activeMenu?: string;
 
         readonly hasPower?: boolean;
         readonly hasChildrenPower?: boolean;

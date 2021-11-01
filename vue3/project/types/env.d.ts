@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-14 15:36:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-10-28 11:12:01
+ * @LastEditTime: 2021-11-01 10:25:13
  * @Description: file content
  */
 /// <reference types="vite/client" />
@@ -16,6 +16,7 @@ declare module '*.vue' {
 
 interface ImportMetaEnv extends Readonly<Record<string, any>> {
     readonly VITE_APP_TITLE: string
+    readonly VITE_APP_USE_DEBUG: boolean,
     readonly VITE_APP_DROP_CONSOLE: boolean
     readonly VITE_APP_USE_MOCK: boolean
     readonly VITE_APP_BUILD_COMPRESS: 'gzip' | 'brotli' | 'none'

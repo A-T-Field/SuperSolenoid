@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-28 17:41:21
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-10-28 18:18:18
+ * @LastEditTime: 2021-10-29 14:48:42
  * @Description: file content
  */
 export const toString = Object.prototype.toString;
@@ -94,7 +94,7 @@ export function isString(val: unknown): val is string {
  * @return {boolean}
  */
 export function isEmptyString<T = unknown>(val: unknown): val is T {
-    return isString(val) && val.replace(/\s+/g, "").length > 0;
+    return !isString(val) || val.replace(/\s+/g, "").length <= 0;
 };
 
 /**

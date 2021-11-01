@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-28 13:28:05
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-10-28 13:43:37
+ * @LastEditTime: 2021-10-29 15:44:52
  * @Description: file content
  */
 /**
@@ -13,6 +13,10 @@ export enum PagesEnum {
     BASE_ROOT = '/',
     BASE_ROOT_NAME = 'root',
     BASE_ROOT_TITLE = 'root',
+    // 准备
+    BASE_READY = '/ready',
+    BASE_READY_NAME = 'ready',
+    BASE_READY_TITLE = '准备',
     // 重定向
     REDIRECT = '/redirect',
     REDIRECT_NAME = 'redirect',
