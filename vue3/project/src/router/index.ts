@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-14 17:46:24
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-10-29 15:47:24
+ * @LastEditTime: 2021-11-01 16:14:16
  * @Description: file content
  */
 import type { App } from 'vue';
@@ -30,7 +30,7 @@ const router = createRouter({
 
 function UseVueRouter(app: App<Element>): void {
     app.use(UseRouterGuards(router))
-}
+};
 
 export {
     router,
