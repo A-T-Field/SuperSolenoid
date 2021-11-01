@@ -2,11 +2,11 @@
  * @Author: maggot-code
  * @Date: 2021-10-28 13:24:43
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-01 11:32:58
+ * @LastEditTime: 2021-11-01 13:20:20
  * @Description: file content
  */
 import type { Router, RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
-import { loadBarStart } from '@/utils/loading-bar';
+import { loadBarStart, loadBarFail } from '@/utils/loading-bar';
 
 // 路由前置守卫
 const routerBeforeEach = (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
@@ -24,6 +24,7 @@ const routerAfterEach = (to: RouteLocationNormalized) => {
 
 // 路由异常守卫
 const routerError = (error: any) => {
+    loadBarFail();
     console.log(error, '路由异常!');
 };
 

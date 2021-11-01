@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-29 15:40:40
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-10-29 15:46:16
+ * @LastEditTime: 2021-11-01 14:31:32
  * @Description: file content
  */
 import type { RouteRecordRaw } from 'vue-router';
