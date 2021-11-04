@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-14 15:36:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-10-27 15:17:36
+ * @LastEditTime: 2021-11-02 09:42:58
  * @Description: file content
  */
 import { defineConfig, searchForWorkspaceRoot } from 'vite';

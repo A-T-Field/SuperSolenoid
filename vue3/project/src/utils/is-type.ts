@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-28 17:41:21
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-10-29 14:48:42
+ * @LastEditTime: 2021-11-03 14:50:42
  * @Description: file content
  */
 export const toString = Object.prototype.toString;
@@ -31,7 +31,7 @@ export function isNull(val: unknown): val is null {
  * @return {boolean}
  */
 export function isNil<T = unknown>(val: unknown): val is T {
-    return isUndefined(val) && isNull(val);
+    return isUndefined(val) || isNull(val);
 };
 
 /**

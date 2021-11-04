@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-28 14:38:44
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-10-29 16:31:19
+ * @LastEditTime: 2021-11-04 17:15:34
  * @Description: file content
  */
 import type { RouteRecordRaw, RouteRecordName, RouteMeta } from 'vue-router';
@@ -11,8 +11,16 @@ import type { powerGather } from '/#/router';
 import {
     isEmptyString,
     isBoolean,
-    isNumber
+    isNumber,
+    isNil
 } from '@/utils/is-type';
+import { PagesEnum } from '@/enums/pages-enum';
+
+function setMateParent(meta: RouteMeta): string {
+    const { parent } = meta;
+
+    return isNil(parent) ? PagesEnum.BASE_ROOT_NAME : parent;
+}
 
 function setMetaTitle(name: RouteRecordName, meta: RouteMeta): string {
     const { title } = meta;
@@ -109,6 +117,7 @@ function setMetaFrameSrc(meta: RouteMeta): string {
 
 function setupRecordRawMeta(name: RouteRecordName, meta: RouteMeta): RouteMeta {
     return {
+        parent: setMateParent(meta),
         title: setMetaTitle(name, meta),
         icon: setMetaIcon(meta),
         isDisabled: setMetaIsDisabled(meta),

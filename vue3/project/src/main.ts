@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-14 15:36:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-01 11:14:59
+ * @LastEditTime: 2021-11-04 13:58:01
  * @Description: file content
  */
 import type { App } from 'vue';
@@ -17,6 +17,10 @@ import 'normalize.css';
 import AppView from '@/App.vue';
 import AppLication from '@/Application.vue';
 
+import { useLocalCached } from '@/utils/cached';
+
+const localCached = useLocalCached();
+localCached.set('power', [1, 2, 3]);
 
 function bootstrap(appextend: App, app: App): void {
     UseNaiveUI(app, appextend);

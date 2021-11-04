@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-27 15:33:30
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-10-28 10:36:07
+ * @LastEditTime: 2021-11-02 15:53:06
  * @Description: file content
  */
 declare interface Fn<T = any, R = T> {
@@ -27,3 +27,11 @@ declare type labelValueOptions = {
 }[];
 
 declare type emitType = (event: string, ...args: any[]) => void;
+
+declare interface HandlerResolve {
+    (value: Fn<any, any> | PromiseLike<Fn<any, any>>): void
+}
+
+declare interface HandlerReject {
+    (reason?: any): void
+}

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-01 18:02:40
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-01 18:21:01
+ * @LastEditTime: 2021-11-02 17:20:26
  * @Description: file content
  */
 export enum ReadyStatusEnum {
@@ -28,6 +28,10 @@ export enum ReadyStatusEnum {
     CHECK_UPDATE_POWER_FAIL = 'checkUpdatePowerFail',
     // 身份需要更新
     NEED_UPDATE_POWER = 'needUpdatePower',
+    // 身份更新成功
+    UPDATE_POWER_SUCCESS = 'updatePowerSuccess',
+    // 身份更新失败
+    UPDATE_POWER_FAIL = 'updatePowerFail',
     // 身份不需要更新
     NOT_NEED_UPDATE_POWER = 'notNeedUpdatePower',
 
