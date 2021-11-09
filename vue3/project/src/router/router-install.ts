@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-03 14:54:16
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-04 17:14:19
+ * @LastEditTime: 2021-11-08 17:45:48
  * @Description: file content
  */
 import type { Router, RouteRecordRaw } from 'vue-router';
@@ -19,7 +19,6 @@ interface HandlerNode<R> {
 
 const setPath = (node: RouteRecordRaw, parentNode?: RouteRecordRaw): string => {
     if (!parentNode || parentNode?.name !== node.meta?.parent) return node.path;
-
 
     return parentNode.path + node.path;
 }

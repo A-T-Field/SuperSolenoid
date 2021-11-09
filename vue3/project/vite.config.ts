@@ -2,13 +2,13 @@
  * @Author: maggot-code
  * @Date: 2021-10-14 15:36:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-02 09:42:58
+ * @LastEditTime: 2021-11-09 09:34:36
  * @Description: file content
  */
 import { defineConfig, searchForWorkspaceRoot } from 'vite';
 import vue from '@vitejs/plugin-vue';
-
 import { resolve } from 'path';
+import { default as proxyInstall } from './src/utils/request';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
@@ -24,7 +24,8 @@ export default defineConfig(({ command, mode }) => {
         resolve: {
             alias: {
                 '/\/#\//': resolve(__dirname, "src/types"),
-                '@': resolve(__dirname, 'src') // 设置 `@` 指向 `src` 目录
+                '@': resolve(__dirname, 'src'),// 设置 `@` 指向 `src` 目录
+                '@pages': resolve(__dirname, 'src/pages'), // 设置 `@pages 指向 `src/pages` 目录
             },
             extensions: [".ts", ".js", ".tsx", "jsx", ".json"],
             preserveSymlinks: false,
@@ -44,11 +45,13 @@ export default defineConfig(({ command, mode }) => {
             https: false,
             open: false,
             proxy: {
-                '/api': {
-                    target: "http://127.0.0.1:9000",
+                ...proxyInstall(mode),
+                '/NDAPI': {
+                    target: "http://192.1.1.119:8080",
                     changeOrigin: true,
+                    ws: true,
                     secure: false,
-                    rewrite: (path) => path.replace('/api/', '')
+                    rewrite: (path) => path.replace(new RegExp('^/NDAPI'), '/NDAPI')
                 }
             },
             cors: true,
