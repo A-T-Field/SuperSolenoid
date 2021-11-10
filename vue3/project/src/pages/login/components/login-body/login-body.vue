@@ -2,12 +2,16 @@
  * @Author: maggot-code
  * @Date: 2021-11-09 09:38:05
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-09 13:24:56
+ * @LastEditTime: 2021-11-09 15:21:28
  * @Description: file content
 -->
 <script setup lang='ts'>
+import type { FormInst } from 'naive-ui';
 import { ref, reactive } from 'vue';
-const loginForm = ref(null);
+// import { isNull } from '@/utils/is-type';
+
+const formRefs = ref<FormInst | null>(null);
+const formLoading = ref(false);
 const formBody = reactive({
     username: "",
     password: ""
@@ -24,11 +28,24 @@ const formRules = {
         trigger: 'blur'
     }
 };
+const handlerFormRules = (event) => {
+    event.preventDefault();
+    formLoading.value = true;
+
+    formRefs.value?.validate(error => {
+        if (error) {
+            console.log(error);
+            return;
+        }
+
+        console.log('success');
+    })
+};
 </script>
 
 <template>
     <n-form
-        ref="loginForm"
+        ref="formRefs"
         size="medium"
         :model="formBody"
         :rules="formRules"
@@ -52,7 +69,7 @@ const formRules = {
             </n-input>
         </n-form-item>
     </n-form>
-    <n-button type="info" size="large">登录</n-button>
+    <n-button type="info" size="large" :loading="formLoading" @click="handlerFormRules">登录</n-button>
 </template>
 
 <style scoped lang='scss'></style>

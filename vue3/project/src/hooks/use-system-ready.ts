@@ -2,7 +2,7 @@
 * @Author: maggot-code
 * @Date: 2021-11-01 17:20:22
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-09 14:28:06
+ * @LastEditTime: 2021-11-09 15:45:11
 * @Description: file content
 */
 import { ref, watch } from "vue";
@@ -31,7 +31,7 @@ const unInstallWatchReady = () => isFunction(watchReady) && watchReady();
 const redirectLogin = (router: Router) => {
     console.log('重定向登录地址');
     unInstallWatchReady();
-    router.push({ name: PagesEnum.BASE_LOGIN_NAME });
+    router.replace({ name: PagesEnum.BASE_LOGIN_NAME });
 };
 
 const redirectHome = (router: Router) => {
