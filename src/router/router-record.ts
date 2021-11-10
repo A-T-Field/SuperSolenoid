@@ -2,11 +2,11 @@
  * @Author: maggot-code
  * @Date: 2021-10-28 14:38:44
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-04 17:15:34
+ * @LastEditTime: 2021-11-10 10:09:31
  * @Description: file content
  */
 import type { RouteRecordRaw, RouteRecordName, RouteMeta } from 'vue-router';
-import type { powerGather } from '/#/router';
+import type { powerGather } from '#/router';
 
 import {
     isEmptyString,

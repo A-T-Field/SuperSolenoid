@@ -2,7 +2,7 @@
 * @Author: maggot-code
 * @Date: 2021-11-01 17:20:22
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-09 15:45:11
+ * @LastEditTime: 2021-11-10 10:09:25
 * @Description: file content
 */
 import { ref, watch } from "vue";
@@ -14,7 +14,7 @@ import { ReadyStatusEnum } from "@/enums/ready-enum";
 import { PagesEnum } from "@/enums/pages-enum";
 
 import type { Router } from "vue-router";
-import type { WatchReadyContext, UseReadyStatus } from '/#/system-ready';
+import type { WatchReadyContext, UseReadyStatus } from '#/system-ready';
 
 let watchReady = () => { };
 

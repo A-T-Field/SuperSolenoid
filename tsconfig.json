@@ -28,28 +28,35 @@
         "noImplicitAny": false,
         "skipLibCheck": true,
         "paths": {
+            "#/*": [
+                "types/*"
+            ],
             "@/*": [
                 "src/*"
             ],
-            "@pages/*": [
-                "src/pages/*"
+            "$/*": [
+                "domain/*"
             ],
-            "/#/*": [
-                "types/*"
+            "&/*": [
+                "mock/*"
             ]
         }
     },
     "include": [
+        "types/**/*.d.ts",
+        "types/**/*.ts",
         "src/**/*.ts",
         "src/**/*.d.ts",
         "src/**/*.tsx",
         "src/**/*.vue",
-        "types/**/*.d.ts",
-        "types/**/*.ts",
+        "domain/**/*.d.ts",
+        "domain/**/*.ts",
+        "mock/**/*.d.ts",
+        "mock/**/*.ts",
         "vite.config.ts"
     ],
     "exclude": [
         "node_modules",
-        "dist"
+        "dist",
     ]
 }

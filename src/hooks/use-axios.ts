@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-05 09:52:31
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-09 17:51:04
+ * @LastEditTime: 2021-11-10 10:09:18
  * @Description: file content
  */
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
@@ -13,7 +13,7 @@ import type {
     VAxiosInstance,
     VAxiosProxy,
     VAxiosSend
-} from '/#/request';
+} from '#/request';
 
 import axios from "axios";
 import { ContentTypeEnum, RequestMethodsEnum } from '@/enums/http-enum';
