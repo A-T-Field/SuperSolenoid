@@ -1,19 +1,25 @@
 {
-    "name": "supersolenoid",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
+    "name": "vue3project",
+    "version": "0.0.0",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "dev": "vite",
+        "build": "vue-tsc --noEmit && vite build",
+        "serve": "vite preview"
     },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/A-T-Field/SuperSolenoid.git"
+    "dependencies": {
+        "axios": "^0.23.0",
+        "normalize.css": "^8.0.1",
+        "vue": "^3.2.16",
+        "vue-router": "^4.0.11",
+        "vuex": "^4.0.2"
     },
-    "author": "",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/A-T-Field/SuperSolenoid/issues"
-    },
-    "homepage": "https://github.com/A-T-Field/SuperSolenoid#readme"
+    "devDependencies": {
+        "@types/node": "^16.10.9",
+        "@vitejs/plugin-vue": "^1.9.3",
+        "naive-ui": "^2.20.0",
+        "sass": "^1.43.2",
+        "typescript": "^4.4.3",
+        "vite": "^2.6.4",
+        "vue-tsc": "^0.3.0"
+    }
 }
