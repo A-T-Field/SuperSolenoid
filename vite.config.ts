@@ -2,13 +2,12 @@
  * @Author: maggot-code
  * @Date: 2021-10-14 15:36:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-10 10:07:41
+ * @LastEditTime: 2021-11-10 10:22:19
  * @Description: file content
  */
 import { defineConfig, searchForWorkspaceRoot } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';
-import { default as proxyInstall } from './src/utils/request';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
@@ -46,7 +45,6 @@ export default defineConfig(({ command, mode }) => {
             https: false,
             open: false,
             proxy: {
-                ...proxyInstall(mode),
                 '/NDAPI': {
                     target: "http://192.1.1.119:8080",
                     changeOrigin: true,

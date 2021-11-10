@@ -1,20 +1,12 @@
 <!--
  * @Author: maggot-code
- * @Date: 2021-10-19 16:19:11
+ * @Date: 2021-11-10 14:29:23
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-01 13:38:49
+ * @LastEditTime: 2021-11-10 14:29:23
  * @Description: file content
 -->
-<script setup lang='ts'>
-import { onMounted } from 'vue';
-import { loadBarFail } from '@/utils/loading-bar';
+<script setup lang='ts'></script>
 
-onMounted(() => {
-    loadBarFail();
-});
-</script>
+<template>not-page</template>
 
-<template>404</template>
-
-<style scoped lang='scss'>
-</style>
+<style scoped lang='scss'></style>
