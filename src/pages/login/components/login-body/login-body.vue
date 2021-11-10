@@ -2,15 +2,23 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 16:51:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-10 17:32:49
+ * @LastEditTime: 2021-11-10 18:30:50
  * @Description: file content
 -->
 <script setup lang='ts'>
+import axios from 'axios';
 import { default as UseLogin } from '$/biz/use-login';
 
 function handlerForm(error: any) {
     console.log(error);
-    console.log('111');
+    axios.request({
+        url: '/atf/login',
+        method: 'POST'
+    }).then(response => {
+        console.log(response);
+    }).catch(error => {
+        console.log(error);
+    })
 }
 
 const {
