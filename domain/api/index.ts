@@ -2,21 +2,25 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 14:13:29
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-10 14:17:22
+ * @LastEditTime: 2021-11-11 11:17:34
  * @Description: file content
  */
-import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 import type {
+    AxiosRequestConfig,
+    AxiosResponse,
     VAxiosConfigOptions,
     VAxiosRequestConfig,
     VAxiosConfig,
     VAxiosInstance,
     VAxiosProxy,
     VAxiosSend
-} from '$/api/types';
+} from 'axios';
 
-import axios from "axios";
-import { ContentTypeEnum, RequestMethodsEnum } from '$/api/types';
+import axios from 'axios';
+
+import { ContentTypeEnum, RequestMethodsEnum } from '$/api/enum';
+
+// import axios from "axios";
 import { getOrigin, getPort } from '$/utils';
 
 const { DEV } = import.meta.env;
@@ -67,8 +71,8 @@ class VAxios {
         console.log(config);
         return config;
     }
-    private responseInterceptors = (response: AxiosResponse<any>): void => {
-        console.log(response);
+    private responseInterceptors = (response: AxiosResponse<any>) => {
+        return response;
     }
     proxy(): VAxiosProxy {
         const port = this.options?.port ?? getPort();

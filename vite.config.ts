@@ -2,32 +2,33 @@
  * @Author: maggot-code
  * @Date: 2021-10-14 15:36:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-10 18:35:26
+ * @LastEditTime: 2021-11-11 11:29:46
  * @Description: file content
  */
-import { defineConfig, searchForWorkspaceRoot } from 'vite';
+import { defineConfig, searchForWorkspaceRoot, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { viteMockServe } from 'vite-plugin-mock';
 import { resolve } from 'path';
+import { wrapperEnv } from './build/utils';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
+    const root = process.cwd();
+
+    const viteEnv = wrapperEnv(loadEnv(mode, root));
+    console.log(viteEnv);
+
     return {
-        root: process.cwd(),
+        root,
         base: "/",
         mode: mode,
         plugins: [
             vue(),
             viteMockServe({
-                mockPath: 'mock',
-                localEnabled: command === 'serve',
-                prodEnabled: command !== 'serve',
-                injectCode: `
-                    import { default as setupProdMockServer } from '../mock/mockProdServer';
-                    setupProdMockServer();
-                `,
-                logger: true,
-            }),
+                mockPath: './mock',
+                supportTs: true,
+                logger: true
+            })
         ],
         publicDir: "public",
         cacheDir: "node_modules/.vite",
@@ -37,6 +38,7 @@ export default defineConfig(({ command, mode }) => {
                 '@': resolve(__dirname, 'src/'),
                 '$': resolve(__dirname, 'domain/'),
                 '&': resolve(__dirname, 'mock/'),
+                '!': resolve(__dirname, 'build/')
             },
             extensions: [".ts", ".js", ".tsx", "jsx", ".json"],
             preserveSymlinks: false,
@@ -85,8 +87,15 @@ export default defineConfig(({ command, mode }) => {
             ssrManifest: false,
             write: true,
             emptyOutDir: true,
-            brotliSize: true,
+            brotliSize: true, // 原来写的是 true
             chunkSizeWarningLimit: 500,
+            rollupOptions: {
+                output: {
+                    chunkFileNames: 'static/js/[name]-[hash].js',
+                    entryFileNames: 'static/js/[name]-[hash].js',
+                    assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
+                }
+            }
         },
         optimizeDeps: {
             include: [],

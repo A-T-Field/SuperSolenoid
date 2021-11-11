@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-14 15:36:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-10 14:20:17
+ * @LastEditTime: 2021-11-11 09:49:04
  * @Description: file content
  */
 import type { App } from 'vue';
@@ -19,9 +19,13 @@ import AppLication from '@/Application.vue';
 
 function bootstrap(appextend: App, app: App): void {
     UseNaiveUI(app, appextend);
+
     UseVueRouter(app);
+
     UseLayout(app);
+
     appextend.mount("#application", true);
+
     app.mount('#app', true);
 };
 

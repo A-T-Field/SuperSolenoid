@@ -2,23 +2,26 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 16:51:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-10 18:30:50
+ * @LastEditTime: 2021-11-11 15:15:39
  * @Description: file content
 -->
 <script setup lang='ts'>
-import axios from 'axios';
+import type { Ref } from 'vue';
+
+import { login } from '@/api/common.api';
 import { default as UseLogin } from '$/biz/use-login';
 
-function handlerForm(error: any) {
-    console.log(error);
-    axios.request({
-        url: '/atf/login',
-        method: 'POST'
-    }).then(response => {
+function handlerForm(params: any, error: any, loading: Ref<boolean>) {
+    if (error.length > 0) {
+        console.log(error);
+        return;
+    }
+
+    login(params).then(response => {
         console.log(response);
     }).catch(error => {
         console.log(error);
-    })
+    }).finally(() => loading.value = false)
 }
 
 const {
@@ -38,6 +41,7 @@ const {
         size="medium"
         :model="formBody"
         :rules="formRules"
+        :disabled="formLoading"
         :show-require-mark="true"
         :show-label="false"
     >
@@ -63,6 +67,7 @@ const {
         size="large"
         :block="true"
         :loading="formLoading"
+        :disabled="formLoading"
         @click="handlerFormRules"
     >登录</n-button>
 </template>

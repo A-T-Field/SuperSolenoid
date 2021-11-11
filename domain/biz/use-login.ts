@@ -2,9 +2,10 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 17:18:33
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-10 17:32:24
+ * @LastEditTime: 2021-11-11 15:17:17
  * @Description: file content
  */
+import type { Ref } from 'vue';
 import type { FormInst } from 'naive-ui';
 
 import { ref, reactive } from 'vue';
@@ -12,7 +13,7 @@ import { ref, reactive } from 'vue';
 import { isNull } from '$/utils/is';
 
 interface LoginForm {
-    (error?: any): void
+    (params: any, error: any, loading: Ref<boolean>): void
 }
 
 interface LoginOpitons {
@@ -47,13 +48,12 @@ function UseLogin(options?: LoginOpitons) {
 
         formRefs.value.validate(error => {
             if (error) {
-                console.log(error);
-                options?.handlerForm && options?.handlerForm(error);
+                options?.handlerForm && options?.handlerForm({}, error, formLoading);
                 return;
             }
 
             formLoading.value = true;
-            options?.handlerForm && options?.handlerForm();
+            options?.handlerForm && options?.handlerForm(formBody, [], formLoading);
         })
     };
 
