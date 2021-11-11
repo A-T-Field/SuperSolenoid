@@ -2,27 +2,13 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 16:51:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-11 15:15:39
+ * @LastEditTime: 2021-11-11 16:30:16
  * @Description: file content
 -->
 <script setup lang='ts'>
-import type { Ref } from 'vue';
-
 import { login } from '@/api/common.api';
+import { setLoading } from '$/utils/business';
 import { default as UseLogin } from '$/biz/use-login';
-
-function handlerForm(params: any, error: any, loading: Ref<boolean>) {
-    if (error.length > 0) {
-        console.log(error);
-        return;
-    }
-
-    login(params).then(response => {
-        console.log(response);
-    }).catch(error => {
-        console.log(error);
-    }).finally(() => loading.value = false)
-}
 
 const {
     formRefs,
@@ -30,9 +16,23 @@ const {
     formBody,
     formRules,
     handlerFormRules
-} = UseLogin({
-    handlerForm
-});
+} = UseLogin();
+
+const handlerLogin = () => {
+    login(formBody).then(response => {
+        console.log(response);
+    }).catch(error => {
+        console.log(error);
+    }).finally(setLoading(formLoading))
+}
+
+const handlerForm = (event: EventFn): void => {
+    event.preventDefault();
+
+    handlerFormRules().then(handlerLogin).catch(error => {
+        console.log(error);
+    })
+}
 </script>
 
 <template>
@@ -68,7 +68,7 @@ const {
         :block="true"
         :loading="formLoading"
         :disabled="formLoading"
-        @click="handlerFormRules"
+        @click="handlerForm"
     >登录</n-button>
 </template>
 

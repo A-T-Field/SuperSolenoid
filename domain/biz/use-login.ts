@@ -2,26 +2,18 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 17:18:33
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-11 15:17:17
+ * @LastEditTime: 2021-11-11 16:29:20
  * @Description: file content
  */
-import type { Ref } from 'vue';
 import type { FormInst } from 'naive-ui';
 
 import { ref, reactive } from 'vue';
 
 import { isNull } from '$/utils/is';
 
-interface LoginForm {
-    (params: any, error: any, loading: Ref<boolean>): void
-}
-
-interface LoginOpitons {
-    handlerForm?: LoginForm
-}
+interface LoginOpitons { }
 
 function UseLogin(options?: LoginOpitons) {
-
     const formRefs = ref<FormInst | null>(null);
     const formLoading = ref(false);
     const formBody = reactive({
@@ -41,28 +33,26 @@ function UseLogin(options?: LoginOpitons) {
         }
     };
 
-    const handlerFormRules = (event: { preventDefault: () => void; }) => {
-        if (isNull(formRefs.value)) return false;
+    const handlerFormRules = (): Promise<Error | undefined> => {
+        return new Promise((resolve, reject) => {
+            if (isNull(formRefs.value)) return resolve(undefined);
 
-        event.preventDefault();
+            formRefs.value.validate(error => {
+                if (error) return reject(error);
 
-        formRefs.value.validate(error => {
-            if (error) {
-                options?.handlerForm && options?.handlerForm({}, error, formLoading);
-                return;
-            }
+                formLoading.value = true;
 
-            formLoading.value = true;
-            options?.handlerForm && options?.handlerForm(formBody, [], formLoading);
-        })
-    };
+                return resolve(undefined);
+            });
+        });
+    }
 
     return {
         formRefs,
         formLoading,
         formBody,
         formRules,
-        handlerFormRules
+        handlerFormRules,
     }
 }
 

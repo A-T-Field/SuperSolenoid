@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-27 15:33:30
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-02 15:53:06
+ * @LastEditTime: 2021-11-11 16:10:27
  * @Description: file content
  */
 declare interface Fn<T = any, R = T> {
@@ -34,4 +34,8 @@ declare interface HandlerResolve {
 
 declare interface HandlerReject {
     (reason?: any): void
+}
+
+declare interface EventFn {
+    preventDefault: () => void
 }
