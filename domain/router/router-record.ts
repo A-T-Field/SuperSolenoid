@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 13:17:49
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-10 15:59:47
+ * @LastEditTime: 2021-11-12 13:17:37
  * @Description: file content
  */
 import type { RecordRawMeta, SetRouteMeta, RouteRecordRaw, RouteRecordName } from 'vue-router';
@@ -91,7 +91,7 @@ export const setupRecordRawMeta: RecordRawMeta = (name, meta) => {
     });
 }
 
-function UseRouteRecordRaw(options: RouteRecordRaw): RouteRecordRaw {
+function useRouteRecordRaw(options: RouteRecordRaw): RouteRecordRaw {
     const { name, meta } = options;
 
     if (name && meta) options.meta = setupRecordRawMeta(name, meta);
@@ -99,4 +99,4 @@ function UseRouteRecordRaw(options: RouteRecordRaw): RouteRecordRaw {
     return options;
 }
 
-export default UseRouteRecordRaw;
+export default useRouteRecordRaw;

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 11:12:55
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-10 11:31:02
+ * @LastEditTime: 2021-11-12 13:19:39
  * @Description: file content
  */
 import type { App, Component } from 'vue';
@@ -17,8 +17,8 @@ const Components: Array<Component> = [
     LayoutMain
 ];
 
-function UseLayout(app: App<Element>) {
+function useLayout(app: App<Element>) {
     return Components.map(componentInstall(app));
 }
 
-export default UseLayout;
+export default useLayout;

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-11 10:32:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-11 15:25:12
+ * @LastEditTime: 2021-11-12 13:18:19
  * @Description: file content
  */
 import type { MethodType } from 'vite-plugin-mock';
@@ -37,7 +37,7 @@ interface MockServer {
 const wrapperContext = (options: MockWrapper): MockWrapper => {
     return options;
 }
-const UseMockServer: MockServer = (options) => {
+const useMockServer: MockServer = (options) => {
     const { url, method, timeout, isDelay, build } = options;
     return {
         url,
@@ -81,4 +81,4 @@ export {
     wrapperContext
 }
 
-export default UseMockServer;
+export default useMockServer;

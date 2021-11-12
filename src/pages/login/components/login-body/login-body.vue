@@ -2,16 +2,16 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 16:51:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-12 10:04:55
+ * @LastEditTime: 2021-11-12 13:20:08
  * @Description: file content
 -->
 <script setup lang='ts'>
 import { login } from '@/api/common.api';
 import { setLoading } from '$/utils/business';
 import { messageSuccess } from '$/utils/tips';
-import { default as UseLogin } from '$/biz/use-login';
-import { default as UseFormTips } from '$/biz/use-form-tips';
-import { default as UseApiTips } from '$/biz/use-api-tips';
+import { default as useLogin } from '@/composables/use-login';
+import { default as useFormTips } from '@/composables/use-form-tips';
+import { default as useApiTips } from '@/composables/use-api-tips';
 
 const {
     formRefs,
@@ -19,7 +19,7 @@ const {
     formBody,
     formRules,
     handlerFormRules
-} = UseLogin();
+} = useLogin();
 
 const requestLogin = () => login(formBody);
 
@@ -36,9 +36,9 @@ const handlerForm = (event: EventFn): void => {
 
     handlerFormRules()
         .then(requestLogin)
-        .then(UseApiTips)
+        .then(useApiTips)
         .then(successLogin)
-        .catch(UseFormTips)
+        .catch(useFormTips)
         .finally(setLoading(formLoading));
 }
 </script>

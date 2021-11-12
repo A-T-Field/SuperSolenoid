@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-12 09:29:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-12 09:56:40
+ * @LastEditTime: 2021-11-12 13:19:08
  * @Description: file content
  */
 import { isArray } from '$/utils/is';
@@ -17,10 +17,10 @@ const outputMessage = (item: any) => {
     }
 }
 
-function UseFormTips(error: Array<any>) {
+function useFormTips(error: Array<any>) {
     if (!isArray(error)) return [];
 
     return error.map((item: any) => item.map(outputMessage));
 }
 
-export default UseFormTips;
+export default useFormTips;

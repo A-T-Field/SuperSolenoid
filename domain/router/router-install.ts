@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 14:05:32
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-10 15:51:38
+ * @LastEditTime: 2021-11-12 13:17:22
  * @Description: file content
  */
 import type { Router, RouteRecordRaw } from 'vue-router';
@@ -41,10 +41,10 @@ const handlerNode: HandlerNode<RouteRecordRaw> = (node, parentNode) => {
     return route;
 }
 
-const UseRouterInstall: RouterInstall = (router, routing) => {
+const useRouterInstall: RouterInstall = (router, routing) => {
     treeEach<RouteRecordRaw>(handlerNode, routing).map(route => router.addRoute(route));
 
     return router;
 }
 
-export default UseRouterInstall;
+export default useRouterInstall;

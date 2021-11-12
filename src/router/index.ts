@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 10:32:58
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-10 14:33:29
+ * @LastEditTime: 2021-11-12 13:21:34
  * @Description: file content
  */
 import type { App } from 'vue';
@@ -12,7 +12,7 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 
 import { default as BaseRouter } from '@/router/static/base.router';
 
-import { default as UseRouterGuards } from '$/router/router-guards';
+import { default as useRouterGuards } from '$/router/router-guards';
 
 const RouterGroup: Array<RouteRecordRaw> = [...BaseRouter];
 
@@ -23,8 +23,8 @@ const router = createRouter({
     scrollBehavior: () => ({ left: 0, top: 0 })
 });
 
-function UseVueRouter(app: App<Element>): void {
-    app.use(UseRouterGuards(router));
+function useVueRouter(app: App<Element>): void {
+    app.use(useRouterGuards(router));
 };
 
 export {
@@ -32,4 +32,4 @@ export {
     router,
 }
 
-export default UseVueRouter;
+export default useVueRouter;

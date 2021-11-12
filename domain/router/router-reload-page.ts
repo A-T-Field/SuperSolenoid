@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 16:07:10
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-10 16:41:53
+ * @LastEditTime: 2021-11-12 13:17:48
  * @Description: file content
  */
 import type { Router, RouteLocationNormalizedLoaded } from 'vue-router';
@@ -44,7 +44,7 @@ const createRedirect: Redirect = (router, route) => {
     }));
 }
 
-const UseReloadPage: Redirect = (router, route) => {
+const useReloadPage: Redirect = (router, route) => {
     const { fullPath: path, query } = unref(route);
 
     const redirectRoute = createRedirect(router, route);
@@ -56,4 +56,4 @@ const UseReloadPage: Redirect = (router, route) => {
     }).then(redirectRoute);
 }
 
-export default UseReloadPage;
+export default useReloadPage;

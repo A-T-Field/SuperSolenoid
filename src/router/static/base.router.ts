@@ -2,16 +2,16 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 14:20:51
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-10 16:24:06
+ * @LastEditTime: 2021-11-12 13:21:23
  * @Description: file content
  */
 import type { RouteRecordRaw } from 'vue-router';
 
-import { default as UseRouteRecordRaw } from '$/router/router-record';
+import { default as useRouteRecordRaw } from '$/router/router-record';
 import { PagesEnum } from '@/enums/pages.enum';
 
 // webpackChunkName = group-base
-const RootRoute = UseRouteRecordRaw({
+const RootRoute = useRouteRecordRaw({
     name: PagesEnum.BASE_ROOT_NAME,
     path: PagesEnum.BASE_ROOT,
     redirect: PagesEnum.BASE_READY,
@@ -20,7 +20,7 @@ const RootRoute = UseRouteRecordRaw({
     },
     component: () => import(/* webpackChunkName: "group-base" */ "@/App.vue"),
 });
-const ReadyRoute = UseRouteRecordRaw({
+const ReadyRoute = useRouteRecordRaw({
     name: PagesEnum.BASE_READY_NAME,
     path: PagesEnum.BASE_READY,
     meta: {
@@ -28,15 +28,7 @@ const ReadyRoute = UseRouteRecordRaw({
     },
     component: () => import(/* webpackChunkName: "group-base" */ "@/pages/ready")
 });
-// const RedirectRoute = UseRouteRecordRaw({
-//     name: PagesEnum.REDIRECT_NAME,
-//     path: PagesEnum.REDIRECT,
-//     meta: {
-//         title: PagesEnum.REDIRECT_TITLE
-//     },
-//     component: () => import(/* webpackChunkName: "group-base" */ "@/pages/redirect"),
-// });
-const LoginRoute = UseRouteRecordRaw({
+const LoginRoute = useRouteRecordRaw({
     name: PagesEnum.BASE_LOGIN_NAME,
     path: PagesEnum.BASE_LOGIN,
     meta: {
@@ -44,7 +36,7 @@ const LoginRoute = UseRouteRecordRaw({
     },
     component: () => import(/* webpackChunkName: "group-base" */ "@/pages/login"),
 });
-const RegisterRoute = UseRouteRecordRaw({
+const RegisterRoute = useRouteRecordRaw({
     name: PagesEnum.BASE_REGISTER_NAME,
     path: PagesEnum.BASE_REGISTER,
     meta: {
@@ -52,7 +44,7 @@ const RegisterRoute = UseRouteRecordRaw({
     },
     component: () => import(/* webpackChunkName: "group-base" */ "@/pages/register"),
 });
-const NotPowerRoute = UseRouteRecordRaw({
+const NotPowerRoute = useRouteRecordRaw({
     name: PagesEnum.ERROR_NOT_POWER_NAME,
     path: PagesEnum.ERROR_NOT_POWER,
     meta: {
@@ -60,7 +52,7 @@ const NotPowerRoute = UseRouteRecordRaw({
     },
     component: () => import(/* webpackChunkName: "group-base" */ "@/pages/not-power"),
 });
-const NotPageRoute = UseRouteRecordRaw({
+const NotPageRoute = useRouteRecordRaw({
     name: PagesEnum.ERROR_NOT_PAGE_NAME,
     path: PagesEnum.ERROR_NOT_PAGE,
     meta: {
@@ -68,7 +60,7 @@ const NotPageRoute = UseRouteRecordRaw({
     },
     component: () => import(/* webpackChunkName: "group-base" */ "@/pages/not-page"),
 });
-const CrashRoute = UseRouteRecordRaw({
+const CrashRoute = useRouteRecordRaw({
     name: PagesEnum.ERROR_CRASH_NAME,
     path: PagesEnum.ERROR_CRASH,
     meta: {
@@ -76,7 +68,7 @@ const CrashRoute = UseRouteRecordRaw({
     },
     component: () => import(/* webpackChunkName: "group-base" */ "@/pages/crash"),
 });
-const BadPageRoute = UseRouteRecordRaw({
+const BadPageRoute = useRouteRecordRaw({
     name: PagesEnum.ERROR_UNUSUAL_NAME,
     path: PagesEnum.ERROR_UNUSUAL,
     redirect: PagesEnum.ERROR_NOT_PAGE,

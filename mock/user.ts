@@ -2,12 +2,12 @@
  * @Author: maggot-code
  * @Date: 2021-11-11 10:21:43
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-12 10:06:04
+ * @LastEditTime: 2021-11-12 13:18:30
  * @Description: file content
  */
 import { MockMethod } from 'vite-plugin-mock';
 import Mock from 'mockjs';
-import { default as UseMockServer, wrapperContext } from '&/_utils';
+import { default as useMockServer, wrapperContext } from '&/_utils';
 
 const Random = Mock.Random;
 
@@ -40,7 +40,7 @@ const loginModel = ({ body }) => {
         })
     }
 }
-const login = UseMockServer({
+const login = useMockServer({
     url: '/atf/login',
     method: 'post',
     isDelay: true,

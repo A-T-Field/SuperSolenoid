@@ -2,12 +2,12 @@
  * @Author: maggot-code
  * @Date: 2021-11-12 09:48:42
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-12 09:57:43
+ * @LastEditTime: 2021-11-12 13:18:59
  * @Description: file content
  */
 import { messageWarning } from '$/utils/tips';
 
-function UseApiTips(response: any) {
+function useApiTips(response: any) {
     const { data } = response;
 
     const { code, message } = data;
@@ -19,4 +19,4 @@ function UseApiTips(response: any) {
     return Promise.reject();
 }
 
-export default UseApiTips;
+export default useApiTips;

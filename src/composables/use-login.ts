@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 17:18:33
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-11 16:29:20
+ * @LastEditTime: 2021-11-12 13:19:17
  * @Description: file content
  */
 import type { FormInst } from 'naive-ui';
@@ -13,7 +13,7 @@ import { isNull } from '$/utils/is';
 
 interface LoginOpitons { }
 
-function UseLogin(options?: LoginOpitons) {
+function useLogin(options?: LoginOpitons) {
     const formRefs = ref<FormInst | null>(null);
     const formLoading = ref(false);
     const formBody = reactive({
@@ -56,4 +56,4 @@ function UseLogin(options?: LoginOpitons) {
     }
 }
 
-export default UseLogin;
+export default useLogin;
