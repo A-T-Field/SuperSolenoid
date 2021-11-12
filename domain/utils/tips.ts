@@ -2,53 +2,33 @@
  * @Author: maggot-code
  * @Date: 2021-11-11 17:43:34
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-11 18:27:20
+ * @LastEditTime: 2021-11-12 09:45:18
  * @Description: file content
  */
-type messagePlacement = 'top' | 'top-left' | 'top-right' | 'bottom' | 'bottom-left' | 'bottom-right';
-
-export const setupMessageOptions = (pos: messagePlacement) => {
+export const setupMessageOptions = () => {
     return {
         closable: true,
         duration: 5000,
-        max: 10,
-        placement: pos,
-        "keep-alive-on-hover": true
+        keepAliveOnHover: true
     }
-}
-
-export const topMessage = () => setupMessageOptions('top');
-
-export const topleftMessage = () => setupMessageOptions('top-left');
-
-export const toprightMessage = () => setupMessageOptions('top-right');
-
-export const bottomMessage = () => setupMessageOptions('bottom');
-
-export const bottomleftMessage = () => setupMessageOptions('bottom-left');
-
-export const bottomrightMessage = () => setupMessageOptions('bottom-right');
-
-export function handlerMessage(options) {
-
 }
 
 export function messageCloseAll() {
     window['$message'].destroyAll();
 }
 
-export function messageSuccess() {
-    console.log('message success');
+export function messageSuccess(text: string) {
+    return window['$message'].success(text, setupMessageOptions())
 }
 
-export function messageWarning() {
-    console.log('message warning');
+export function messageWarning(text: string) {
+    return window['$message'].warning(text, setupMessageOptions())
 }
 
-export function messageError() {
-    console.log('message error');
+export function messageError(text: string) {
+    return window['$message'].error(text, setupMessageOptions())
 }
 
-export function messageLoading() {
-    console.log('message loading');
+export function messageLoading(text: string) {
+    return window['$message'].loading(text, setupMessageOptions())
 }

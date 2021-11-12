@@ -2,13 +2,16 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 16:51:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-11 16:30:16
+ * @LastEditTime: 2021-11-12 10:04:55
  * @Description: file content
 -->
 <script setup lang='ts'>
 import { login } from '@/api/common.api';
 import { setLoading } from '$/utils/business';
+import { messageSuccess } from '$/utils/tips';
 import { default as UseLogin } from '$/biz/use-login';
+import { default as UseFormTips } from '$/biz/use-form-tips';
+import { default as UseApiTips } from '$/biz/use-api-tips';
 
 const {
     formRefs,
@@ -18,20 +21,25 @@ const {
     handlerFormRules
 } = UseLogin();
 
-const handlerLogin = () => {
-    login(formBody).then(response => {
-        console.log(response);
-    }).catch(error => {
-        console.log(error);
-    }).finally(setLoading(formLoading))
+const requestLogin = () => login(formBody);
+
+const successLogin = (response: any) => {
+    messageSuccess('登录成功!')
+
+    const { data } = response;
+
+    console.log(data);
 }
 
 const handlerForm = (event: EventFn): void => {
     event.preventDefault();
 
-    handlerFormRules().then(handlerLogin).catch(error => {
-        console.log(error);
-    })
+    handlerFormRules()
+        .then(requestLogin)
+        .then(UseApiTips)
+        .then(successLogin)
+        .catch(UseFormTips)
+        .finally(setLoading(formLoading));
 }
 </script>
 
@@ -44,6 +52,7 @@ const handlerForm = (event: EventFn): void => {
         :disabled="formLoading"
         :show-require-mark="true"
         :show-label="false"
+        @keydown.enter="handlerForm"
     >
         <n-form-item label="用户名" path="username">
             <n-input placeholder="请输入用户名" v-model:value="formBody.username" :clearable="true">
