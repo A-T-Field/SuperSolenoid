@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 14:13:29
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-11 11:17:34
+ * @LastEditTime: 2021-11-14 18:21:35
  * @Description: file content
  */
 import type {
@@ -20,10 +20,7 @@ import axios from 'axios';
 
 import { ContentTypeEnum, RequestMethodsEnum } from '$/api/enum';
 
-// import axios from "axios";
 import { getOrigin, getPort } from '$/utils';
-
-const { DEV } = import.meta.env;
 
 class VAxios {
     constructor(options?: VAxiosConfigOptions) {
@@ -68,7 +65,6 @@ class VAxios {
         this.instance.interceptors.response.use(this.responseInterceptors, undefined);
     }
     private requestInterceptors = (config: AxiosRequestConfig): AxiosRequestConfig => {
-        console.log(config);
         return config;
     }
     private responseInterceptors = (response: AxiosResponse<any>) => {
@@ -92,11 +88,7 @@ class VAxios {
         }
     }
     send: VAxiosSend<VAxiosRequestConfig> = (config) => {
-        const { mock, test } = config;
-
         return new Promise((resolve, reject) => {
-            if (DEV && mock) return resolve(test);
-
             this.instance.request<VAxiosRequestConfig>(Object.assign({}, this.config, config))
                 .then(resolve)
                 .catch(reject)

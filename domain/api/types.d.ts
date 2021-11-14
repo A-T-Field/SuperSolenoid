@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 14:13:34
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-11 11:12:24
+ * @LastEditTime: 2021-11-14 18:12:13
  * @Description: file content
  */
 import type {
@@ -29,9 +29,6 @@ declare module "axios" {
         params?: URLSearchParams | Object<any>;
         data?: any;
         tag?: any;
-
-        test?: any;
-        mock?: boolean;
     }
 
     type VAxiosConfig = AxiosRequestConfig<VAxiosConfigOptions>;

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-11 10:32:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-12 13:18:19
+ * @LastEditTime: 2021-11-14 21:28:17
  * @Description: file content
  */
 import type { MethodType } from 'vite-plugin-mock';
@@ -20,8 +20,13 @@ interface MockResult {
     statusCode: number;
     data: MockWrapper
 }
+interface MockBuildFunctionRequest {
+    headers: any;
+    query: any;
+    body: any;
+}
 interface MockBuildFunction {
-    (request: { query: any, body: any }): MockResult
+    (request: MockBuildFunctionRequest): MockResult
 }
 interface MockOptions {
     url: string;
@@ -45,34 +50,40 @@ const useMockServer: MockServer = (options) => {
         timeout,
         rawResponse: async (request, response) => {
             await new Promise((resolve, reject) => {
-                request.on('data', (chunk) => {
-                    try {
+                try {
+                    const reqbody = {
+                        headers: {},
+                        body: {},
+                        query: {}
+                    };
+                    request.on('data', (chunk) => {
                         const buffer = Buffer.from(chunk);
-                        const body = JSON.parse(buffer.toString('utf8'));
-                        const query = urlBreakupParams(request.url ?? "");
-
-                        return resolve(build({ query, body }));
-                    } catch (error) {
-                        reject(error)
-                    }
-                })
+                        reqbody.body = buffer;
+                    });
+                    request.on('end', () => {
+                        reqbody.headers = request.headers;
+                        reqbody.query = urlBreakupParams(request.url ?? "");
+                        resolve(JSON.stringify(reqbody));
+                    })
+                } catch (error) {
+                    request.on('end', () => reject(error));
+                }
+            }).then(result => {
+                const { statusCode, data } = build(JSON.parse(result as string)) as MockResult;
+                response.setHeader('Content-Type', 'application/json');
+                response.statusCode = statusCode;
+                if (isDelay) {
+                    setTimeout(() => {
+                        response.end(JSON.stringify(data));
+                    }, randomSection(1000, 2000));
+                } else {
+                    response.end(JSON.stringify(data));
+                }
+            }).catch(error => {
+                response.setHeader('Content-Type', 'application/json');
+                response.statusCode = 500;
+                response.end(JSON.stringify(error));
             })
-                .then(result => {
-                    if (isDelay) {
-                        setTimeout(() => {
-                            const { statusCode, data } = result as MockResult;
-                            response.statusCode = statusCode;
-                            response.end(JSON.stringify(data))
-                        }, randomSection(1000, 1200));
-                    } else {
-                        const { statusCode, data } = result as MockResult;
-                        response.statusCode = statusCode;
-                        response.end(JSON.stringify(data))
-                    }
-                }).catch(error => {
-                    response.statusCode = 500;
-                    response.end(JSON.stringify(error));
-                })
         },
     }
 }
