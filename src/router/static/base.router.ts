@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 14:20:51
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-12 13:21:23
+ * @LastEditTime: 2021-11-15 17:50:48
  * @Description: file content
  */
 import type { RouteRecordRaw } from 'vue-router';
@@ -80,7 +80,6 @@ const BadPageRoute = useRouteRecordRaw({
 const routeModule: Array<RouteRecordRaw> = [
     RootRoute,
     ReadyRoute,
-    // RedirectRoute,
     LoginRoute,
     RegisterRoute,
     NotPowerRoute,

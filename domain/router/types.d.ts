@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 10:33:04
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-10 14:03:38
+ * @LastEditTime: 2021-11-15 18:21:16
  * @Description: file content
  */
 import type { RouteMeta, RouteRecordName } from "vue-router";
@@ -10,6 +10,8 @@ import "vue-router";
 
 declare module "vue-router" {
     interface RouteMeta {
+        // 用来标识为动态路由
+        readonly asyn?: boolean;
         // 父节点 (name)
         readonly parent?: string;
         // 标题
@@ -47,6 +49,7 @@ declare module "vue-router" {
     }
 
     abstract class SetRouteMeta {
+        setMetaAsyn(meta: RouteMeta): boolean;
         setMetaParent(meta: RouteMeta): string;
         setMetaTitle(name: RouteRecordName, meta: RouteMeta): string;
         setMetaIsDisabled(meta: RouteMeta): boolean;

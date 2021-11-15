@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-11 10:21:43
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-14 21:30:26
+ * @LastEditTime: 2021-11-15 17:46:48
  * @Description: file content
  */
 import { MockMethod } from 'vite-plugin-mock';
@@ -48,25 +48,33 @@ const login = useMockServer({
     build: loginModel
 })
 
-// 用户校验身份是否可用
-const checkUserModel = ({ headers }) => {
+// 验证用户token
+const checkTokenModel = ({ headers }) => {
+    const { token } = headers;
+    if (!token) return {
+        statusCode: 200,
+        data: wrapperContext({
+            code: 1003,
+            message: '抱歉,请提供身份信息!'
+        })
+    }
+
     return {
         statusCode: 200,
         data: wrapperContext({
             code: 0,
-            message: 'ok',
+            message: 'ok'
         })
     }
 }
-const checkUser = useMockServer({
-    url: '/atf/check/user',
+const checkToken = useMockServer({
+    url: '/atf/user/check',
     method: 'get',
     isDelay: true,
-    build: checkUserModel
+    build: checkTokenModel
 })
-
 
 export default [
     login,
-    checkUser
+    checkToken
 ] as MockMethod[];

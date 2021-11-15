@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-11 10:32:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-14 21:28:17
+ * @LastEditTime: 2021-11-15 15:28:14
  * @Description: file content
  */
 import type { MethodType } from 'vite-plugin-mock';
@@ -58,7 +58,7 @@ const useMockServer: MockServer = (options) => {
                     };
                     request.on('data', (chunk) => {
                         const buffer = Buffer.from(chunk);
-                        reqbody.body = buffer;
+                        reqbody.body = JSON.parse(buffer.toString());
                     });
                     request.on('end', () => {
                         reqbody.headers = request.headers;

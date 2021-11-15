@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 14:05:32
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-12 13:17:22
+ * @LastEditTime: 2021-11-15 18:15:02
  * @Description: file content
  */
 import type { Router, RouteRecordRaw } from 'vue-router';
@@ -26,8 +26,6 @@ const setPath = (node: RouteRecordRaw, parentNode?: RouteRecordRaw): string => {
 const setComponent = (node: RouteRecordRaw) => {
     const { name } = node;
 
-    console.log(name);
-
     // return () => import(`../pages/${String(name)}/index.ts`);
     return () => import(`../../src/pages/${String(name)}/index.ts`);
 }
@@ -37,6 +35,8 @@ const handlerNode: HandlerNode<RouteRecordRaw> = (node, parentNode) => {
         path: setPath(node, parentNode),
         component: setComponent(node)
     }));
+
+    console.log(route);
 
     return route;
 }

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 16:07:10
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-12 13:17:48
+ * @LastEditTime: 2021-11-15 16:25:10
  * @Description: file content
  */
 import type { Router, RouteLocationNormalizedLoaded } from 'vue-router';
@@ -49,7 +49,7 @@ const useReloadPage: Redirect = (router, route) => {
 
     const redirectRoute = createRedirect(router, route);
 
-    return router.push({
+    router.push({
         name: BASE_REDIRECT,
         params: { path },
         query

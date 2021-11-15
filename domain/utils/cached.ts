@@ -2,10 +2,10 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 14:11:29
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-10 14:11:29
+ * @LastEditTime: 2021-11-15 09:30:16
  * @Description: file content
  */
-import { default as Cached } from '$/cache';
+import { Cached } from '$/cache';
 
 const { VITE_APP_PREFIX_KEY } = import.meta.env;
 

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-14 15:36:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-11 10:52:51
+ * @LastEditTime: 2021-11-15 09:24:56
  * @Description: file content
  */
 /// <reference types="vite/client" />
@@ -16,6 +16,7 @@ declare module '*.vue' {
 
 interface ImportMetaEnv extends Readonly<Record<string, any>> {
     VITE_APP_PREFIX_KEY: string;
+    VITE_APP_TOKEN_KEY: string;
     VITE_APP_POWER_KEY: string;
     VITE_APP_ROUTING_KEY: string;
     VITE_APP_CACHED_EXPIRE: number;

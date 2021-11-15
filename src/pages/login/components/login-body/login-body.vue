@@ -2,24 +2,24 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 16:51:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-12 18:37:13
+ * @LastEditTime: 2021-11-15 17:34:37
  * @Description: file content
 -->
 <script setup lang='ts'>
-import { useRouter } from 'vue-router';
+import type { FormBody } from '@/composables/use-login';
+
+import { useRouter, useRoute } from 'vue-router';
 import { login } from '@/api/common.api';
 import { setLoading } from '$/utils/business';
 import { messageSuccess } from '$/utils/tips';
-import { useLocalCached } from '$/utils/cached';
+import { setToken } from '$/utils/token';
 import { PagesEnum } from '@/enums/pages.enum';
 import { default as useLogin } from '@/composables/use-login';
 import { default as useFormTips } from '@/composables/use-form-tips';
 import { default as useApiTips } from '@/composables/use-api-tips';
 
-const { VITE_APP_POWER_KEY } = import.meta.env;
-
 const router = useRouter();
-const localCached = useLocalCached();
+const route = useRoute();
 
 const {
     formRefs,
@@ -29,17 +29,17 @@ const {
     handlerFormRules
 } = useLogin();
 
-const requestLogin = () => login(formBody);
+const requestLogin = () => login<FormBody>(formBody);
 
 const successLogin = (response: any) => {
     messageSuccess('登录成功!')
-
     const { context } = response.data;
     const { token } = context;
+    const { query } = route;
 
-    localCached.set(VITE_APP_POWER_KEY, token);
+    setToken(token);
 
-    router.push({ name: PagesEnum.BASE_ROOT_NAME });
+    router.replace({ path: PagesEnum.BASE_ROOT, query })
 }
 
 const handlerForm = (event: EventFn): void => {
