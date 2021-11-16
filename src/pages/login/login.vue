@@ -2,12 +2,12 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 14:28:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-11 17:50:04
+ * @LastEditTime: 2021-11-16 17:16:01
  * @Description: file content
 -->
 <script setup lang='ts'>
 import { onMounted } from 'vue';
-import { loadBarEnd } from '$/utils/loading-bar';
+import { loadBarEnd } from '@/utils/loading-bar';
 
 import { default as LoginHead } from '@/pages/login/components/login-head';
 import { default as LoginBody } from '@/pages/login/components/login-body';

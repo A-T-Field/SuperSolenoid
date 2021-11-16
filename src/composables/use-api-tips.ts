@@ -2,10 +2,10 @@
  * @Author: maggot-code
  * @Date: 2021-11-12 09:48:42
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-12 13:18:59
+ * @LastEditTime: 2021-11-16 17:14:14
  * @Description: file content
  */
-import { messageWarning } from '$/utils/tips';
+import { messageWarning } from '@/utils/tips';
 
 function useApiTips(response: any) {
     const { data } = response;

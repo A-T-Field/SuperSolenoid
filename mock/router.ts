@@ -2,11 +2,11 @@
  * @Author: maggot-code
  * @Date: 2021-11-15 17:46:34
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-15 18:21:58
+ * @LastEditTime: 2021-11-16 17:21:34
  * @Description: file content
  */
 import { MockMethod } from 'vite-plugin-mock';
-import { default as useMockServer, wrapperContext } from '&/_utils';
+import { default as useMockServer, wrapperContext } from '@m/_utils';
 
 // 获取路由表
 const routingData = [

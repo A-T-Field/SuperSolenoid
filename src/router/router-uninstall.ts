@@ -2,13 +2,13 @@
  * @Author: maggot-code
  * @Date: 2021-11-15 18:04:54
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-15 18:36:39
+ * @LastEditTime: 2021-11-16 17:17:48
  * @Description: file content
  */
 import type { Router, RouteRecordRaw } from 'vue-router';
 
-import { treeEach } from '$/utils/tree';
-import { isNil } from '$/utils/is';
+import { treeEach } from '@/utils/tree';
+import { isNil } from '@/utils/is';
 
 interface HandlerNode<R> {
     (node: R, parentNode?: R, index?: number, data?: Array<R>): R

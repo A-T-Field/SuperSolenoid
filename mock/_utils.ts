@@ -2,14 +2,14 @@
  * @Author: maggot-code
  * @Date: 2021-11-11 10:32:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-15 15:28:14
+ * @LastEditTime: 2021-11-16 17:21:28
  * @Description: file content
  */
 import type { MethodType } from 'vite-plugin-mock';
 
 import { Buffer } from 'buffer';
 import { MockMethod } from 'vite-plugin-mock';
-import { urlBreakupParams, randomSection } from '$/utils';
+import { urlBreakupParams, randomSection } from '@/utils';
 
 interface MockWrapper {
     code: number;

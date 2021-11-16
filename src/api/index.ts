@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 14:13:29
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-15 17:33:25
+ * @LastEditTime: 2021-11-16 17:13:34
  * @Description: file content
  */
 import type {
@@ -18,10 +18,10 @@ import type {
 
 import axios from 'axios';
 
-import { ContentTypeEnum, RequestMethodsEnum } from '$/api/enum';
+import { ContentTypeEnum, RequestMethodsEnum } from '@/enums/api.enum';
 
-import { getOrigin, getPort } from '$/utils';
-import { getToken } from '$/utils/token';
+import { getOrigin, getPort } from '@/utils';
+import { getToken } from '@/utils/cookie/token';
 
 class VAxios {
     constructor(options?: VAxiosConfigOptions) {

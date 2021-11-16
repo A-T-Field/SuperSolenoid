@@ -28,19 +28,16 @@
         "noImplicitAny": false,
         "skipLibCheck": true,
         "paths": {
-            "#/*": [
-                "types/*"
-            ],
             "@/*": [
                 "src/*"
             ],
-            "$/*": [
-                "domain/*"
+            "@t/*": [
+                "types/*"
             ],
-            "&/*": [
+            "@m/*": [
                 "mock/*"
             ],
-            "!/*": [
+            "@b/*": [
                 "build/*"
             ]
         }
@@ -52,8 +49,6 @@
         "src/**/*.d.ts",
         "src/**/*.tsx",
         "src/**/*.vue",
-        "domain/**/*.d.ts",
-        "domain/**/*.ts",
         "mock/**/*.d.ts",
         "mock/**/*.ts",
         "build/**/*.d.ts",

@@ -2,10 +2,10 @@
  * @Author: maggot-code
  * @Date: 2021-11-15 09:51:07
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-15 16:45:37
+ * @LastEditTime: 2021-11-16 17:19:59
  * @Description: file content
  */
-import { getCookie, setCookie, delCookie } from '$/cache';
+import { getCookie, setCookie, delCookie } from '@/utils/cookie/cookie';
 
 const { VITE_APP_PREFIX_KEY, VITE_APP_TOKEN_KEY } = import.meta.env;
 

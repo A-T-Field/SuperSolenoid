@@ -2,12 +2,12 @@
  * @Author: maggot-code
  * @Date: 2021-11-11 10:21:43
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-15 17:46:48
+ * @LastEditTime: 2021-11-16 17:21:38
  * @Description: file content
  */
 import { MockMethod } from 'vite-plugin-mock';
 import Mock from 'mockjs';
-import { default as useMockServer, wrapperContext } from '&/_utils';
+import { default as useMockServer, wrapperContext } from '@m/_utils';
 
 const Random = Mock.Random;
 

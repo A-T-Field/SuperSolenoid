@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 13:17:49
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-15 18:21:07
+ * @LastEditTime: 2021-11-16 17:17:25
  * @Description: file content
  */
 import type { RecordRawMeta, SetRouteMeta, RouteRecordRaw, RouteRecordName } from 'vue-router';
@@ -12,7 +12,7 @@ import {
     isBoolean,
     isNumber,
     isNil
-} from '$/utils/is';
+} from '@/utils/is';
 
 export const RouteMetaHandler: SetRouteMeta = {
     setMetaAsyn: function ({ asyn }): boolean {

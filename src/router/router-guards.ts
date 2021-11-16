@@ -2,18 +2,18 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 13:58:37
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-12 17:44:15
+ * @LastEditTime: 2021-11-16 17:17:09
  * @Description: file content
  */
 import type { Router, RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
-import { loadBarStart, loadBarFail } from '$/utils/loading-bar';
-import { PagesEnum } from '@/enums/pages.enum';
+
+import { loadBarStart, loadBarFail } from '@/utils/loading-bar';
 
 // 路由前置守卫
-const routerBeforeEach = (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
+const routerBeforeEach = (router: Router) => (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
     loadBarStart();
-    // console.log('路由前置守卫');
-    // console.log(to, from);
+
+
     next();
 };
 
@@ -30,11 +30,10 @@ const routerError = (error: any) => {
 };
 
 function useRouterGuards(router: Router): Router {
-    router.beforeEach(routerBeforeEach);
+    router.beforeEach(routerBeforeEach(router));
     router.afterEach(routerAfterEach);
     router.onError((error) => {
         routerError(error);
-        router.push({ path: PagesEnum.ERROR_CRASH })
     });
 
     return router;

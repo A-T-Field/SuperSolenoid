@@ -2,20 +2,22 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 14:53:58
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-15 18:37:16
+ * @LastEditTime: 2021-11-16 17:16:38
  * @Description: file content
 -->
 <script setup lang='ts'>
 import { ref, watch, onBeforeUnmount } from 'vue';
+import { useStore } from 'vuex';
 import { useRouter, useRoute } from 'vue-router';
-import { isFunction, isNil } from '$/utils/is';
-import { getToken } from '$/utils/token';
-import { messageWarning } from '$/utils/tips';
+import { isFunction, isNil } from '@/utils/is';
+import { messageWarning } from '@/utils/tips';
+import { getToken } from '@/utils/cookie/token';
+import { setRoutingCached } from '@/utils/cached';
 import { PagesEnum } from '@/enums/pages.enum';
 
 import { checkUser, getRouting } from '@/api/common.api';
 
-import { default as useRouterInstall } from '$/router/router-install';
+import { default as useRouterInstall } from '@/router/router-install';
 
 type readyStatus = ''
     | 'findToken'
@@ -24,6 +26,8 @@ type readyStatus = ''
 type ReadyStatusControl = {
     [key in readyStatus]?: () => Promise<any>;
 };
+
+const store = useStore();
 
 const router = useRouter();
 const route = useRoute();
@@ -55,8 +59,16 @@ const controller: ReadyStatusControl = {
     setupRouting() {
         return getRouting().then(response => {
             const { context } = response.data;
-            const [first] = context;
-            useRouterInstall(router, context).replace({ path: first.path });
+
+            setRoutingCached(context);
+
+            const route = useRouterInstall(context);
+            const [first] = route;
+            const { path } = first;
+
+            store.dispatch('router/setRouting', route);
+
+            router.push({ path });
 
             return Promise.resolve();
         });
@@ -77,7 +89,7 @@ const statusWatch = watch(status, (nowStatus) => {
         .catch((route) => {
             const { msg } = route;
             uninstallStatusWatch();
-            messageWarning(msg);
+            msg && messageWarning(msg);
             router.replace(route);
         })
 }, { immediate: true });

@@ -2,11 +2,11 @@
  * @Author: maggot-code
  * @Date: 2021-11-11 10:42:02
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-15 17:43:51
+ * @LastEditTime: 2021-11-16 17:13:09
  * @Description: file content
  */
 import { atfApi } from '@/api/request';
-import { RequestMethodsEnum } from '$/api/enum';
+import { RequestMethodsEnum } from '@/enums/api.enum';
 const send = atfApi.send;
 
 export const login = <T = any>(data: T) => send({

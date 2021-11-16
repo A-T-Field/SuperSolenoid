@@ -2,12 +2,12 @@
  * @Author: maggot-code
  * @Date: 2021-11-15 09:27:43
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-15 09:29:43
+ * @LastEditTime: 2021-11-16 17:18:33
  * @Description: file content
  */
-import type { CachedOptions } from '$/cache/types';
+import type { CachedOptions } from '@/utils/cached/types';
 
-import { isNull } from '$/utils/is';
+import { isNull } from '@/utils/is';
 
 const { VITE_APP_CACHED_EXPIRE } = import.meta.env;
 const DEFAULT_PREFIX_KEY = "S2";

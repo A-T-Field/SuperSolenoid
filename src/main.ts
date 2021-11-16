@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-14 15:36:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-12 13:22:13
+ * @LastEditTime: 2021-11-16 16:34:45
  * @Description: file content
  */
 import type { App } from 'vue';
@@ -23,13 +23,15 @@ function bootstrap(appextend: App, app: App): void {
 
     useVuex(app);
 
-    useVueRouter(app);
-
     useLayout(app);
 
     appextend.mount("#application", true);
 
-    app.mount('#app', true);
+    useVueRouter(app)
+        .isReady()
+        .then(() => {
+            app.mount('#app', true);
+        });
 };
 
 void bootstrap(createApp(AppLication), createApp(AppView));

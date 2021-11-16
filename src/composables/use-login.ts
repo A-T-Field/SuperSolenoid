@@ -2,14 +2,14 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 17:18:33
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-15 11:19:55
+ * @LastEditTime: 2021-11-16 17:14:36
  * @Description: file content
  */
 import type { FormInst } from 'naive-ui';
 
 import { ref, reactive } from 'vue';
 
-import { isNull } from '$/utils/is';
+import { isNull } from '@/utils/is';
 
 interface LoginOpitons { }
 

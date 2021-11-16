@@ -2,12 +2,12 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 14:20:51
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-15 17:50:48
+ * @LastEditTime: 2021-11-16 17:16:59
  * @Description: file content
  */
 import type { RouteRecordRaw } from 'vue-router';
 
-import { default as useRouteRecordRaw } from '$/router/router-record';
+import { default as useRouteRecordRaw } from '@/router/router-record';
 import { PagesEnum } from '@/enums/pages.enum';
 
 // webpackChunkName = group-base
@@ -68,14 +68,6 @@ const CrashRoute = useRouteRecordRaw({
     },
     component: () => import(/* webpackChunkName: "group-base" */ "@/pages/crash"),
 });
-const BadPageRoute = useRouteRecordRaw({
-    name: PagesEnum.ERROR_UNUSUAL_NAME,
-    path: PagesEnum.ERROR_UNUSUAL,
-    redirect: PagesEnum.ERROR_NOT_PAGE,
-    meta: {
-        title: PagesEnum.ERROR_UNUSUAL_TITLE
-    }
-});
 
 const routeModule: Array<RouteRecordRaw> = [
     RootRoute,
@@ -85,7 +77,6 @@ const routeModule: Array<RouteRecordRaw> = [
     NotPowerRoute,
     NotPageRoute,
     CrashRoute,
-    BadPageRoute
 ];
 
 export default routeModule;

@@ -2,16 +2,16 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 16:07:10
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-15 16:25:10
+ * @LastEditTime: 2021-11-16 17:17:42
  * @Description: file content
  */
 import type { Router, RouteLocationNormalizedLoaded } from 'vue-router';
 
 import { defineComponent, onBeforeMount, unref } from 'vue';
-import { loadBarEnd } from '$/utils/loading-bar';
-import { isArray } from '$/utils/is';
+import { loadBarEnd } from '@/utils/loading-bar';
+import { isArray } from '@/utils/is';
 
-import { default as UseRouteRecordRaw } from '$/router/router-record';
+import { default as UseRouteRecordRaw } from '@/router/router-record';
 
 interface Redirect {
     (router: Router, route: RouteLocationNormalizedLoaded)

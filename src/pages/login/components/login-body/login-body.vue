@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 16:51:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-15 17:34:37
+ * @LastEditTime: 2021-11-16 17:15:42
  * @Description: file content
 -->
 <script setup lang='ts'>
@@ -10,9 +10,9 @@ import type { FormBody } from '@/composables/use-login';
 
 import { useRouter, useRoute } from 'vue-router';
 import { login } from '@/api/common.api';
-import { setLoading } from '$/utils/business';
-import { messageSuccess } from '$/utils/tips';
-import { setToken } from '$/utils/token';
+import { setLoading } from '@/utils/business';
+import { messageSuccess } from '@/utils/tips';
+import { setToken } from '@/utils/cookie/token';
 import { PagesEnum } from '@/enums/pages.enum';
 import { default as useLogin } from '@/composables/use-login';
 import { default as useFormTips } from '@/composables/use-form-tips';

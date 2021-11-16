@@ -2,12 +2,12 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 11:30:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-11 15:23:16
+ * @LastEditTime: 2021-11-16 17:20:10
  * @Description: file content
  */
 import type { App, Component } from 'vue';
 
-import { isEmptyString } from '$/utils/is';
+import { isEmptyString } from '@/utils/is';
 
 export const componentInstall = (app: App<Element>) => (component: Component) => {
     const { name } = component;

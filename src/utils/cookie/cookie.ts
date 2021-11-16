@@ -2,11 +2,11 @@
  * @Author: maggot-code
  * @Date: 2021-11-15 09:31:42
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-15 16:01:33
+ * @LastEditTime: 2021-11-16 17:19:39
  * @Description: file content
  */
 import Cookies from 'js-cookie';
-import { isNil, isEmptyString } from '$/utils/is';
+import { isNil, isEmptyString } from '@/utils/is';
 
 export const getCookie = (cookieName: string) => Cookies.get(cookieName) || false;
 

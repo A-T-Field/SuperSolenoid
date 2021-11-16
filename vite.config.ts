@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-14 15:36:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-11 11:29:46
+ * @LastEditTime: 2021-11-16 17:08:34
  * @Description: file content
  */
 import { defineConfig, searchForWorkspaceRoot, loadEnv } from 'vite';
@@ -34,11 +34,10 @@ export default defineConfig(({ command, mode }) => {
         cacheDir: "node_modules/.vite",
         resolve: {
             alias: {
-                '#': resolve(__dirname, "types/"),
                 '@': resolve(__dirname, 'src/'),
-                '$': resolve(__dirname, 'domain/'),
-                '&': resolve(__dirname, 'mock/'),
-                '!': resolve(__dirname, 'build/')
+                '@t': resolve(__dirname, "types/"),
+                '@m': resolve(__dirname, 'mock/'),
+                '@b': resolve(__dirname, 'build/')
             },
             extensions: [".ts", ".js", ".tsx", "jsx", ".json"],
             preserveSymlinks: false,
