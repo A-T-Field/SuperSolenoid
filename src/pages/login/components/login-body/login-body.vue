@@ -2,13 +2,13 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 16:51:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-16 17:15:42
+ * @LastEditTime: 2021-11-16 17:34:08
  * @Description: file content
 -->
 <script setup lang='ts'>
 import type { FormBody } from '@/composables/use-login';
 
-import { useRouter, useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { login } from '@/api/common.api';
 import { setLoading } from '@/utils/business';
 import { messageSuccess } from '@/utils/tips';
@@ -19,7 +19,6 @@ import { default as useFormTips } from '@/composables/use-form-tips';
 import { default as useApiTips } from '@/composables/use-api-tips';
 
 const router = useRouter();
-const route = useRoute();
 
 const {
     formRefs,
@@ -35,11 +34,10 @@ const successLogin = (response: any) => {
     messageSuccess('登录成功!')
     const { context } = response.data;
     const { token } = context;
-    const { query } = route;
 
     setToken(token);
 
-    router.replace({ path: PagesEnum.BASE_ROOT, query })
+    router.replace({ path: PagesEnum.BASE_ROOT })
 }
 
 const handlerForm = (event: EventFn): void => {

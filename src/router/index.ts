@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 10:32:58
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-16 17:17:04
+ * @LastEditTime: 2021-11-17 00:02:55
  * @Description: file content
  */
 import type { App } from 'vue';
@@ -14,7 +14,9 @@ import { default as BaseRouter } from '@/router/static/base.router';
 
 import { default as useRouterGuards } from '@/router/router-guards';
 
-const RouterGroup: Array<RouteRecordRaw> = [...BaseRouter];
+const RouterGroup: Array<RouteRecordRaw> = [
+    ...BaseRouter
+];
 
 const router = createRouter({
     routes: RouterGroup,

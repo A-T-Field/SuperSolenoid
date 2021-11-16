@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 14:20:51
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-16 17:16:59
+ * @LastEditTime: 2021-11-17 00:20:47
  * @Description: file content
  */
 import type { RouteRecordRaw } from 'vue-router';
@@ -24,9 +24,9 @@ const ReadyRoute = useRouteRecordRaw({
     name: PagesEnum.BASE_READY_NAME,
     path: PagesEnum.BASE_READY,
     meta: {
-        title: PagesEnum.BASE_READY_TITLE
+        title: PagesEnum.BASE_READY_TITLE,
     },
-    component: () => import(/* webpackChunkName: "group-base" */ "@/pages/ready")
+    component: () => import(/* webpackChunkName: "group-base" */ "@/pages/ready"),
 });
 const LoginRoute = useRouteRecordRaw({
     name: PagesEnum.BASE_LOGIN_NAME,

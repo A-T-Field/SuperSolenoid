@@ -2,29 +2,20 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 14:05:32
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-16 17:17:18
+ * @LastEditTime: 2021-11-17 01:03:58
  * @Description: file content
  */
-import type { RouteRecordRaw } from 'vue-router';
+import type { Router, RouteRecordRaw } from 'vue-router';
 
-import { default as useRouteRecordRaw } from '@/router/router-record';
 import { treeEach } from '@/utils/tree';
+import { default as useRouteRecordRaw } from '@/router/router-record';
 
 interface RouterInstall {
-    (routing: any): Array<RouteRecordRaw>
+    (router: Router, routing: any): Array<RouteRecordRaw>
 }
 interface HandlerNode<R> {
     (node: R, parentNode?: R, index?: number, data?: Array<R>): R
 }
-
-const BadPageRoute = useRouteRecordRaw({
-    name: 'unusual',
-    path: '/:pathMatch(.*)*',
-    redirect: '/404',
-    meta: {
-        title: '异常地址'
-    }
-});
 
 const setPath = (node: RouteRecordRaw, parentNode?: RouteRecordRaw): string => {
     if (!parentNode || parentNode?.name !== node.meta?.parent) return node.path;
@@ -33,10 +24,14 @@ const setPath = (node: RouteRecordRaw, parentNode?: RouteRecordRaw): string => {
 }
 
 const setComponent = (node: RouteRecordRaw) => {
-    const { name } = node;
+    const { meta } = node;
 
     // return () => import(`../pages/${String(name)}/index.ts`);
-    return () => import(`../../src/pages/${String(name)}/index.ts`);
+    if (meta?.view) {
+        return () => import(`../../src/pages/${String(meta?.view)}/index.ts`);
+    } else {
+        return () => import(`../../src/pages/not-page/index`);
+    }
 }
 
 const handlerNode: HandlerNode<RouteRecordRaw> = (node, parentNode) => {
@@ -48,12 +43,11 @@ const handlerNode: HandlerNode<RouteRecordRaw> = (node, parentNode) => {
     return route;
 }
 
-const useRouterInstall: RouterInstall = (routing) => {
-    const route = treeEach<RouteRecordRaw>(handlerNode, routing);
-
-    route.push(BadPageRoute);
-
-    return route;
+const useRouterInstall: RouterInstall = (router, routing) => {
+    return treeEach<RouteRecordRaw>(handlerNode, routing).map(route => {
+        router.addRoute(route);
+        return route;
+    })
 }
 
 export default useRouterInstall;

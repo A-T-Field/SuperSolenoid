@@ -1,14 +1,12 @@
 <!--
  * @Author: maggot-code
- * @Date: 2021-11-15 17:54:52
+ * @Date: 2021-11-16 18:01:10
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-15 17:56:04
+ * @LastEditTime: 2021-11-16 18:01:40
  * @Description: file content
 -->
 <script setup lang='ts'></script>
 
-<template>
-    <h1>首页 - 子页 1</h1>
-</template>
+<template>worker apply</template>
 
 <style scoped lang='scss'></style>

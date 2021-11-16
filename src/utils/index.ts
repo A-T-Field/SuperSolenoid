@@ -2,10 +2,11 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 11:30:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-16 17:20:10
+ * @LastEditTime: 2021-11-16 18:12:12
  * @Description: file content
  */
 import type { App, Component } from 'vue';
+import type { AxiosResponse } from 'axios';
 
 import { isEmptyString } from '@/utils/is';
 
@@ -40,4 +41,10 @@ export function urlBreakupParams(url: string): any {
 
 export function randomSection(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+export function getContext(response: AxiosResponse<any>) {
+    const { context } = response.data;
+
+    return context;
 }

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-15 09:27:43
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-16 17:18:33
+ * @LastEditTime: 2021-11-16 18:21:45
  * @Description: file content
  */
 import type { CachedOptions } from '@/utils/cached/types';
@@ -96,7 +96,7 @@ class Cached {
             const { value, expire } = JSON.parse(stringData);
 
             // 如果超过了有效期返回默认值
-            if (Date.now() >= expire) {
+            if (Date.now() + 100 >= expire) {
                 this.del(this.getKey(key));
                 return defValue;
             }

@@ -2,35 +2,39 @@
  * @Author: maggot-code
  * @Date: 2021-11-16 15:30:37
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-16 16:56:40
+ * @LastEditTime: 2021-11-17 01:09:44
  * @Description: file content
  */
+import { isNil } from '@/utils/is';
+import { getRoutingCached } from '@/utils/cached';
+
 const state = {
-    routingLoad: false,
+    install: false,
     routing: []
 }
 const getters = {
-    isRoutingLoad(state) {
-        return state.routingLoad;
+    hasInstall(state) {
+        return state.install;
     },
     getRouting(state) {
+        const routing = getRoutingCached();
+        if (state.routing.length <= 0) {
+            state.routing = isNil(routing) ? [] : routing;
+        }
         return state.routing;
-    },
-    hasRouting(state) {
-        return state.routing.length > 0;
     }
 }
 const mutations = {
-    _setRoutingLoad(state, status) {
-        state.routingLoad = status;
+    _setInstall(state, status) {
+        state.install = status;
     },
     _setRouting(state, routing) {
         state.routing = routing;
     }
 }
 const actions = {
-    setRoutingLoad({ commit }, status) {
-        commit('_setRoutingLoad', status ?? true);
+    setInstall({ commit }, status) {
+        commit('_setInstall', status ?? true);
     },
     setRouting({ commit }, routing) {
         commit('_setRouting', routing ?? []);

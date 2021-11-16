@@ -2,52 +2,81 @@
  * @Author: maggot-code
  * @Date: 2021-11-15 17:46:34
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-16 17:21:34
+ * @LastEditTime: 2021-11-17 00:56:55
  * @Description: file content
  */
 import { MockMethod } from 'vite-plugin-mock';
 import { default as useMockServer, wrapperContext } from '@m/_utils';
 
 // 获取路由表
-const routingData = [
+const workerRoutingData = [
     {
-        "name": "home",
-        "path": "/home",
+        "name": "worker",
+        "path": "/worker",
         "meta": {
             "asyn": true,
+            "view": "view-page",
             "parent": "root"
         },
         "children": [
             {
-                "name": "home1",
-                "path": "/home1",
+                "name": "apply",
+                "path": "/apply",
                 "meta": {
                     "asyn": true,
-                    "parent": "home"
+                    "view": "apply",
+                    "parent": "worker"
                 }
             },
             {
-                "name": "home2",
-                "path": "/home2",
+                "name": "edit",
+                "path": "/edit",
                 "meta": {
                     "asyn": true,
-                    "parent": "home"
+                    "view": "edit",
+                    "parent": "worker"
                 }
             }
         ]
     }
 ];
-const getRoutingModel = () => ({
-    statusCode: 200,
-    data: wrapperContext({
-        code: 0,
-        message: 'ok',
-        context: routingData
-    })
-})
+const leaderRoutingData = [];
+
+const getRoutingModel = ({ body }) => {
+    const { power } = body;
+    if (power.includes('worker')) {
+        return {
+            statusCode: 200,
+            data: wrapperContext({
+                code: 0,
+                message: 'ok',
+                context: workerRoutingData
+            })
+        }
+    }
+
+    if (power.includes('leader')) {
+        return {
+            statusCode: 200,
+            data: wrapperContext({
+                code: 0,
+                message: 'ok',
+                context: leaderRoutingData
+            })
+        }
+    }
+
+    return {
+        statusCode: 200,
+        data: wrapperContext({
+            code: 2001,
+            message: '没有找到对应路由组',
+        })
+    }
+}
 const getRouting = useMockServer({
     url: '/atf/routing/get',
-    method: 'get',
+    method: 'post',
     isDelay: true,
     build: getRoutingModel
 })

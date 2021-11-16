@@ -2,25 +2,29 @@
  * @Author: maggot-code
  * @Date: 2021-11-11 10:42:02
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-16 17:13:09
+ * @LastEditTime: 2021-11-16 18:28:07
  * @Description: file content
  */
 import { atfApi } from '@/api/request';
 import { RequestMethodsEnum } from '@/enums/api.enum';
 const send = atfApi.send;
 
+// 登录
 export const login = <T = any>(data: T) => send({
     url: '/login',
     method: RequestMethodsEnum.POST,
     data,
 });
 
-export const checkUser = () => send({
-    url: '/user/check',
+// 获取
+export const getPower = () => send({
+    url: '/power/get',
     method: RequestMethodsEnum.GET
-})
+});
 
-export const getRouting = () => send({
+// 获取路由
+export const getRouting = <T = any>(data: T) => send({
     url: '/routing/get',
-    method: RequestMethodsEnum.GET
-})
+    method: RequestMethodsEnum.POST,
+    data
+});
