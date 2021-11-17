@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-15 17:46:34
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-17 00:56:55
+ * @LastEditTime: 2021-11-17 09:32:15
  * @Description: file content
  */
 import { MockMethod } from 'vite-plugin-mock';
@@ -13,6 +13,7 @@ const workerRoutingData = [
     {
         "name": "worker",
         "path": "/worker",
+        "redirect": "/worker/apply",
         "meta": {
             "asyn": true,
             "view": "view-page",

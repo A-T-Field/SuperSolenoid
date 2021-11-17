@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 13:58:37
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-17 01:10:49
+ * @LastEditTime: 2021-11-17 10:26:14
  * @Description: file content
  */
 import type { Router, RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
@@ -19,6 +19,7 @@ const routerBeforeEach = (router: Router) => (to: RouteLocationNormalized, from:
     loadBarStart();
 
     const { path } = to;
+
     const hasLogin = path === PagesEnum.BASE_LOGIN;
 
     if (!getToken()) {
@@ -31,16 +32,23 @@ const routerBeforeEach = (router: Router) => (to: RouteLocationNormalized, from:
         return;
     }
 
-    if (!vuex.getters['router/hasInstall']) {
-        vuex.dispatch('router/setInstall');
-        delBadRoute(router);
-        useRouterInstall(router, vuex.getters['router/getRouting']);
-        addBadRoute(router);
-        next({ ...to, replace: true });
+    if (vuex.getters['router/hasInstall']) {
+        next();
         return;
     }
 
-    next();
+    const routes = useRouterInstall(vuex.getters['router/getRouting']);
+    if (routes.length > 0) {
+        delBadRoute(router);
+        routes.forEach(route => router.addRoute(route));
+        addBadRoute(router);
+        vuex.dispatch('router/setInstall');
+        next({ ...to, replace: true });
+    } else {
+        console.log(from);
+
+        next();
+    }
 };
 
 // 路由后置守卫

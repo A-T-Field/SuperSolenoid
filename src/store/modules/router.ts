@@ -2,10 +2,10 @@
  * @Author: maggot-code
  * @Date: 2021-11-16 15:30:37
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-17 01:09:44
+ * @LastEditTime: 2021-11-17 10:20:10
  * @Description: file content
  */
-import { isNil } from '@/utils/is';
+import { toRaw } from 'vue';
 import { getRoutingCached } from '@/utils/cached';
 
 const state = {
@@ -16,12 +16,17 @@ const getters = {
     hasInstall(state) {
         return state.install;
     },
+    hasRouting(state) {
+        return state.routing.length > 0;
+    },
     getRouting(state) {
         const routing = getRoutingCached();
-        if (state.routing.length <= 0) {
-            state.routing = isNil(routing) ? [] : routing;
+
+        if (!state.install) {
+            state.routing = routing ?? [];
         }
-        return state.routing;
+
+        return toRaw(state.routing);
     }
 }
 const mutations = {
@@ -29,7 +34,7 @@ const mutations = {
         state.install = status;
     },
     _setRouting(state, routing) {
-        state.routing = routing;
+        state.routing = toRaw(routing);
     }
 }
 const actions = {

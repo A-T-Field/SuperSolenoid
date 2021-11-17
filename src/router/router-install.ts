@@ -2,16 +2,16 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 14:05:32
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-17 01:03:58
+ * @LastEditTime: 2021-11-17 10:09:18
  * @Description: file content
  */
-import type { Router, RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router';
 
 import { treeEach } from '@/utils/tree';
 import { default as useRouteRecordRaw } from '@/router/router-record';
 
 interface RouterInstall {
-    (router: Router, routing: any): Array<RouteRecordRaw>
+    (routing: any): Array<RouteRecordRaw>
 }
 interface HandlerNode<R> {
     (node: R, parentNode?: R, index?: number, data?: Array<R>): R
@@ -43,11 +43,8 @@ const handlerNode: HandlerNode<RouteRecordRaw> = (node, parentNode) => {
     return route;
 }
 
-const useRouterInstall: RouterInstall = (router, routing) => {
-    return treeEach<RouteRecordRaw>(handlerNode, routing).map(route => {
-        router.addRoute(route);
-        return route;
-    })
+const useRouterInstall: RouterInstall = (routing) => {
+    return treeEach<RouteRecordRaw>(handlerNode, routing);
 }
 
 export default useRouterInstall;
