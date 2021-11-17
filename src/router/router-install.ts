@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 14:05:32
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-17 10:09:18
+ * @LastEditTime: 2021-11-17 18:02:17
  * @Description: file content
  */
 import type { RouteRecordRaw } from 'vue-router';
@@ -28,7 +28,7 @@ const setComponent = (node: RouteRecordRaw) => {
 
     // return () => import(`../pages/${String(name)}/index.ts`);
     if (meta?.view) {
-        return () => import(`../../src/pages/${String(meta?.view)}/index.ts`);
+        return () => import(/* webpackChunkName: "group-async" */ `../../src/pages/${String(meta?.view)}/index.ts`);
     } else {
         return () => import(`../../src/pages/not-page/index`);
     }

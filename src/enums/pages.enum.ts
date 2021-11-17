@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 14:22:23
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-16 17:35:03
+ * @LastEditTime: 2021-11-17 17:59:38
  * @Description: file content
  */
 export enum PagesEnum {
@@ -10,6 +10,10 @@ export enum PagesEnum {
     BASE_ROOT = '/',
     BASE_ROOT_NAME = 'root',
     BASE_ROOT_TITLE = 'root',
+    // 基础
+    BASE_HOME = '/home',
+    BASE_HOME_NAME = 'home',
+    BASE_HOME_TITLE = '首页',
     // 准备
     BASE_READY = '/ready',
     BASE_READY_NAME = 'ready',

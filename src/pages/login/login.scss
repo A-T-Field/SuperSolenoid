@@ -1,12 +1,11 @@
+@import '@/style/var.scss';
+
 .ATF-login{
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    width: 100%;
-    height: 100%;
     background-color: transparent;
     box-sizing: border-box;
-    overflow: hidden;
     &-main{
         flex-basis: 50%;
         flex-grow: 0;

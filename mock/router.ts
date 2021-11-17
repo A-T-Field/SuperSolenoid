@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-15 17:46:34
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-17 10:33:22
+ * @LastEditTime: 2021-11-17 18:04:40
  * @Description: file content
  */
 import { MockMethod } from 'vite-plugin-mock';
@@ -12,12 +12,14 @@ import { default as useMockServer, wrapperContext } from '@m/_utils';
 const workerRoutingData = [
     {
         name: "worker",
-        path: "/worker",
-        redirect: "/worker/apply",
+        path: "/home/worker",
+        redirect: "/home/worker/apply",
         meta: {
             async: true,
-            view: "view-page",
-            parent: "root"
+            view: "home-page",
+            parent: "home",
+            title: "工作室",
+            isNavRoute: true,
         },
         children: [
             {
@@ -26,7 +28,9 @@ const workerRoutingData = [
                 meta: {
                     async: true,
                     view: "apply",
-                    parent: "worker"
+                    parent: "worker",
+                    title: "申报",
+                    isMenuRoute: true,
                 }
             },
             {
@@ -35,7 +39,34 @@ const workerRoutingData = [
                 meta: {
                     async: true,
                     view: "edit",
-                    parent: "worker"
+                    parent: "worker",
+                    title: "修改申报",
+                    isMenuRoute: true,
+                }
+            }
+        ]
+    },
+    {
+        name: "log",
+        path: '/home/log',
+        redirect: "/home/log/view",
+        meta: {
+            async: true,
+            view: "home-page",
+            parent: "home",
+            title: "工作日志",
+            isNavRoute: true,
+        },
+        children: [
+            {
+                name: 'view',
+                path: '/view',
+                meta: {
+                    async: true,
+                    view: "view",
+                    parent: "log",
+                    title: "日志查看",
+                    isMenuRoute: true,
                 }
             }
         ]

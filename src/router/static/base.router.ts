@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 14:20:51
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-17 00:20:47
+ * @LastEditTime: 2021-11-17 18:00:40
  * @Description: file content
  */
 import type { RouteRecordRaw } from 'vue-router';
@@ -19,6 +19,15 @@ const RootRoute = useRouteRecordRaw({
         title: PagesEnum.BASE_ROOT_TITLE,
     },
     component: () => import(/* webpackChunkName: "group-base" */ "@/App.vue"),
+});
+const HomeRoute = useRouteRecordRaw({
+    name: PagesEnum.BASE_HOME_NAME,
+    path: PagesEnum.BASE_HOME,
+    meta: {
+        hasPower: true,
+        title: PagesEnum.BASE_HOME_TITLE,
+    },
+    component: () => import(/* webpackChunkName: "group-base" */ "@/pages/home-page"),
 });
 const ReadyRoute = useRouteRecordRaw({
     name: PagesEnum.BASE_READY_NAME,
@@ -71,6 +80,7 @@ const CrashRoute = useRouteRecordRaw({
 
 const routeModule: Array<RouteRecordRaw> = [
     RootRoute,
+    HomeRoute,
     ReadyRoute,
     LoginRoute,
     RegisterRoute,

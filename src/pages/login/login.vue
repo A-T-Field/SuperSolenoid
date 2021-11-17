@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 14:28:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-16 17:16:01
+ * @LastEditTime: 2021-11-17 14:24:04
  * @Description: file content
 -->
 <script setup lang='ts'>
@@ -19,7 +19,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <main class="ATF-login">
+    <main class="w100 h100 ofh ATF-login">
         <section class="ATF-login-main ATF-login-img">
             <img src="@/assets/images/login-bg.svg" alt="ATF" />
         </section>
@@ -41,5 +41,5 @@ onMounted(() => {
 </template>
 
 <style scoped lang='scss'>
-@import "@/style/login.scss";
+@import "./login.scss";
 </style>

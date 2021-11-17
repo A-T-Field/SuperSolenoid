@@ -1,0 +1,17 @@
+@import "@/style/var.scss";
+
+.ATF-home{
+    background-color: $ATF-background-color;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    &-head{
+        background-color: red;
+        height: auto;
+    }
+    &-body{
+        flex: 0.99;
+        height: auto;
+    }
+}

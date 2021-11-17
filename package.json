@@ -10,7 +10,9 @@
         "axios": "^0.23.0",
         "js-cookie": "^3.0.1",
         "mockjs": "^1.1.0",
+        "naive-ui": "^2.20.3",
         "normalize.css": "^8.0.1",
+        "vfonts": "^0.1.0",
         "vue": "^3.2.16",
         "vue-router": "^4.0.11",
         "vuex": "^4.0.2"
@@ -18,7 +20,6 @@
     "devDependencies": {
         "@types/node": "^16.10.9",
         "@vitejs/plugin-vue": "^1.9.3",
-        "naive-ui": "^2.20.0",
         "sass": "^1.43.2",
         "typescript": "^4.4.3",
         "vite": "^2.6.4",
