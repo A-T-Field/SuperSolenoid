@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-15 17:46:34
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-17 09:32:15
+ * @LastEditTime: 2021-11-17 10:33:22
  * @Description: file content
  */
 import { MockMethod } from 'vite-plugin-mock';
@@ -11,31 +11,31 @@ import { default as useMockServer, wrapperContext } from '@m/_utils';
 // 获取路由表
 const workerRoutingData = [
     {
-        "name": "worker",
-        "path": "/worker",
-        "redirect": "/worker/apply",
-        "meta": {
-            "asyn": true,
-            "view": "view-page",
-            "parent": "root"
+        name: "worker",
+        path: "/worker",
+        redirect: "/worker/apply",
+        meta: {
+            async: true,
+            view: "view-page",
+            parent: "root"
         },
-        "children": [
+        children: [
             {
-                "name": "apply",
-                "path": "/apply",
-                "meta": {
-                    "asyn": true,
-                    "view": "apply",
-                    "parent": "worker"
+                name: "apply",
+                path: "/apply",
+                meta: {
+                    async: true,
+                    view: "apply",
+                    parent: "worker"
                 }
             },
             {
-                "name": "edit",
-                "path": "/edit",
-                "meta": {
-                    "asyn": true,
-                    "view": "edit",
-                    "parent": "worker"
+                name: "edit",
+                path: "/edit",
+                meta: {
+                    async: true,
+                    view: "edit",
+                    parent: "worker"
                 }
             }
         ]

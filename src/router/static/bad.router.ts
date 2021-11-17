@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-16 17:24:25
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-16 17:30:39
+ * @LastEditTime: 2021-11-17 10:33:35
  * @Description: file content
  */
 import type { RouteRecordRaw } from 'vue-router';
@@ -15,7 +15,7 @@ const BadPageRoute = useRouteRecordRaw({
     path: PagesEnum.ERROR_UNUSUAL,
     redirect: PagesEnum.ERROR_NOT_PAGE,
     meta: {
-        asyn: true,
+        async: true,
         title: PagesEnum.ERROR_UNUSUAL_TITLE,
     }
 });

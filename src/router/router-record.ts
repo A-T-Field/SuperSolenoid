@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 13:17:49
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-17 00:19:15
+ * @LastEditTime: 2021-11-17 10:34:01
  * @Description: file content
  */
 import type { RecordRawMeta, SetRouteMeta, RouteRecordRaw, RouteRecordName } from 'vue-router';
@@ -15,8 +15,8 @@ import {
 } from '@/utils/is';
 
 export const RouteMetaHandler: SetRouteMeta = {
-    setMetaAsyn: function ({ asyn }): boolean {
-        return isBoolean(asyn) ? asyn : false;
+    setMetaAsync: function ({ async }): boolean {
+        return isBoolean(async) ? async : false;
     },
     setMetaView: function ({ view }): string {
         return isEmptyString(view) ? "" : view;
@@ -81,7 +81,7 @@ export const RouteMetaHandler: SetRouteMeta = {
 
 export const setupRecordRawMeta: RecordRawMeta = (name, meta) => {
     return Object.assign({}, meta, {
-        async: RouteMetaHandler.setMetaAsyn(meta),
+        async: RouteMetaHandler.setMetaAsync(meta),
         view: RouteMetaHandler.setMetaView(meta),
         parent: RouteMetaHandler.setMetaParent(meta),
         title: RouteMetaHandler.setMetaTitle(name, meta),

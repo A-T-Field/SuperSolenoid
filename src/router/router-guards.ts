@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 13:58:37
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-17 10:26:14
+ * @LastEditTime: 2021-11-17 10:53:05
  * @Description: file content
  */
 import type { Router, RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
@@ -45,9 +45,11 @@ const routerBeforeEach = (router: Router) => (to: RouteLocationNormalized, from:
         vuex.dispatch('router/setInstall');
         next({ ...to, replace: true });
     } else {
-        console.log(from);
-
-        next();
+        if (router.hasRoute(to.name ?? "")) {
+            next();
+        } else {
+            next({ path: PagesEnum.ERROR_NOT_PAGE, replace: true });
+        }
     }
 };
 
