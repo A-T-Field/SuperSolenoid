@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-28 11:27:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-17 15:27:47
+ * @LastEditTime: 2021-11-18 13:20:11
  * @Description: file content
  */
 import type { App } from 'vue';
@@ -20,6 +20,7 @@ import {
     NLayoutHeader,
     NLayoutSider,
     NMenu,
+    NDropdown,
     NButton,
     NButtonGroup,
     NForm,
@@ -39,6 +40,7 @@ const naiveUI = createNaiveUI({
         NLayoutHeader,
         NLayoutSider,
         NMenu,
+        NDropdown,
         NButton,
         NButtonGroup,
         NForm,

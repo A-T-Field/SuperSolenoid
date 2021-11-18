@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-16 18:01:10
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-17 10:30:14
+ * @LastEditTime: 2021-11-18 15:26:10
  * @Description: file content
 -->
 <script setup lang='ts'>
@@ -15,6 +15,7 @@ const route = useRoute();
 <template>
     worker apply
     <n-button @click="useReloadPage(router, route)">刷新 apply</n-button>
+    <router-view></router-view>
 </template>
 
 <style scoped lang='scss'></style>

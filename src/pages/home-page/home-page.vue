@@ -2,11 +2,15 @@
  * @Author: maggot-code
  * @Date: 2021-11-17 11:18:39
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-17 18:57:53
+ * @LastEditTime: 2021-11-18 15:58:04
  * @Description: file content
 -->
 <script setup lang='ts'>
-import type { RouteRecordName, RouteRecordRaw } from 'vue-router';
+import type {
+    RouteLocationNormalizedLoaded,
+    RouteRecordName,
+    RouteRecordRaw
+} from 'vue-router';
 
 import { default as LayoutRouterView } from '@/layout/layout-router-view';
 import { default as HeadMain } from '@/components/head-main';
@@ -14,20 +18,39 @@ import { default as BodyMain } from '@/components/body-main';
 import { default as NavMain } from '@/components/nav-main';
 import { default as MenuMain } from '@/components/menu-main';
 
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { onBeforeUnmount, ref, toRaw, watch } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+
+type routeActive = RouteRecordName | undefined | null;
+
 const router = useRouter();
-const routes = router.getRoutes();
+const route = useRoute();
 
-const manuRoutes = ref<Array<RouteRecordRaw>>([]);
-const navName = ref<RouteRecordName>('');
+const navRoutes = router.getRoutes();
+const navActive = ref<routeActive>('');
+const menuRoutes = ref<Array<RouteRecordRaw> | undefined>([]);
+const menuActive = ref<routeActive>('');
 
-function handlerNavActive(routes: Array<RouteRecordRaw>) {
-    manuRoutes.value = routes;
+const handlerRouteWatch = (nowRoute: RouteLocationNormalizedLoaded) => {
+    const matchedLen = nowRoute.matched.length;
+    const matchedIndex = matchedLen - 2 <= 0 ? 0 : matchedLen - 2;
+    const { name: navName } = nowRoute.matched[matchedIndex];
+    const { name: menuName } = nowRoute;
+
+    navActive.value = navName;
+    menuActive.value = menuName;
 }
-function handlerNavName(name: RouteRecordName) {
-    navName.value = name;
+const routeWatch = watch(route, handlerRouteWatch, { immediate: true });
+
+function handlerWrapRoute(nowRoute: RouteRecordRaw) {
+    const { children } = nowRoute;
+    menuRoutes.value = children;
+    router.push(nowRoute);
 }
+
+onBeforeUnmount(() => {
+    routeWatch();
+})
 </script>
 
 <template>
@@ -36,9 +59,9 @@ function handlerNavName(name: RouteRecordName) {
             <head-main>
                 <template #nav>
                     <nav-main
-                        :routes="routes"
-                        @on-nav-name="handlerNavName"
-                        @on-nav-routes="handlerNavActive"
+                        :active="navActive"
+                        :routes="navRoutes"
+                        @wrap:route="handlerWrapRoute"
                     ></nav-main>
                 </template>
             </head-main>
@@ -47,7 +70,7 @@ function handlerNavName(name: RouteRecordName) {
         <section class="w100 ofh ATF-home-body">
             <body-main>
                 <template #sider>
-                    <menu-main :key="navName" :routes="manuRoutes" :defActive="manuRoutes[0].name"></menu-main>
+                    <menu-main :active="menuActive" :routes="toRaw(menuRoutes)"></menu-main>
                 </template>
 
                 <template #header>顶部</template>

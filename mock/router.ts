@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-15 17:46:34
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-17 18:04:40
+ * @LastEditTime: 2021-11-18 15:53:39
  * @Description: file content
  */
 import { MockMethod } from 'vite-plugin-mock';
@@ -12,12 +12,12 @@ import { default as useMockServer, wrapperContext } from '@m/_utils';
 const workerRoutingData = [
     {
         name: "worker",
-        path: "/home/worker",
-        redirect: "/home/worker/apply",
+        path: "/worker",
+        redirect: "/worker/apply",
         meta: {
             async: true,
             view: "home-page",
-            parent: "home",
+            parent: "root",
             title: "工作室",
             isNavRoute: true,
         },
@@ -25,35 +25,60 @@ const workerRoutingData = [
             {
                 name: "apply",
                 path: "/apply",
+                redirect: "/worker/apply/review",
                 meta: {
                     async: true,
                     view: "apply",
                     parent: "worker",
                     title: "申报",
-                    isMenuRoute: true,
-                }
+                    isNavRoute: true,
+                },
+                children: [
+                    {
+                        name: 'review',
+                        path: '/review',
+                        meta: {
+                            async: true,
+                            view: "view",
+                            parent: "apply",
+                            title: "审查",
+                            isMenuRoute: true,
+                        }
+                    },
+                    {
+                        name: "edit",
+                        path: "/edit",
+                        meta: {
+                            async: true,
+                            view: "edit",
+                            parent: "apply",
+                            title: "修改申报",
+                            isMenuRoute: true,
+                        }
+                    }
+                ]
             },
             {
-                name: "edit",
-                path: "/edit",
+                name: 'map',
+                path: '/map',
                 meta: {
                     async: true,
-                    view: "edit",
+                    view: "view",
                     parent: "worker",
-                    title: "修改申报",
-                    isMenuRoute: true,
+                    title: "地图",
+                    isNavRoute: true,
                 }
             }
         ]
     },
     {
         name: "log",
-        path: '/home/log',
-        redirect: "/home/log/view",
+        path: '/log',
+        redirect: "/log/view",
         meta: {
             async: true,
             view: "home-page",
-            parent: "home",
+            parent: "root",
             title: "工作日志",
             isNavRoute: true,
         },

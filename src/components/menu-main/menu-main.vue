@@ -2,16 +2,16 @@
  * @Author: maggot-code
  * @Date: 2021-11-17 15:02:22
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-17 18:57:21
+ * @LastEditTime: 2021-11-18 15:21:19
  * @Description: file content
 -->
 <script setup lang='ts'>
 import type { PropType } from 'vue';
 import type { RouteRecordRaw, RouteRecordName } from 'vue-router';
 
-import { ref, toRaw } from 'vue';
+import { computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { default as useRouterMenu } from '@/router/router-menu';
+import { filterRoutesMenu } from '@/router/router-utils';
 
 const router = useRouter();
 
@@ -20,48 +20,31 @@ const props = defineProps({
         type: Array as PropType<Array<RouteRecordRaw>>,
         default: []
     },
-    defActive: {
-        type: String as PropType<RouteRecordName>,
+    active: {
+        type: String as PropType<RouteRecordName | undefined | null>,
         default: ""
-    },
-    keyField: {
-        type: String,
-        default: "name"
-    },
-    labelField: {
-        type: String,
-        default: "title"
-    },
-    childrenField: {
-        type: String,
-        default: 'children'
     }
 });
 
-const routemap = toRaw(useRouterMenu(props.routes));
+const baseRoutes = computed(() => {
+    return filterRoutesMenu(props.routes);
+});
 
-const menuActive = ref<RouteRecordName>(props.defActive);
-
-console.log(menuActive.value);
-
-
-function handlerValue(name: RouteRecordName, route: RouteRecordRaw) {
-    const { path } = route;
-    menuActive.value = name;
-    router.push({ path });
+function handlerUpdateValue(name: RouteRecordName, route: RouteRecordRaw) {
+    router.push(route);
 }
 </script>
 
 <template>
     <n-menu
-        :key-field="keyField"
-        :label-field="labelField"
-        :children-field="childrenField"
+        key-field="name"
+        label-field="title"
+        children-field="children"
         :inverted="true"
         :accordion="true"
-        :options="routemap"
-        :value="menuActive"
-        @update:value="handlerValue"
+        :options="baseRoutes"
+        :value="active"
+        @update:value="handlerUpdateValue"
     ></n-menu>
 </template>
 
