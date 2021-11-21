@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-16 15:30:37
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-17 10:20:10
+ * @LastEditTime: 2021-11-21 19:16:23
  * @Description: file content
  */
 import { toRaw } from 'vue';
@@ -25,6 +25,7 @@ const getters = {
         if (!state.install) {
             state.routing = routing ?? [];
         }
+
 
         return toRaw(state.routing);
     }

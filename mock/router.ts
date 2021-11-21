@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-15 17:46:34
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-18 15:53:39
+ * @LastEditTime: 2021-11-19 16:11:45
  * @Description: file content
  */
 import { MockMethod } from 'vite-plugin-mock';
@@ -11,87 +11,73 @@ import { default as useMockServer, wrapperContext } from '@m/_utils';
 // 获取路由表
 const workerRoutingData = [
     {
-        name: "worker",
-        path: "/worker",
-        redirect: "/worker/apply",
+        name: "report",
+        path: '/report',
+        redirect: '/report/add',
         meta: {
             async: true,
+            title: "工单报表",
             view: "home-page",
-            parent: "root",
-            title: "工作室",
             isNavRoute: true,
+            hasPower: true,
         },
         children: [
             {
-                name: "apply",
-                path: "/apply",
-                redirect: "/worker/apply/review",
+                name: 'report_add',
+                path: '/report/add',
                 meta: {
                     async: true,
-                    view: "apply",
-                    parent: "worker",
-                    title: "申报",
-                    isNavRoute: true,
-                },
-                children: [
-                    {
-                        name: 'review',
-                        path: '/review',
-                        meta: {
-                            async: true,
-                            view: "view",
-                            parent: "apply",
-                            title: "审查",
-                            isMenuRoute: true,
-                        }
-                    },
-                    {
-                        name: "edit",
-                        path: "/edit",
-                        meta: {
-                            async: true,
-                            view: "edit",
-                            parent: "apply",
-                            title: "修改申报",
-                            isMenuRoute: true,
-                        }
-                    }
-                ]
+                    title: "报表新增",
+                    view: "report-add",
+                    parent: "report",
+                    isNavRoute: true
+                }
             },
             {
-                name: 'map',
-                path: '/map',
+                name: "report_edit",
+                path: '/report/edit',
                 meta: {
                     async: true,
-                    view: "view",
-                    parent: "worker",
-                    title: "地图",
-                    isNavRoute: true,
+                    title: "报表修改",
+                    view: "report-edit",
+                    parent: "report",
+                    isNavRoute: true
                 }
             }
         ]
     },
     {
-        name: "log",
+        name: 'log',
         path: '/log',
-        redirect: "/log/view",
+        redirect: '/log/info',
         meta: {
             async: true,
-            view: "home-page",
-            parent: "root",
             title: "工作日志",
+            view: "home-page",
             isNavRoute: true,
+            hasPower: true,
         },
         children: [
             {
-                name: 'view',
-                path: '/view',
+                name: 'info',
+                path: '/log/info',
                 meta: {
                     async: true,
-                    view: "view",
-                    parent: "log",
-                    title: "日志查看",
-                    isMenuRoute: true,
+                    title: "信息级别",
+                    view: "info",
+                    parent: 'log',
+                    isMenuRoute: true
+                }
+            },
+            {
+                name: 'warning',
+                path: '/log/warning',
+                meta: {
+                    async: true,
+                    title: "报警级别",
+                    view: "warning",
+                    parent: 'log',
+                    isMenuRoute: true
                 }
             }
         ]

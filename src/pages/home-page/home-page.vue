@@ -2,50 +2,57 @@
  * @Author: maggot-code
  * @Date: 2021-11-17 11:18:39
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-18 15:58:04
+ * @LastEditTime: 2021-11-21 23:08:01
  * @Description: file content
 -->
 <script setup lang='ts'>
-import type {
-    RouteLocationNormalizedLoaded,
-    RouteRecordName,
-    RouteRecordRaw
-} from 'vue-router';
+import type { RouteRecordName, RouteRecordRaw, RouteLocationNormalizedLoaded } from 'vue-router';
 
 import { default as LayoutRouterView } from '@/layout/layout-router-view';
-import { default as HeadMain } from '@/components/head-main';
-import { default as BodyMain } from '@/components/body-main';
-import { default as NavMain } from '@/components/nav-main';
-import { default as MenuMain } from '@/components/menu-main';
+import { default as HeadMain } from '@/pages/home-page/components/head-main';
+import { default as BodyMain } from '@/pages/home-page/components/body-main';
+import { default as NavMain } from '@/pages/home-page/components/nav-main';
+import { default as MenuMain } from '@/pages/home-page/components/menu-main';
 
-import { onBeforeUnmount, ref, toRaw, watch } from 'vue';
+import { ref, computed, watch, onBeforeUnmount } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-
-type routeActive = RouteRecordName | undefined | null;
+import { filterNavRoutes, filterMenuRoutes } from '@/router/router-utils';
 
 const router = useRouter();
 const route = useRoute();
 
-const navRoutes = router.getRoutes();
-const navActive = ref<routeActive>('');
-const menuRoutes = ref<Array<RouteRecordRaw> | undefined>([]);
-const menuActive = ref<routeActive>('');
+const navRoutes = filterNavRoutes(router);
+const navActive = ref<RouteRecordName>("");
+const menuRoutes = ref<Array<RouteRecordRaw>>([]);
+const menuActive = ref<RouteRecordName>("");
+const useMenu = computed(() => menuRoutes.value.length > 0);
 
-const handlerRouteWatch = (nowRoute: RouteLocationNormalizedLoaded) => {
-    const matchedLen = nowRoute.matched.length;
-    const matchedIndex = matchedLen - 2 <= 0 ? 0 : matchedLen - 2;
-    const { name: navName } = nowRoute.matched[matchedIndex];
-    const { name: menuName } = nowRoute;
+const routeWatch = watch(route, (nowRoute) => {
+    navActive.value = getNavActive(nowRoute);
+    menuRoutes.value = getMenuRoutes(nowRoute);
+    menuActive.value = getMenuActive(nowRoute);
+}, { immediate: true });
 
-    navActive.value = navName;
-    menuActive.value = menuName;
+function handlerNavActive(name: RouteRecordName): void {
+    router.push({ name });
 }
-const routeWatch = watch(route, handlerRouteWatch, { immediate: true });
+function handlerNavRoute(route: RouteRecordRaw): void {
+    menuRoutes.value = filterMenuRoutes(route.children ?? []);
+}
+function handlerMenuActive(name: RouteRecordName): void {
+    router.push({ name });
+}
 
-function handlerWrapRoute(nowRoute: RouteRecordRaw) {
-    const { children } = nowRoute;
-    menuRoutes.value = children;
-    router.push(nowRoute);
+function getNavActive(route: RouteLocationNormalizedLoaded): RouteRecordName {
+    return route.matched.filter(route => route.meta.isNavRoute)[0]?.name ?? "";
+}
+function getMenuRoutes(route: RouteLocationNormalizedLoaded): Array<RouteRecordRaw> {
+    const navRoutes = route.matched.filter(route => route.meta.isNavRoute)[0]?.children ?? [];
+
+    return filterMenuRoutes(navRoutes);
+}
+function getMenuActive(route: RouteLocationNormalizedLoaded): RouteRecordName {
+    return route.matched.filter(route => route.meta.isMenuRoute)[0]?.name ?? "";
 }
 
 onBeforeUnmount(() => {
@@ -59,18 +66,23 @@ onBeforeUnmount(() => {
             <head-main>
                 <template #nav>
                     <nav-main
-                        :active="navActive"
                         :routes="navRoutes"
-                        @wrap:route="handlerWrapRoute"
+                        :active="navActive"
+                        @wrap:active="handlerNavActive"
+                        @wrap:route="handlerNavRoute"
                     ></nav-main>
                 </template>
             </head-main>
         </section>
 
         <section class="w100 ofh ATF-home-body">
-            <body-main>
+            <body-main :use-sider="useMenu">
                 <template #sider>
-                    <menu-main :active="menuActive" :routes="toRaw(menuRoutes)"></menu-main>
+                    <menu-main
+                        :routes="menuRoutes"
+                        :active="menuActive"
+                        @wrap:active="handlerMenuActive"
+                    ></menu-main>
                 </template>
 
                 <template #header>顶部</template>

@@ -1,12 +1,12 @@
 <!--
  * @Author: maggot-code
- * @Date: 2021-11-16 18:02:04
+ * @Date: 2021-11-19 14:01:28
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-16 18:02:05
+ * @LastEditTime: 2021-11-19 14:01:29
  * @Description: file content
 -->
 <script setup lang='ts'></script>
 
-<template>edit</template>
+<template>log info</template>
 
 <style scoped lang='scss'></style>

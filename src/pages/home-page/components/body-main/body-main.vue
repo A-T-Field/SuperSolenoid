@@ -2,11 +2,19 @@
  * @Author: maggot-code
  * @Date: 2021-11-17 13:31:55
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-17 14:58:00
+ * @LastEditTime: 2021-11-21 21:16:50
  * @Description: file content
 -->
 <script setup lang='ts'>
 import { ref } from 'vue';
+
+defineProps({
+    useSider: {
+        type: Boolean,
+        default: true
+    }
+});
+
 const siderStatus = ref(false);
 function handlerCollapsed() {
     siderStatus.value = !siderStatus.value;
@@ -18,6 +26,7 @@ function handlerCollapsed() {
         <n-space class="h100" item-style="height:100%;" size="large" :vertical="true">
             <n-layout class="h100" :has-sider="true" :embedded="true" :native-scrollbar="true">
                 <n-layout-sider
+                    v-if="useSider"
                     class="h100"
                     :bordered="true"
                     :inverted="true"

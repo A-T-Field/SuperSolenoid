@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 14:05:32
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-17 18:02:17
+ * @LastEditTime: 2021-11-19 15:10:25
  * @Description: file content
  */
 import type { RouteRecordRaw } from 'vue-router';
@@ -17,26 +17,18 @@ interface HandlerNode<R> {
     (node: R, parentNode?: R, index?: number, data?: Array<R>): R
 }
 
-const setPath = (node: RouteRecordRaw, parentNode?: RouteRecordRaw): string => {
-    if (!parentNode || parentNode?.name !== node.meta?.parent) return node.path;
-
-    return parentNode.path + node.path;
-}
-
 const setComponent = (node: RouteRecordRaw) => {
     const { meta } = node;
 
-    // return () => import(`../pages/${String(name)}/index.ts`);
-    if (meta?.view) {
-        return () => import(/* webpackChunkName: "group-async" */ `../../src/pages/${String(meta?.view)}/index.ts`);
-    } else {
-        return () => import(`../../src/pages/not-page/index`);
-    }
+    const component = meta?.view
+        ? () => import(/* webpackChunkName: "group-async" */ `../../src/pages/${String(meta?.view)}/index.ts`)
+        : () => import(/* webpackChunkName: "group-base" */ `../../src/pages/not-page/index`);
+
+    return component;
 }
 
 const handlerNode: HandlerNode<RouteRecordRaw> = (node, parentNode) => {
     const route = useRouteRecordRaw(Object.assign({}, node, {
-        path: setPath(node, parentNode),
         component: setComponent(node)
     }));
 
