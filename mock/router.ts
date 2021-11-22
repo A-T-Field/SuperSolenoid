@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-15 17:46:34
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-19 16:11:45
+ * @LastEditTime: 2021-11-22 00:03:57
  * @Description: file content
  */
 import { MockMethod } from 'vite-plugin-mock';
@@ -11,14 +11,14 @@ import { default as useMockServer, wrapperContext } from '@m/_utils';
 // 获取路由表
 const workerRoutingData = [
     {
-        name: "report",
-        path: '/report',
+        name: 'report',
+        path: "/report",
         redirect: '/report/add',
         meta: {
             async: true,
-            title: "工单报表",
-            view: "home-page",
-            isNavRoute: true,
+            view: 'home-page',
+            title: '工单报表',
+            isMenuRoute: true,
             hasPower: true,
         },
         children: [
@@ -27,21 +27,21 @@ const workerRoutingData = [
                 path: '/report/add',
                 meta: {
                     async: true,
-                    title: "报表新增",
-                    view: "report-add",
-                    parent: "report",
-                    isNavRoute: true
+                    view: 'report-add',
+                    parent: 'report',
+                    title: '工单报表-新增',
+                    isMenuRoute: true,
                 }
             },
             {
-                name: "report_edit",
+                name: 'report_edit',
                 path: '/report/edit',
                 meta: {
                     async: true,
-                    title: "报表修改",
-                    view: "report-edit",
-                    parent: "report",
-                    isNavRoute: true
+                    view: 'report-edit',
+                    parent: 'report',
+                    title: '工单报表-编辑',
+                    isMenuRoute: true,
                 }
             }
         ]
@@ -49,35 +49,35 @@ const workerRoutingData = [
     {
         name: 'log',
         path: '/log',
-        redirect: '/log/info',
+        redirect: '/report/warn',
         meta: {
             async: true,
-            title: "工作日志",
-            view: "home-page",
-            isNavRoute: true,
+            view: 'home-page',
+            title: '工单日志',
+            isMenuRoute: true,
             hasPower: true,
         },
         children: [
             {
-                name: 'info',
-                path: '/log/info',
+                name: 'log_warn',
+                path: '/log/warn',
                 meta: {
                     async: true,
-                    title: "信息级别",
-                    view: "info",
+                    view: 'warning',
                     parent: 'log',
-                    isMenuRoute: true
+                    title: '工单日志-报警',
+                    isMenuRoute: true,
                 }
             },
             {
-                name: 'warning',
-                path: '/log/warning',
+                name: 'log_info',
+                path: '/log/info',
                 meta: {
                     async: true,
-                    title: "报警级别",
-                    view: "warning",
+                    view: 'info',
                     parent: 'log',
-                    isMenuRoute: true
+                    title: '工单日志-信息',
+                    isMenuRoute: true,
                 }
             }
         ]

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-17 15:02:22
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-21 22:27:34
+ * @LastEditTime: 2021-11-22 00:05:06
  * @Description: file content
 -->
 <script setup lang='ts'>
@@ -35,7 +35,9 @@ function handlerValue(name: RouteRecordName, route: RouteRecordRaw) {
         label-field="title"
         children-field="nextNode"
         mode="vertical"
+        :accordion="true"
         :inverted="true"
+        :indent="24"
         :options="routes"
         :value="active"
         @update:value="handlerValue"

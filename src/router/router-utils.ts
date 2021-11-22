@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-16 23:18:12
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-21 22:31:28
+ * @LastEditTime: 2021-11-22 10:10:36
  * @Description: file content
  */
 import type { Router, RouteRecordName, RouteRecordRaw } from 'vue-router';
@@ -24,14 +24,14 @@ export function addBadRoute(router: Router): void {
     }
 }
 
-const handlerNavRoutes = (routes: Array<RouteRecordRaw>, parent: RouteRecordName): Array<RouteRecordRaw> => {
+export function handlerRoutes(routes: Array<RouteRecordRaw>, parent: RouteRecordName): Array<RouteRecordRaw> {
     const data: Array<RouteRecordRaw> = [];
 
     routes.forEach(route => {
         const { name, meta, children } = route;
 
-        if (meta?.async && meta.isNavRoute && meta?.parent === parent) {
-            const nextNode = handlerNavRoutes(children ?? [], name ?? "");
+        if (meta?.async && meta.isMenuRoute && meta?.parent === parent) {
+            const nextNode = handlerRoutes(children ?? [], name ?? "");
 
             if (nextNode.length > 0) route['nextNode'] = nextNode;
 
@@ -41,26 +41,9 @@ const handlerNavRoutes = (routes: Array<RouteRecordRaw>, parent: RouteRecordName
 
     return data;
 }
-export function filterNavRoutes(router: Router): Array<RouteRecordRaw> {
+
+export function filterRoutes(router: Router): Array<RouteRecordRaw> {
     const routes = router.getRoutes();
 
-    return handlerNavRoutes(routes, '');
-}
-
-export function filterMenuRoutes(routes: Array<RouteRecordRaw>) {
-    const data: Array<RouteRecordRaw> = [];
-
-    routes.forEach(route => {
-        const { meta, children } = route;
-
-        if (meta?.async && meta.isMenuRoute) {
-            const nextNode = filterMenuRoutes(children ?? []);
-
-            if (nextNode.length > 0) route['nextNode'] = nextNode;
-
-            data.push(Object.assign({}, route, meta));
-        }
-    });
-
-    return data;
+    return handlerRoutes(routes, '');
 }

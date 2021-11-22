@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-28 11:27:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-18 13:20:11
+ * @LastEditTime: 2021-11-22 09:56:33
  * @Description: file content
  */
 import type { App } from 'vue';
@@ -25,7 +25,9 @@ import {
     NButtonGroup,
     NForm,
     NFormItem,
-    NInput
+    NInput,
+    NBreadcrumb,
+    NBreadcrumbItem
 } from 'naive-ui';
 
 const naiveUI = createNaiveUI({
@@ -45,7 +47,9 @@ const naiveUI = createNaiveUI({
         NButtonGroup,
         NForm,
         NFormItem,
-        NInput
+        NInput,
+        NBreadcrumb,
+        NBreadcrumbItem
     ]
 });
 

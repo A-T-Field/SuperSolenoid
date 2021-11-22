@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-17 13:31:55
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-21 21:16:50
+ * @LastEditTime: 2021-11-22 10:31:13
  * @Description: file content
 -->
 <script setup lang='ts'>
@@ -28,6 +28,7 @@ function handlerCollapsed() {
                 <n-layout-sider
                     v-if="useSider"
                     class="h100"
+                    show-trigger="bar"
                     :bordered="true"
                     :inverted="true"
                     :native-scrollbar="false"

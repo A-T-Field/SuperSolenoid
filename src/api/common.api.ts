@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-11 10:42:02
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-16 18:28:07
+ * @LastEditTime: 2021-11-21 23:14:53
  * @Description: file content
  */
 import { atfApi } from '@/api/request';
@@ -16,7 +16,7 @@ export const login = <T = any>(data: T) => send({
     data,
 });
 
-// 获取
+// 获取权限
 export const getPower = () => send({
     url: '/power/get',
     method: RequestMethodsEnum.GET

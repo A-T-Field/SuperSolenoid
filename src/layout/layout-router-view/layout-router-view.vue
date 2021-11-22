@@ -2,16 +2,17 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 11:05:25
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-17 13:23:49
+ * @LastEditTime: 2021-11-22 11:11:26
  * @Description: file content
 -->
 <template>
-    <!-- <router-view v-slot="{ Component }">
-        <transition name="scale-slide">
-            <component :is="Component"></component>
-        </transition>
-    </router-view>-->
-    <router-view></router-view>
+    <router-view>
+        <template #default="{ Component, route }">
+            <transition name="scale-slide" mode="out-in" :appear="true">
+                <component :is="Component" :key="route.fullPath"></component>
+            </transition>
+        </template>
+    </router-view>
 </template>
 
 <script lang='ts'>

@@ -2,81 +2,49 @@
  * @Author: maggot-code
  * @Date: 2021-11-17 11:18:39
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-21 23:08:01
+ * @LastEditTime: 2021-11-22 11:13:25
  * @Description: file content
 -->
 <script setup lang='ts'>
-import type { RouteRecordName, RouteRecordRaw, RouteLocationNormalizedLoaded } from 'vue-router';
+import type { RouteRecordName } from 'vue-router';
 
 import { default as LayoutRouterView } from '@/layout/layout-router-view';
 import { default as HeadMain } from '@/pages/home-page/components/head-main';
 import { default as BodyMain } from '@/pages/home-page/components/body-main';
-import { default as NavMain } from '@/pages/home-page/components/nav-main';
 import { default as MenuMain } from '@/pages/home-page/components/menu-main';
+import { default as BodyHeader } from '@/pages/home-page/components/body-header';
+import { default as CrumbsMain } from '@/pages/home-page/components/crumbs-main';
 
-import { ref, computed, watch, onBeforeUnmount } from 'vue';
+import { ref, watch, onBeforeUnmount } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import { filterNavRoutes, filterMenuRoutes } from '@/router/router-utils';
+import { filterRoutes } from '@/router/router-utils';
 
 const router = useRouter();
 const route = useRoute();
 
-const navRoutes = filterNavRoutes(router);
-const navActive = ref<RouteRecordName>("");
-const menuRoutes = ref<Array<RouteRecordRaw>>([]);
+const menuRoutes = filterRoutes(router);
 const menuActive = ref<RouteRecordName>("");
-const useMenu = computed(() => menuRoutes.value.length > 0);
-
-const routeWatch = watch(route, (nowRoute) => {
-    navActive.value = getNavActive(nowRoute);
-    menuRoutes.value = getMenuRoutes(nowRoute);
-    menuActive.value = getMenuActive(nowRoute);
+const watchRoute = watch(route, (nowRoute) => {
+    menuActive.value = nowRoute.name ?? "";
 }, { immediate: true });
 
-function handlerNavActive(name: RouteRecordName): void {
+function handlerMenuActive(name: RouteRecordName) {
     router.push({ name });
-}
-function handlerNavRoute(route: RouteRecordRaw): void {
-    menuRoutes.value = filterMenuRoutes(route.children ?? []);
-}
-function handlerMenuActive(name: RouteRecordName): void {
-    router.push({ name });
-}
-
-function getNavActive(route: RouteLocationNormalizedLoaded): RouteRecordName {
-    return route.matched.filter(route => route.meta.isNavRoute)[0]?.name ?? "";
-}
-function getMenuRoutes(route: RouteLocationNormalizedLoaded): Array<RouteRecordRaw> {
-    const navRoutes = route.matched.filter(route => route.meta.isNavRoute)[0]?.children ?? [];
-
-    return filterMenuRoutes(navRoutes);
-}
-function getMenuActive(route: RouteLocationNormalizedLoaded): RouteRecordName {
-    return route.matched.filter(route => route.meta.isMenuRoute)[0]?.name ?? "";
 }
 
 onBeforeUnmount(() => {
-    routeWatch();
+    watchRoute();
 })
 </script>
 
 <template>
     <main class="w100 h100 ofh ATF-home">
         <section class="w100 ofh ATF-home-head">
-            <head-main>
-                <template #nav>
-                    <nav-main
-                        :routes="navRoutes"
-                        :active="navActive"
-                        @wrap:active="handlerNavActive"
-                        @wrap:route="handlerNavRoute"
-                    ></nav-main>
-                </template>
-            </head-main>
+            <head-main></head-main>
         </section>
 
         <section class="w100 ofh ATF-home-body">
-            <body-main :use-sider="useMenu">
+            <body-main>
                 <template #sider>
                     <menu-main
                         :routes="menuRoutes"
@@ -85,7 +53,13 @@ onBeforeUnmount(() => {
                     ></menu-main>
                 </template>
 
-                <template #header>顶部</template>
+                <template #header>
+                    <body-header>
+                        <template #crumb>
+                            <crumbs-main slot="crumb" @wrap-select="handlerMenuActive"></crumbs-main>
+                        </template>
+                    </body-header>
+                </template>
 
                 <template #default>
                     <layout-router-view></layout-router-view>
