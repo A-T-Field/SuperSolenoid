@@ -2,17 +2,20 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 11:05:25
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-22 16:54:50
+ * @LastEditTime: 2021-11-22 18:19:25
  * @Description: file content
 -->
 <template>
     <router-view>
         <template #default="{ Component, route }">
-            <n-scrollbar>
+            <!-- <n-scrollbar>
                 <transition name="scale-slide" mode="out-in" :appear="true">
                     <component :is="Component" :key="route.fullPath"></component>
                 </transition>
-            </n-scrollbar>
+            </n-scrollbar>-->
+            <transition name="scale-slide" mode="out-in" :appear="true">
+                <component :is="Component" :key="route.fullPath"></component>
+            </transition>
         </template>
     </router-view>
 </template>
@@ -34,3 +37,5 @@ export default defineComponent({
     created() { },
 });
 </script>
+
+<style scoped lang="scss"></style>
