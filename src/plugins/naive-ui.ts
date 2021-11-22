@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-28 11:27:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-22 14:20:58
+ * @LastEditTime: 2021-11-22 17:06:04
  * @Description: file content
  */
 import type { App } from 'vue';
@@ -10,9 +10,12 @@ import type { App } from 'vue';
 import {
     create as createNaiveUI,
 
+    NConfigProvider,
     NLoadingBarProvider,
     NMessageProvider,
 
+    NDataTable,
+    NTable,
     NBadge,
     NAvatar,
     NPopover,
@@ -30,14 +33,18 @@ import {
     NFormItem,
     NInput,
     NBreadcrumb,
-    NBreadcrumbItem
+    NBreadcrumbItem,
+    NScrollbar
 } from 'naive-ui';
 
 const naiveUI = createNaiveUI({
     components: [
+        NConfigProvider,
         NLoadingBarProvider,
         NMessageProvider,
 
+        NDataTable,
+        NTable,
         NBadge,
         NAvatar,
         NPopover,
@@ -55,7 +62,8 @@ const naiveUI = createNaiveUI({
         NFormItem,
         NInput,
         NBreadcrumb,
-        NBreadcrumbItem
+        NBreadcrumbItem,
+        NScrollbar
     ]
 });
 
@@ -65,6 +73,8 @@ function useNaiveUI(app: App<Element>, appextend: App<Element>): void {
 }
 
 export {
+    NAvatar,
+
     naiveUI,
 };
 

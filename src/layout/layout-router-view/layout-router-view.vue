@@ -2,15 +2,17 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 11:05:25
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-22 11:11:26
+ * @LastEditTime: 2021-11-22 16:54:50
  * @Description: file content
 -->
 <template>
     <router-view>
         <template #default="{ Component, route }">
-            <transition name="scale-slide" mode="out-in" :appear="true">
-                <component :is="Component" :key="route.fullPath"></component>
-            </transition>
+            <n-scrollbar>
+                <transition name="scale-slide" mode="out-in" :appear="true">
+                    <component :is="Component" :key="route.fullPath"></component>
+                </transition>
+            </n-scrollbar>
         </template>
     </router-view>
 </template>
