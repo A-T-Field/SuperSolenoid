@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-28 11:27:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-22 09:56:33
+ * @LastEditTime: 2021-11-22 13:27:38
  * @Description: file content
  */
 import type { App } from 'vue';
@@ -13,6 +13,8 @@ import {
     NLoadingBarProvider,
     NMessageProvider,
 
+    NBadge,
+    NAvatar,
     NSpace,
     NLayout,
     NLayoutContent,
@@ -35,6 +37,8 @@ const naiveUI = createNaiveUI({
         NLoadingBarProvider,
         NMessageProvider,
 
+        NBadge,
+        NAvatar,
         NSpace,
         NLayout,
         NLayoutContent,

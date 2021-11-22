@@ -1,9 +1,11 @@
+$ATF-themeColor:#18a058;
 // font
 $ATF-font-color-def:#2c3e50;
 $ATF-font-color-des:#808695;
+$ATF-font-color-back:#fff;
 
 // background
-$ATF-background-color:#666;
+$ATF-background-color:rgba($ATF-themeColor,0.3);
 
 // class name
 .w100{
