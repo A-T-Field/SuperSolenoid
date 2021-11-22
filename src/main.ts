@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-14 15:36:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-16 16:34:45
+ * @LastEditTime: 2021-11-22 14:07:01
  * @Description: file content
  */
 import type { App } from 'vue';
@@ -14,6 +14,7 @@ import { default as useVueRouter } from '@/router';
 import { default as useLayout } from '@/layout';
 
 import 'normalize.css';
+import '@/assets/icon/iconfont.css';
 
 import AppView from '@/App.vue';
 import AppLication from '@/Application.vue';

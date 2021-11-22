@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-17 13:31:55
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-22 10:31:13
+ * @LastEditTime: 2021-11-22 14:29:03
  * @Description: file content
 -->
 <script setup lang='ts'>
@@ -44,7 +44,11 @@ function handlerCollapsed() {
                 </n-layout-sider>
 
                 <div class="w100 h100 ofh ATF-body-main-context">
-                    <n-layout-header :bordered="true" :inverted="true">
+                    <n-layout-header
+                        class="ATF-body-main-context-header"
+                        :bordered="true"
+                        :inverted="false"
+                    >
                         <slot name="header"></slot>
                     </n-layout-header>
 

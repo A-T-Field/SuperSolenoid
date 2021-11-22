@@ -1,0 +1,14 @@
+@import '@/style/var.scss';
+
+.ATF-body-header{
+    display: flex;
+    height: 48px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    &-center{
+        align-self: center;
+    }
+    &-reload{
+        margin-right: 30px;
+    }
+}

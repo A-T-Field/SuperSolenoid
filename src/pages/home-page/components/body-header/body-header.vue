@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 09:47:24
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-22 10:27:32
+ * @LastEditTime: 2021-11-22 14:25:40
  * @Description: file content
 -->
 <script setup lang='ts'>
@@ -18,8 +18,32 @@ function handlerReloadPage() {
 </script>
 
 <template>
-    <n-button @click="handlerReloadPage">刷新页面</n-button>
-    <slot name="crumb"></slot>
+    <div class="w100 ATF-body-header">
+        <n-popover trigger="hover" placement="right">
+            <template #trigger>
+                <n-button
+                    class="ATF-body-header-center ATF-body-header-reload"
+                    type="default"
+                    size="small"
+                    :bordered="true"
+                    :circle="true"
+                    :dashed="true"
+                    :tertiary="true"
+                    :strong="true"
+                    @click="handlerReloadPage"
+                >
+                    <i class="iconfont ATF-sync"></i>
+                </n-button>
+            </template>
+            <span>刷新页面</span>
+        </n-popover>
+
+        <div class="ATF-body-header-center ATF-body-header-crumb">
+            <slot name="crumb"></slot>
+        </div>
+    </div>
 </template>
 
-<style scoped lang='scss'></style>
+<style scoped lang='scss'>
+@import "./body-header.scss";
+</style>
