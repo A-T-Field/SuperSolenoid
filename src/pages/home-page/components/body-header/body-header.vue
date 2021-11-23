@@ -2,10 +2,12 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 09:47:24
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-22 14:25:40
+ * @LastEditTime: 2021-11-23 09:27:40
  * @Description: file content
 -->
 <script setup lang='ts'>
+import { default as IconImg } from '@/components/icon-img';
+
 import { useRouter, useRoute } from 'vue-router';
 import { default as useReloadPage } from '@/router/router-reload-page';
 
@@ -32,7 +34,7 @@ function handlerReloadPage() {
                     :strong="true"
                     @click="handlerReloadPage"
                 >
-                    <i class="iconfont ATF-sync"></i>
+                    <icon-img name="ATF-sync"></icon-img>
                 </n-button>
             </template>
             <span>刷新页面</span>

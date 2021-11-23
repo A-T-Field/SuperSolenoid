@@ -2,30 +2,31 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 15:10:52
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-22 18:25:17
+ * @LastEditTime: 2021-11-23 10:38:11
  * @Description: file content
 -->
 <script setup lang='ts'>
 import { NAvatar } from '@/plugins/naive-ui';
-
-import { h, ref, reactive, computed, onMounted } from 'vue';
+import { h, ref, computed, onMounted } from 'vue';
 import { getTableData } from '@/api/common.api';
-import { isNil } from '@/utils/is';
 
 const packageBox = ref<Element | null>(null);
-const packageHeight = computed(() => {
-    if (isNil(packageBox.value)) return 0;
-
-    const { clientHeight } = packageBox.value;
-    return clientHeight as number;
-});
-const packageReady = computed(() => {
-    return packageHeight.value > 0;
-});
+const packageHeight = ref(0);
+const packageReady = computed(() => packageHeight.value > 0);
 
 const tableLoading = ref<boolean>(true);
+
 const tableData = ref<Array<any>>([]);
-const tableColumns = [
+
+const sortStatesRef = ref([])
+const sortKeyMapOrderRef = computed(() =>
+    sortStatesRef.value.reduce((result, { columnKey, order }) => {
+        result[columnKey] = order
+        return result
+    }, {})
+);
+
+const tableColumns = computed(() => [
     {
         key: "ATF-select",
         type: 'selection',
@@ -36,6 +37,8 @@ const tableColumns = [
         key: "img",
         title: "头像",
         align: 'center',
+        sorter: false,
+        sortOrder: false,
         render(row) {
             return h(NAvatar, {
                 size: 48,
@@ -47,6 +50,8 @@ const tableColumns = [
         key: "name",
         title: "姓名",
         align: 'center',
+        sorter: false,
+        sortOrder: false,
         ellipsis: {
             tooltip: true
         }
@@ -55,6 +60,8 @@ const tableColumns = [
         key: 'date',
         title: "日期",
         align: 'center',
+        sorter: { multiple: 2 },
+        sortOrder: sortKeyMapOrderRef.value['date'] || false,
         ellipsis: {
             tooltip: true
         }
@@ -63,33 +70,13 @@ const tableColumns = [
         key: 'time',
         title: "时间",
         align: 'center',
+        sorter: { multiple: 1 },
+        sortOrder: sortKeyMapOrderRef.value['time'] || false,
         ellipsis: {
             tooltip: true
         }
     }
-];
-
-const pageoptions = reactive({
-    page: 1,
-    pageSize: 10,
-    pageSizes: [
-        {
-            label: "10 / 每页",
-            value: 10
-        },
-        {
-            label: "20 / 每页",
-            value: 20
-        },
-        {
-            label: "30 / 每页",
-            value: 30
-        }
-    ],
-    pageCount: 20,
-    showSizePicker: true,
-    showQuickJumper: true,
-})
+]);
 
 function handlerRowKey(rowData) {
     return rowData.id;
@@ -99,6 +86,11 @@ function handlerCheck(keys) {
     console.log(keys);
 }
 
+function handlerSorter(sorters) {
+    console.log(sorters);
+    sortStatesRef.value = [].concat(sorters);
+}
+
 onMounted(() => {
     getTableData().then(response => {
         const { context } = response.data;
@@ -106,19 +98,21 @@ onMounted(() => {
         tableLoading.value = false;
     });
 
-    console.dir(packageBox.value);
+    const height = packageBox.value?.clientHeight ?? 0;
+    packageHeight.value = height - 90 <= 0 ? 0 : height - 90;
 });
 </script>
 
 <template>
     <div class="ATF-table" ref="packageBox">
+        <!-- size small medium large -->
         <n-data-table
             v-if="packageReady"
             ref="ATFTable"
+            row-class-name="ATF-table-row"
             size="large"
             :max-height="packageHeight"
             :min-height="packageHeight"
-            row-class-name="ATF-table-row"
             :remote="false"
             :bordered="true"
             :bottom-bordered="true"
@@ -127,9 +121,10 @@ onMounted(() => {
             :columns="tableColumns"
             :data="tableData"
             :row-key="handlerRowKey"
-            :pagination="pageoptions"
+            :pagination="false"
             :virtual-scroll="false"
             @update:checked-row-keys="handlerCheck"
+            @update:sorter="handlerSorter"
         ></n-data-table>
     </div>
 </template>
