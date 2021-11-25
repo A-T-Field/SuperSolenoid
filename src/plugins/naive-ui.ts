@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-28 11:27:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-22 17:06:04
+ * @LastEditTime: 2021-11-24 15:02:42
  * @Description: file content
  */
 import type { App } from 'vue';
@@ -74,6 +74,8 @@ function useNaiveUI(app: App<Element>, appextend: App<Element>): void {
 
 export {
     NAvatar,
+    NDataTable,
+    NTable,
 
     naiveUI,
 };

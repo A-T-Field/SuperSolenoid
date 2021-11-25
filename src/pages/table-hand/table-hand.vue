@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 15:10:52
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-23 10:38:11
+ * @LastEditTime: 2021-11-23 16:44:00
  * @Description: file content
 -->
 <script setup lang='ts'>
@@ -57,10 +57,13 @@ const tableColumns = computed(() => [
         }
     },
     {
+        type: "",
         key: 'date',
         title: "日期",
         align: 'center',
-        sorter: { multiple: 2 },
+        sorter: {
+            multiple: 3
+        },
         sortOrder: sortKeyMapOrderRef.value['date'] || false,
         ellipsis: {
             tooltip: true
@@ -70,7 +73,9 @@ const tableColumns = computed(() => [
         key: 'time',
         title: "时间",
         align: 'center',
-        sorter: { multiple: 1 },
+        sorter: {
+            multiple: 4
+        },
         sortOrder: sortKeyMapOrderRef.value['time'] || false,
         ellipsis: {
             tooltip: true
