@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-25 10:45:19
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-25 22:50:50
+ * @LastEditTime: 2021-11-26 00:12:44
  * @Description: file content
  */
 import type { VNodeChild, ComputedRef } from 'vue';
@@ -36,19 +36,20 @@ const setRender = (column: OptionColumn) => (rowData: any, rowIndex: number): VN
 }
 
 const setSorter = (column: OptionColumn, index: number) => {
-    return useSort(column) ? {
-        ...column,
-        multiple: index,
-    } : false;
+    return useSort(column)
+        ? {
+            ...column,
+            multiple: index,
+        }
+        : false;
 }
 
 const setSortOrder = (column: OptionColumn, options: UseColumnsOptions) => {
     const { key, sortName } = column;
+
     const { sortKeyMap } = options;
 
-    const status = sortKeyMap.value[sortName ?? key] || false;
-
-    return useSort(column) ? status : false;
+    return useSort(column) ? sortKeyMap.value[sortName ?? key] || false : false;
 }
 
 const handlerColumn = (options: UseColumnsOptions) => (baseColumn: OptionColumn, index: number) => {
@@ -82,9 +83,7 @@ function useColumns(props: computedProps, options: UseColumnsOptions) {
     const getColumns = computed<columnsType>(() => {
         const columns = unref(columnsRef);
 
-        if (!isArray(columns) || columns.length <= 0) return [];
-
-        return handlerColumns(columns, options);
+        return isArray(columns) && columns.length > 0 ? handlerColumns(columns, options) : [];
     });
 
     const setColumns = (columns: columnsType) => {

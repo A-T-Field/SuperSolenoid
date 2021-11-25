@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-24 15:48:11
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-25 18:16:54
+ * @LastEditTime: 2021-11-26 00:14:11
  * @Description: file content
  */
 import type { ComputedRef } from 'vue';
@@ -20,18 +20,17 @@ export type sortType = 'descend' | 'ascend' | false;
 
 export interface SorterMultipleExpand extends SorterMultiple {
     sortName?: string
-}
+};
 
 export interface SortStateExpand extends SortState {
     sorter: SorterMultipleExpand
-}
+};
 
 export type sortersType = Array<SortStateExpand>;
 
 export interface SortKeyType {
     [key: string]: sortType
 };
-
 
 export interface OptionColumn extends TableBaseColumn {
     key: string;
@@ -41,7 +40,7 @@ export interface OptionColumn extends TableBaseColumn {
     isSort?: boolean;
     isExpand?: boolean;
     children?: Array<OptionColumn>;
-}
+};
 
 export type dataType = Array<any>;
 
@@ -59,7 +58,7 @@ export interface OptionProps {
     data?: dataType;
     columns?: columnsType;
     useSelect?: boolean;
-}
+};
 
 export interface BaseProps {
     readonly bottomBordered?: boolean;
@@ -71,7 +70,7 @@ export interface BaseProps {
     maxHeight?: number;
     minHeight?: number;
     scrollX?: number;
-}
+};
 
 export type tableProps = OptionProps & BaseProps;
 

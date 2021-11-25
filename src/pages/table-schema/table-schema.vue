@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 15:11:39
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-25 18:24:32
+ * @LastEditTime: 2021-11-26 00:04:57
  * @Description: file content
 -->
 <script setup lang='ts'>
@@ -14,7 +14,7 @@ import { getTableData } from '@/api/common.api';
 const {
     tableElRef,
     tableDataBind,
-    uninstall,
+    handlerUninstall,
     setRowKey,
     setDataSource,
     setColumns
@@ -29,7 +29,8 @@ onMounted(() => {
                 title: "姓名",
                 sortName: "aaa",
                 align: 'center',
-                isSort: true
+                isSort: true,
+                mode: 'button'
             },
             {
                 key: 'date',
@@ -48,7 +49,7 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-    uninstall.forEach(func => func());
+    handlerUninstall();
 });
 </script>
 

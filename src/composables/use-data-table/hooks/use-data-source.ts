@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-25 10:00:06
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-25 15:19:20
+ * @LastEditTime: 2021-11-26 00:08:37
  * @Description: file content
  */
 import type { computedProps } from '../types/props';
@@ -16,9 +16,7 @@ function handlerDataSource(props: computedProps) {
     const getDataSource = computed(() => {
         const data = unref(dataSourceRef);
 
-        if (!isArray(data) || data.length <= 0) return [];
-
-        return data;
+        return isArray(data) && data.length > 0 ? data : [];
     });
 
     const setDataSource = (data?: Array<any>) => {

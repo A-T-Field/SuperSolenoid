@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-24 15:45:35
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-25 23:50:45
+ * @LastEditTime: 2021-11-26 00:06:27
  * @Description: file content
  */
 import type { DataTableProps } from 'naive-ui';
@@ -69,14 +69,14 @@ function useDataTable(optionProps?: OptionProps) {
         sortKeyMap: sortKeyMapOrderRef
     });
 
-    const uninstall = [
-        tableElWatch,
-        loadingWatch,
-        rowKeyWatch,
-        dataSourceWatch,
-        columnsWatch,
-        sortWatch
-    ];
+    const handlerUninstall = () => {
+        tableElWatch();
+        loadingWatch();
+        rowKeyWatch();
+        dataSourceWatch();
+        columnsWatch();
+        sortWatch();
+    }
 
     const tableDataBind = computed(() => {
         const bind: DataTableProps = {
@@ -95,17 +95,12 @@ function useDataTable(optionProps?: OptionProps) {
         props,
         tableElRef,
         tableDataBind,
-        uninstall,
+        handlerUninstall,
         setLoading,
         setRowKey,
         setDataSource,
         setColumns
     }
-}
-
-export {
-    useProps,
-    useLoading
 }
 
 export default useDataTable;
