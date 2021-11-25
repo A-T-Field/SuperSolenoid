@@ -2,21 +2,56 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 15:11:39
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-25 10:31:50
+ * @LastEditTime: 2021-11-25 14:19:05
  * @Description: file content
 -->
 <script setup lang='ts'>
-import { onBeforeUnmount } from 'vue';
+import { onBeforeUnmount, onMounted } from 'vue';
 import { default as useDataTable } from '@/composables/use-data-table';
+
+import { getTableData } from '@/api/common.api';
 
 const {
     tableElRef,
     tableDataBind,
-    uninstall
+    uninstall,
+    setDataSource
 } = useDataTable({
     rowKey: 'id',
     data: [],
-    columns: []
+    columns: [
+        {
+            key: "name",
+            title: "姓名",
+            isSort: true,
+            mode: 'button'
+            // sorter: false,
+            // sortOrder: false,
+            // ellipsis: {
+            //     tooltip: true
+            // }
+        },
+        {
+            key: 'date',
+            title: "日期",
+        },
+        {
+            key: 'time',
+            title: "时间",
+            align: 'center',
+            isSort: true
+            // ellipsis: {
+            //     tooltip: true
+            // }
+        }
+    ]
+});
+
+onMounted(() => {
+    getTableData().then(response => {
+        const { context } = response.data;
+        setDataSource(context);
+    });
 });
 
 onBeforeUnmount(() => {

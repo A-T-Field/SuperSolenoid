@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-28 11:27:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-24 15:02:42
+ * @LastEditTime: 2021-11-25 14:21:46
  * @Description: file content
  */
 import type { App } from 'vue';
@@ -76,6 +76,7 @@ export {
     NAvatar,
     NDataTable,
     NTable,
+    NButton,
 
     naiveUI,
 };

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-24 15:50:11
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-24 18:30:06
+ * @LastEditTime: 2021-11-25 13:52:35
  * @Description: file content
  */
 import type { tableProps, OptionProps } from '../types/props';
@@ -28,7 +28,8 @@ const defaultProps: tableProps = {
     rowKey: "index",
     loading: false,
     data: [],
-    columns: []
+    columns: [],
+    useSelect: true
 };
 
 function useProps(optionProps: OptionProps) {

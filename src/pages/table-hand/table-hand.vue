@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 15:10:52
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-23 16:44:00
+ * @LastEditTime: 2021-11-25 11:47:10
  * @Description: file content
 -->
 <script setup lang='ts'>
@@ -19,12 +19,15 @@ const tableLoading = ref<boolean>(true);
 const tableData = ref<Array<any>>([]);
 
 const sortStatesRef = ref([])
-const sortKeyMapOrderRef = computed(() =>
-    sortStatesRef.value.reduce((result, { columnKey, order }) => {
+const sortKeyMapOrderRef = computed(() => {
+    const a = sortStatesRef.value.reduce((result, { columnKey, order }) => {
         result[columnKey] = order
         return result
-    }, {})
-);
+    }, {});
+    console.log(a);
+
+    return a;
+});
 
 const tableColumns = computed(() => [
     {

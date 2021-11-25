@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-25 10:00:06
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-25 10:29:35
+ * @LastEditTime: 2021-11-25 14:05:42
  * @Description: file content
  */
 import type { computedProps } from '../types/props';
@@ -43,7 +43,9 @@ function handlerDataSource(props: computedProps) {
 function handlerRowKey(props: computedProps) {
     const getRowKey = computed(() => {
         const key = unref(props).rowKey;
-        return () => key ?? "";
+        return (rowData) => {
+            return rowData[key ?? ""] ?? Date.now()
+        }
     });
 
     return {
