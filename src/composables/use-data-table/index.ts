@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-24 15:45:35
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-25 17:46:10
+ * @LastEditTime: 2021-11-25 23:50:45
  * @Description: file content
  */
 import type { DataTableProps } from 'naive-ui';
@@ -56,8 +56,9 @@ function useDataTable(optionProps?: OptionProps) {
     } = useDataSource(props);
 
     const {
-        sortStatesRef,
-        sortKeyMapOrderRef
+        sortKeyMapOrderRef,
+        setSortStates,
+        sortWatch
     } = useSort(props);
 
     const {
@@ -73,7 +74,8 @@ function useDataTable(optionProps?: OptionProps) {
         loadingWatch,
         rowKeyWatch,
         dataSourceWatch,
-        columnsWatch
+        columnsWatch,
+        sortWatch
     ];
 
     const tableDataBind = computed(() => {
@@ -83,9 +85,7 @@ function useDataTable(optionProps?: OptionProps) {
             data: unref(getDataSource),
             columns: unref(getColumns),
             rowKey: unref(getRowKey),
-            onUpdateSorter: (sortState) => {
-                sortStatesRef.value = [].concat(sortState);
-            }
+            onUpdateSorter: setSortStates
         };
 
         return Object.assign({}, unref(props), bind);

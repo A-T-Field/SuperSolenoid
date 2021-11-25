@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-25 10:45:19
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-25 17:57:17
+ * @LastEditTime: 2021-11-25 22:50:50
  * @Description: file content
  */
 import type { VNodeChild, ComputedRef } from 'vue';
@@ -43,10 +43,10 @@ const setSorter = (column: OptionColumn, index: number) => {
 }
 
 const setSortOrder = (column: OptionColumn, options: UseColumnsOptions) => {
-    const { key } = column;
+    const { key, sortName } = column;
     const { sortKeyMap } = options;
 
-    const status = sortKeyMap.value[key] || false;
+    const status = sortKeyMap.value[sortName ?? key] || false;
 
     return useSort(column) ? status : false;
 }
