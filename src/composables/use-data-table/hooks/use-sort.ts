@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-25 13:07:27
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-25 13:54:01
+ * @LastEditTime: 2021-11-25 17:05:01
  * @Description: file content
  */
 import type { computedProps, sortersType } from '../types/props';
@@ -17,7 +17,7 @@ function useSort(props: computedProps) {
     });
 
     const setSorters = (soters: sortersType) => {
-        sortersRef.value = soters;
+        sortersRef.value = unref(soters);
     };
 
     return {

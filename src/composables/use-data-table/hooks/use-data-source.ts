@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-25 10:00:06
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-25 14:05:42
+ * @LastEditTime: 2021-11-25 15:19:20
  * @Description: file content
  */
 import type { computedProps } from '../types/props';
@@ -41,15 +41,30 @@ function handlerDataSource(props: computedProps) {
 }
 
 function handlerRowKey(props: computedProps) {
+    const handlerRowKey = (key?: string) => (rowData: any) => rowData[key ?? ""] ?? Date.now();
+
+    const rowKeyRef = ref(unref(props).rowKey);
+
     const getRowKey = computed(() => {
-        const key = unref(props).rowKey;
-        return (rowData) => {
-            return rowData[key ?? ""] ?? Date.now()
-        }
+        return handlerRowKey(unref(rowKeyRef));
     });
 
+    const setRowKey = (key: string) => {
+        rowKeyRef.value = key;
+    };
+
+    const rowKeyWatch = watch(
+        () => unref(props).rowKey,
+        () => {
+            rowKeyRef.value = unref(props).rowKey;
+        },
+        { immediate: true }
+    );
+
     return {
-        getRowKey
+        getRowKey,
+        setRowKey,
+        rowKeyWatch
     }
 }
 

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 15:10:52
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-25 11:47:10
+ * @LastEditTime: 2021-11-25 16:41:31
  * @Description: file content
 -->
 <script setup lang='ts'>
@@ -97,6 +97,7 @@ function handlerCheck(keys) {
 function handlerSorter(sorters) {
     console.log(sorters);
     sortStatesRef.value = [].concat(sorters);
+    console.log(sortStatesRef.value);
 }
 
 onMounted(() => {

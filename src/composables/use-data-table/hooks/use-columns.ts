@@ -2,13 +2,13 @@
  * @Author: maggot-code
  * @Date: 2021-11-25 10:45:19
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-25 14:38:23
+ * @LastEditTime: 2021-11-25 16:50:08
  * @Description: file content
  */
 import type { VNodeChild } from 'vue';
-import type { computedProps, OptionColumn } from '../types/props';
+import type { computedProps, columnsType, OptionColumn } from '../types/props';
 
-import { h, ref, unref, computed } from 'vue';
+import { h, ref, unref, computed, watch } from 'vue';
 import { isBoolean, isArray } from '@/utils/is';
 
 import { NButton } from '@/plugins/naive-ui';
@@ -33,51 +33,63 @@ const setRender = (column: OptionColumn) => (rowData: any, rowIndex: number): VN
 
 const setSorter = (column: OptionColumn, index: number) => {
     return useSort(column) ? {
-        multiple: index
+        ...column,
+        multiple: index,
     } : false;
 }
 
-const setColumn = (baseColumn: OptionColumn, index: number) => {
-    const { key, isExpand, mode } = baseColumn;
+const handlerColumn = (baseColumn: OptionColumn, index: number) => {
+    const { key, mode } = baseColumn;
+
     const column: OptionColumn = {
         key,
         sorter: setSorter(baseColumn, index),
         // sortOrder: setSortOrder(baseColumn)
     }
 
-    if (isExpand) column.type = 'expand';
-
     if (mode) column.render = setRender(baseColumn);
 
     return Object.assign({}, baseColumn, column);
 }
 
-function handlerColumns(props: computedProps) {
-    const { columns, useSelect } = unref(props);
+function handlerColumns(columns: columnsType) {
+    // useSelect && columns?.unshift({
+    //     key: "ATF-select",
+    //     type: 'selection',
+    //     align: 'center',
+    //     fixed: "left",
+    // });
 
-    useSelect && columns?.unshift({
-        key: "ATF-select",
-        type: 'selection',
-        align: 'center',
-        fixed: "left",
-    });
-
-    return columns?.map(setColumn);
+    return columns.map(handlerColumn);
 }
 
-function useColumns(props: computedProps): any {
-    const columnsRef = ref(handlerColumns(props));
+function useColumns(props: computedProps) {
+    const columnsRef = ref(unref(props).columns);
 
-    const getColumns = computed(() => {
+    const getColumns = computed<columnsType>(() => {
         const columns = unref(columnsRef);
 
         if (!isArray(columns) || columns.length <= 0) return [];
 
-        return columns;
+        return handlerColumns(columns);
     });
 
+    const setColumns = (columns: columnsType) => {
+        columnsRef.value = columns;
+    };
+
+    const columnsWatch = watch(
+        () => unref(props).columns,
+        () => {
+            columnsRef.value = unref(props).columns ?? []
+        },
+        { immediate: true }
+    );
+
     return {
-        getColumns
+        getColumns,
+        setColumns,
+        columnsWatch
     }
 }
 

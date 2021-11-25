@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-24 15:45:35
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-25 13:54:12
+ * @LastEditTime: 2021-11-25 16:57:55
  * @Description: file content
  */
 import type { DataTableProps } from 'naive-ui';
@@ -18,9 +18,9 @@ import { default as useLoading } from './hooks/use-loading';
 import { default as useDataSource } from './hooks/use-data-source';
 import { default as useColumns } from './hooks/use-columns';
 
-function useDataTable(optionProps: OptionProps) {
+function useDataTable(optionProps?: OptionProps) {
     console.log('use data table');
-    const { props } = useProps(optionProps);
+    const { props } = useProps(optionProps ?? {});
 
     const {
         getMaxHeight,
@@ -49,22 +49,28 @@ function useDataTable(optionProps: OptionProps) {
     const {
         getRowKey,
         getDataSource,
+        setRowKey,
         setDataSource,
+        rowKeyWatch,
         dataSourceWatch
     } = useDataSource(props);
-
-    const {
-        getColumns
-    } = useColumns(props);
 
     const {
         setSorters
     } = useSort(props);
 
+    const {
+        getColumns,
+        setColumns,
+        columnsWatch
+    } = useColumns(props);
+
     const uninstall = [
         tableElWatch,
         loadingWatch,
-        dataSourceWatch
+        rowKeyWatch,
+        dataSourceWatch,
+        columnsWatch
     ];
 
     const tableDataBind = computed(() => {
@@ -86,7 +92,9 @@ function useDataTable(optionProps: OptionProps) {
         tableDataBind,
         uninstall,
         setLoading,
+        setRowKey,
         setDataSource,
+        setColumns
     }
 }
 
