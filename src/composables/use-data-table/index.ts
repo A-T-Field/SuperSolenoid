@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-24 15:45:35
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-25 16:57:55
+ * @LastEditTime: 2021-11-25 17:46:10
  * @Description: file content
  */
 import type { DataTableProps } from 'naive-ui';
@@ -56,14 +56,17 @@ function useDataTable(optionProps?: OptionProps) {
     } = useDataSource(props);
 
     const {
-        setSorters
+        sortStatesRef,
+        sortKeyMapOrderRef
     } = useSort(props);
 
     const {
         getColumns,
         setColumns,
         columnsWatch
-    } = useColumns(props);
+    } = useColumns(props, {
+        sortKeyMap: sortKeyMapOrderRef
+    });
 
     const uninstall = [
         tableElWatch,
@@ -80,7 +83,9 @@ function useDataTable(optionProps?: OptionProps) {
             data: unref(getDataSource),
             columns: unref(getColumns),
             rowKey: unref(getRowKey),
-            onUpdateSorter: setSorters
+            onUpdateSorter: (sortState) => {
+                sortStatesRef.value = [].concat(sortState);
+            }
         };
 
         return Object.assign({}, unref(props), bind);

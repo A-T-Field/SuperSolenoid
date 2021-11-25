@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 15:11:39
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-25 16:22:15
+ * @LastEditTime: 2021-11-25 18:24:32
  * @Description: file content
 -->
 <script setup lang='ts'>
@@ -27,7 +27,7 @@ onMounted(() => {
             {
                 key: "name",
                 title: "姓名",
-                sortName: "unSortName",
+                sortName: "aaa",
                 align: 'center',
                 isSort: true
             },
@@ -38,7 +38,8 @@ onMounted(() => {
             },
             {
                 key: 'time',
-                title: "时间"
+                title: "时间",
+                isSort: true
             }
         ]);
         setDataSource(context);

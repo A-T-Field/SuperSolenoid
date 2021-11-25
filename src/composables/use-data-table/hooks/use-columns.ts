@@ -2,16 +2,20 @@
  * @Author: maggot-code
  * @Date: 2021-11-25 10:45:19
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-25 16:50:08
+ * @LastEditTime: 2021-11-25 17:57:17
  * @Description: file content
  */
-import type { VNodeChild } from 'vue';
-import type { computedProps, columnsType, OptionColumn } from '../types/props';
+import type { VNodeChild, ComputedRef } from 'vue';
+import type { computedProps, columnsType, SortKeyType, OptionColumn } from '../types/props';
 
 import { h, ref, unref, computed, watch } from 'vue';
 import { isBoolean, isArray } from '@/utils/is';
 
 import { NButton } from '@/plugins/naive-ui';
+
+interface UseColumnsOptions {
+    sortKeyMap: ComputedRef<SortKeyType>
+}
 
 const useSort = (column: OptionColumn) => {
     const { isSort } = column;
@@ -38,13 +42,22 @@ const setSorter = (column: OptionColumn, index: number) => {
     } : false;
 }
 
-const handlerColumn = (baseColumn: OptionColumn, index: number) => {
+const setSortOrder = (column: OptionColumn, options: UseColumnsOptions) => {
+    const { key } = column;
+    const { sortKeyMap } = options;
+
+    const status = sortKeyMap.value[key] || false;
+
+    return useSort(column) ? status : false;
+}
+
+const handlerColumn = (options: UseColumnsOptions) => (baseColumn: OptionColumn, index: number) => {
     const { key, mode } = baseColumn;
 
     const column: OptionColumn = {
         key,
         sorter: setSorter(baseColumn, index),
-        // sortOrder: setSortOrder(baseColumn)
+        sortOrder: setSortOrder(baseColumn, options)
     }
 
     if (mode) column.render = setRender(baseColumn);
@@ -52,7 +65,7 @@ const handlerColumn = (baseColumn: OptionColumn, index: number) => {
     return Object.assign({}, baseColumn, column);
 }
 
-function handlerColumns(columns: columnsType) {
+function handlerColumns(columns: columnsType, options: UseColumnsOptions) {
     // useSelect && columns?.unshift({
     //     key: "ATF-select",
     //     type: 'selection',
@@ -60,10 +73,10 @@ function handlerColumns(columns: columnsType) {
     //     fixed: "left",
     // });
 
-    return columns.map(handlerColumn);
+    return columns.map(handlerColumn(options));
 }
 
-function useColumns(props: computedProps) {
+function useColumns(props: computedProps, options: UseColumnsOptions) {
     const columnsRef = ref(unref(props).columns);
 
     const getColumns = computed<columnsType>(() => {
@@ -71,7 +84,7 @@ function useColumns(props: computedProps) {
 
         if (!isArray(columns) || columns.length <= 0) return [];
 
-        return handlerColumns(columns);
+        return handlerColumns(columns, options);
     });
 
     const setColumns = (columns: columnsType) => {

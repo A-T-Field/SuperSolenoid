@@ -2,19 +2,13 @@
  * @Author: maggot-code
  * @Date: 2021-11-24 15:48:11
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-25 16:55:22
+ * @LastEditTime: 2021-11-25 18:16:54
  * @Description: file content
  */
 import type { ComputedRef } from 'vue';
-import type { TableBaseColumn, SortState } from 'naive-ui/lib/data-table/src/interface';
-
-export type {
-    SortState
-}
+import type { TableBaseColumn, SorterMultiple, SortState } from 'naive-ui/lib/data-table/src/interface';
 
 export type position = 'left' | 'right';
-
-export type sorter = 'descend' | 'ascend';
 
 export type sizeType = 'small' | 'medium' | 'large';
 
@@ -22,13 +16,27 @@ export type alignType = position | 'center';
 
 export type fixedType = position | false;
 
-export type sortType = sorter | false;
+export type sortType = 'descend' | 'ascend' | false;
 
-export type sortersType = Array<SortState>;
+export interface SorterMultipleExpand extends SorterMultiple {
+    sortName?: string
+}
+
+export interface SortStateExpand extends SortState {
+    sorter: SorterMultipleExpand
+}
+
+export type sortersType = Array<SortStateExpand>;
+
+export interface SortKeyType {
+    [key: string]: sortType
+};
+
 
 export interface OptionColumn extends TableBaseColumn {
     key: string;
     mode?: string;
+    sorter?: columnSorter;
     sortName?: string;
     isSort?: boolean;
     isExpand?: boolean;
