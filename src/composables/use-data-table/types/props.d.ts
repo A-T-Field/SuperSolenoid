@@ -2,11 +2,15 @@
  * @Author: maggot-code
  * @Date: 2021-11-24 15:48:11
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-26 00:14:11
+ * @LastEditTime: 2021-11-26 11:22:51
  * @Description: file content
  */
 import type { ComputedRef } from 'vue';
-import type { TableBaseColumn, SorterMultiple, SortState } from 'naive-ui/lib/data-table/src/interface';
+import type {
+    TableColumn,
+    SorterMultiple,
+    SortState
+} from 'naive-ui/lib/data-table/src/interface';
 
 export type position = 'left' | 'right';
 
@@ -19,32 +23,36 @@ export type fixedType = position | false;
 export type sortType = 'descend' | 'ascend' | false;
 
 export interface SorterMultipleExpand extends SorterMultiple {
-    sortName?: string
+    sortName?: string;
 };
 
 export interface SortStateExpand extends SortState {
-    sorter: SorterMultipleExpand
+    sorter: SorterMultipleExpand;
 };
 
 export type sortersType = Array<SortStateExpand>;
 
 export interface SortKeyType {
-    [key: string]: sortType
+    [key: string]: sortType;
 };
 
-export interface OptionColumn extends TableBaseColumn {
+export interface CheckKeyType {
+    [key: string]: string | number;
+}
+
+export type OptionColumn = {
     key: string;
     mode?: string;
     sorter?: columnSorter;
     sortName?: string;
     isSort?: boolean;
     isExpand?: boolean;
-    children?: Array<OptionColumn>;
-};
-
-export type dataType = Array<any>;
+    children?: Array<OptionColumn & TableColumn>;
+} & TableColumn;
 
 export type columnsType = Array<OptionColumn>;
+
+export type dataType = Array<any>;
 
 export interface OptionProps {
     bordered?: boolean;
@@ -57,7 +65,9 @@ export interface OptionProps {
     loading?: boolean;
     data?: dataType;
     columns?: columnsType;
+    useIndex?: boolean;
     useSelect?: boolean;
+    onWrapEvent?: Fn
 };
 
 export interface BaseProps {

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-24 15:45:35
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-26 00:06:27
+ * @LastEditTime: 2021-11-26 11:29:37
  * @Description: file content
  */
 import type { DataTableProps } from 'naive-ui';
@@ -13,6 +13,7 @@ import { unref, computed } from 'vue';
 import { default as useProps } from './hooks/use-props';
 import { default as useSize } from './hooks/use-size';
 import { default as useSort } from './hooks/use-sort';
+import { default as useChecked } from './hooks/use-checked';
 import { default as useElement } from './hooks/use-element';
 import { default as useLoading } from './hooks/use-loading';
 import { default as useDataSource } from './hooks/use-data-source';
@@ -62,6 +63,11 @@ function useDataTable(optionProps?: OptionProps) {
     } = useSort(props);
 
     const {
+        setCheckedRowKeys,
+        checkedWatch
+    } = useChecked(props);
+
+    const {
         getColumns,
         setColumns,
         columnsWatch
@@ -76,6 +82,7 @@ function useDataTable(optionProps?: OptionProps) {
         dataSourceWatch();
         columnsWatch();
         sortWatch();
+        checkedWatch();
     }
 
     const tableDataBind = computed(() => {
@@ -85,7 +92,8 @@ function useDataTable(optionProps?: OptionProps) {
             data: unref(getDataSource),
             columns: unref(getColumns),
             rowKey: unref(getRowKey),
-            onUpdateSorter: setSortStates
+            onUpdateSorter: setSortStates,
+            onUpdateCheckedRowKeys: setCheckedRowKeys
         };
 
         return Object.assign({}, unref(props), bind);

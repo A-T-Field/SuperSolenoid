@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 15:11:39
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-26 00:04:57
+ * @LastEditTime: 2021-11-26 09:55:31
  * @Description: file content
 -->
 <script setup lang='ts'>
@@ -11,6 +11,10 @@ import { default as useDataTable } from '@/composables/use-data-table';
 
 import { getTableData } from '@/api/common.api';
 
+function handlerSortValue(value) {
+    console.log(value);
+}
+
 const {
     tableElRef,
     tableDataBind,
@@ -18,7 +22,9 @@ const {
     setRowKey,
     setDataSource,
     setColumns
-} = useDataTable();
+} = useDataTable({
+    onWrapEvent: handlerSortValue
+});
 
 onMounted(() => {
     getTableData().then(response => {

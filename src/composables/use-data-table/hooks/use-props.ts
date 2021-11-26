@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-24 15:50:11
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-26 00:07:45
+ * @LastEditTime: 2021-11-26 10:33:44
  * @Description: file content
  */
 import type { tableProps, OptionProps } from '../types/props';
@@ -10,6 +10,7 @@ import type { tableProps, OptionProps } from '../types/props';
 import { computed } from 'vue';
 
 function useProps(optionProps: OptionProps) {
+    const defaultHooks: Fn = () => { };
     const defaultProps: tableProps = {
         bottomBordered: true,
         cascade: true,
@@ -30,13 +31,17 @@ function useProps(optionProps: OptionProps) {
         loading: false,
         data: [],
         columns: [],
-        useSelect: true
+        useIndex: true,
+        useSelect: true,
+        onWrapEvent: defaultHooks
     };
 
     const props = computed<tableProps>(() => Object.assign({}, defaultProps, optionProps));
 
     return {
-        props
+        props,
+        defaultProps,
+        defaultHooks
     }
 }
 

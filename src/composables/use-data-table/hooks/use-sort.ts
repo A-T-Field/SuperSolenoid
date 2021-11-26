@@ -2,12 +2,12 @@
  * @Author: maggot-code
  * @Date: 2021-11-25 13:07:27
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-25 23:57:53
+ * @LastEditTime: 2021-11-26 10:01:09
  * @Description: file content
  */
 import type { computedProps, sortersType, SortKeyType, SortStateExpand } from '../types/props';
 
-import { ref, watch, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { isBoolean } from '@/utils/is';
 
 const filterFalseSort = (sortKeyMap: SortKeyType): SortKeyType => {
@@ -41,14 +41,15 @@ function useSort(props: computedProps) {
         sortKeyMapOrderRef,
         (sortKeyMap) => {
             const sortValue = filterFalseSort(sortKeyMap);
+
             console.log(sortValue);
         },
         { immediate: true }
     );
 
     return {
-        setSortStates,
         sortKeyMapOrderRef,
+        setSortStates,
         sortWatch
     }
 }

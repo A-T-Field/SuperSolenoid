@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-25 10:45:19
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-26 00:12:44
+ * @LastEditTime: 2021-11-26 11:20:37
  * @Description: file content
  */
 import type { VNodeChild, ComputedRef } from 'vue';
@@ -66,14 +66,7 @@ const handlerColumn = (options: UseColumnsOptions) => (baseColumn: OptionColumn,
     return Object.assign({}, baseColumn, column);
 }
 
-function handlerColumns(columns: columnsType, options: UseColumnsOptions) {
-    // useSelect && columns?.unshift({
-    //     key: "ATF-select",
-    //     type: 'selection',
-    //     align: 'center',
-    //     fixed: "left",
-    // });
-
+function handlerColumns(columns: columnsType, options: UseColumnsOptions): columnsType {
     return columns.map(handlerColumn(options));
 }
 
@@ -88,6 +81,25 @@ function useColumns(props: computedProps, options: UseColumnsOptions) {
 
     const setColumns = (columns: columnsType) => {
         columnsRef.value = columns;
+
+        // unref(props).useIndex && columnsRef.value?.unshift({
+        //     key: "ATF-index",
+        //     title: '索引',
+        //     align: 'center',
+        //     fixed: "left",
+        //     width: 120
+        // });
+
+        unref(props).useSelect && columnsRef.value?.unshift({
+            key: "ATF-select",
+            type: 'selection',
+            align: 'center',
+            fixed: "left",
+            // disabled(row){
+            //     console.log(row);
+            //     return true;
+            // }
+        });
     };
 
     const columnsWatch = watch(
