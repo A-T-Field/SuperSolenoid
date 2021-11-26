@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-17 13:31:55
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-22 17:44:20
+ * @LastEditTime: 2021-11-26 13:46:57
  * @Description: file content
 -->
 <script setup lang='ts'>
@@ -54,7 +54,6 @@ function handlerCollapsed() {
 
                     <n-layout-content
                         class="ATF-body-main-context-content"
-                        :embedded="true"
                         :native-scrollbar="true"
                     >
                         <slot></slot>

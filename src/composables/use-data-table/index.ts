@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-24 15:45:35
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-26 11:29:37
+ * @LastEditTime: 2021-11-26 14:16:06
  * @Description: file content
  */
 import type { DataTableProps } from 'naive-ui';
@@ -12,12 +12,12 @@ import { unref, computed } from 'vue';
 
 import { default as useProps } from './hooks/use-props';
 import { default as useSize } from './hooks/use-size';
-import { default as useSort } from './hooks/use-sort';
-import { default as useChecked } from './hooks/use-checked';
-import { default as useElement } from './hooks/use-element';
 import { default as useLoading } from './hooks/use-loading';
 import { default as useDataSource } from './hooks/use-data-source';
+import { default as useSort } from './hooks/use-sort';
 import { default as useColumns } from './hooks/use-columns';
+import { default as useChecked } from './hooks/use-checked';
+import { default as useElement } from './hooks/use-element';
 
 function useDataTable(optionProps?: OptionProps) {
     console.log('use data table');
@@ -28,19 +28,6 @@ function useDataTable(optionProps?: OptionProps) {
         setMaxHeight
     } = useSize(props);
 
-    const handlerElement = (element?: HTMLElement): void => {
-        const parent = element?.parentElement;
-
-        const height = parent?.clientHeight ?? 0;
-
-        setMaxHeight(height - 90 <= 0 ? 0 : height - 90);
-    }
-
-    const {
-        tableElRef,
-        tableElWatch
-    } = useElement(handlerElement);
-
     const {
         getLoading,
         setLoading,
@@ -48,6 +35,7 @@ function useDataTable(optionProps?: OptionProps) {
     } = useLoading(props);
 
     const {
+        getBaseRowKey,
         getRowKey,
         getDataSource,
         setRowKey,
@@ -63,11 +51,6 @@ function useDataTable(optionProps?: OptionProps) {
     } = useSort(props);
 
     const {
-        setCheckedRowKeys,
-        checkedWatch
-    } = useChecked(props);
-
-    const {
         getColumns,
         setColumns,
         columnsWatch
@@ -75,14 +58,27 @@ function useDataTable(optionProps?: OptionProps) {
         sortKeyMap: sortKeyMapOrderRef
     });
 
+    const {
+        setCheckedRowKeys,
+        checkedWatch
+    } = useChecked(props, {
+        rowKey: getBaseRowKey,
+        data: getDataSource
+    });
+
+    const {
+        tableElRef,
+        tableElWatch
+    } = useElement(props, { setMaxHeight });
+
     const handlerUninstall = () => {
-        tableElWatch();
         loadingWatch();
         rowKeyWatch();
         dataSourceWatch();
-        columnsWatch();
         sortWatch();
+        columnsWatch();
         checkedWatch();
+        tableElWatch();
     }
 
     const tableDataBind = computed(() => {
@@ -103,11 +99,11 @@ function useDataTable(optionProps?: OptionProps) {
         props,
         tableElRef,
         tableDataBind,
-        handlerUninstall,
         setLoading,
         setRowKey,
         setDataSource,
-        setColumns
+        setColumns,
+        handlerUninstall,
     }
 }
 

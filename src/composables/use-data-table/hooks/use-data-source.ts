@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-25 10:00:06
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-26 00:08:37
+ * @LastEditTime: 2021-11-26 13:25:33
  * @Description: file content
  */
 import type { computedProps } from '../types/props';
@@ -43,6 +43,8 @@ function handlerRowKey(props: computedProps) {
 
     const rowKeyRef = ref(unref(props).rowKey);
 
+    const getBaseRowKey = computed(() => unref(rowKeyRef));
+
     const getRowKey = computed(() => {
         return handlerRowKey(unref(rowKeyRef));
     });
@@ -60,6 +62,7 @@ function handlerRowKey(props: computedProps) {
     );
 
     return {
+        getBaseRowKey,
         getRowKey,
         setRowKey,
         rowKeyWatch

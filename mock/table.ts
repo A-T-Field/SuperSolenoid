@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 15:27:26
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-22 16:44:17
+ * @LastEditTime: 2021-11-26 13:51:04
  * @Description: file content
  */
 import { MockMethod } from 'vite-plugin-mock';
@@ -20,7 +20,7 @@ const getTableDataModel = () => {
             name: Random.cname(),
             date: Random.date('yyyy-MM-dd'),
             time: Random.time('HH:mm:ss'),
-            img: Random.image('400x400', Random.color(), Random.color(), Random.first()),
+            img: Random.image('200x200', Random.color(), Random.color(), Random.first()),
         })
     }
     return {

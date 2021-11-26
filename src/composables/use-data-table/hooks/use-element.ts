@@ -2,20 +2,35 @@
  * @Author: maggot-code
  * @Date: 2021-11-25 09:35:21
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-25 09:56:02
+ * @LastEditTime: 2021-11-26 14:12:01
  * @Description: file content
  */
+import type { computedProps } from '../types/props';
+
 import { ref, watch } from 'vue';
 
-interface HandlerElement {
-    (element?: HTMLDivElement): void
+interface UseElementOptions {
+    setMaxHeight: (height?: number) => void
 }
 
-function useElement(handlerElement: HandlerElement) {
+function computeHeight(element?: HTMLElement): number {
+    const parent = element?.parentElement;
+
+    return parent?.clientHeight ?? 0;
+}
+
+function useElement(props: computedProps, options: UseElementOptions) {
+    const { setMaxHeight } = options;
+
     const tableElRef = ref<ComponentRef>(null);
 
+    const maxOffset = 90;
+
     const tableElWatch = watch(tableElRef, (element) => {
-        handlerElement(element?.$el);
+        const height = computeHeight(element?.$el);
+        const maxHeight = height - maxOffset;
+
+        setMaxHeight(maxHeight <= 0 ? 0 : maxHeight);
     });
 
     return {

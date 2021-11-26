@@ -2,22 +2,32 @@
  * @Author: maggot-code
  * @Date: 2021-11-26 11:05:55
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-26 11:30:01
+ * @LastEditTime: 2021-11-26 13:40:21
  * @Description: file content
  */
-import type { computedProps, CheckKeyType } from '../types/props';
+import type { ComputedRef } from 'vue';
+import type { dataType, computedProps, CheckKeyType } from '../types/props';
 
-import { ref, unref, computed, watch } from 'vue';
+import { ref, unref, toRaw, computed, watch } from 'vue';
 
-function useChecked(props: computedProps) {
+interface UseCheckedOptions {
+    rowKey: ComputedRef<string | undefined>;
+    data: ComputedRef<dataType>;
+};
+
+function filterCheckedData(options: UseCheckedOptions, checkedKeyMap: Array<CheckKeyType>) {
+    const { rowKey, data } = options;
+
+    return unref(data)
+        .filter(rowData => checkedKeyMap.includes(rowData[unref(rowKey) ?? ""]))
+        .map(rowData => toRaw(rowData));
+}
+
+function useChecked(props: computedProps, options: UseCheckedOptions) {
     const checkedRowKeysRef = ref<Array<CheckKeyType>>([]);
 
     const getCheckedRowKeys = computed(() => {
-        return checkedRowKeysRef.value.filter((key) => {
-            // unref(props).data
-            console.log(key);
-            return true;
-        })
+        return filterCheckedData(options, unref(checkedRowKeysRef));
     });
 
     const setCheckedRowKeys = (keys: any) => {
@@ -27,9 +37,10 @@ function useChecked(props: computedProps) {
     const checkedWatch = watch(
         checkedRowKeysRef,
         (checkedKeyMap) => {
-            console.log(checkedKeyMap);
-        },
-        { immediate: true }
+            const checkedData = filterCheckedData(options, checkedKeyMap);
+
+            console.log(checkedData);
+        }
     );
 
     return {
