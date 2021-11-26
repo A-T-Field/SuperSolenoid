@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-24 15:48:11
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-26 11:22:51
+ * @LastEditTime: 2021-11-26 14:17:20
  * @Description: file content
  */
 import type { ComputedRef } from 'vue';
@@ -67,6 +67,7 @@ export interface OptionProps {
     columns?: columnsType;
     useIndex?: boolean;
     useSelect?: boolean;
+    usePages?: boolean;
     onWrapEvent?: Fn
 };
 

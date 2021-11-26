@@ -2,13 +2,15 @@
  * @Author: maggot-code
  * @Date: 2021-10-28 11:27:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-25 14:21:46
+ * @LastEditTime: 2021-11-26 14:46:10
  * @Description: file content
  */
 import type { App } from 'vue';
 
 import {
     create as createNaiveUI,
+    zhCN,
+    dateZhCN,
 
     NConfigProvider,
     NLoadingBarProvider,
@@ -16,6 +18,7 @@ import {
 
     NDataTable,
     NTable,
+    NPagination,
     NBadge,
     NAvatar,
     NPopover,
@@ -45,6 +48,7 @@ const naiveUI = createNaiveUI({
 
         NDataTable,
         NTable,
+        NPagination,
         NBadge,
         NAvatar,
         NPopover,
@@ -76,8 +80,11 @@ export {
     NAvatar,
     NDataTable,
     NTable,
+    NPagination,
     NButton,
 
+    zhCN,
+    dateZhCN,
     naiveUI,
 };
 

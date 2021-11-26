@@ -25,4 +25,8 @@ i{
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    & .n-config-provider{
+        width: 100%;
+        height: 100%;
+    }
 }

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-24 15:50:11
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-26 10:33:44
+ * @LastEditTime: 2021-11-26 14:17:34
  * @Description: file content
  */
 import type { tableProps, OptionProps } from '../types/props';
@@ -33,6 +33,7 @@ function useProps(optionProps: OptionProps) {
         columns: [],
         useIndex: true,
         useSelect: true,
+        usePages: true,
         onWrapEvent: defaultHooks
     };
 
