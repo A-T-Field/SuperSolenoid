@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-26 11:05:55
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-26 13:40:21
+ * @LastEditTime: 2021-11-26 16:09:38
  * @Description: file content
  */
 import type { ComputedRef } from 'vue';
@@ -39,6 +39,7 @@ function useChecked(props: computedProps, options: UseCheckedOptions) {
         (checkedKeyMap) => {
             const checkedData = filterCheckedData(options, checkedKeyMap);
 
+            console.log('选中：');
             console.log(checkedData);
         }
     );

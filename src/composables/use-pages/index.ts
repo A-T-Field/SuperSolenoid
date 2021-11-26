@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-26 14:21:58
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-26 15:46:03
+ * @LastEditTime: 2021-11-26 16:04:20
  * @Description: file content
  */
 import type { PaginationProps } from 'naive-ui';
@@ -19,22 +19,30 @@ function usePages(optionsProps?: OptionProps) {
     const { props } = useProps(optionsProps ?? {});
 
     const {
-        getPageSize,
-        setPageSize,
-        pageSizeWatchEffect
-    } = usePageSizes(props);
-
-    const {
         getItemCount,
         getPageNumber,
         setItemCount,
         setPageNumber,
+        pageNumberWatch,
         itemCountWatchEffect,
         pageNumberWatchEffect
     } = usePage(props);
 
+    const {
+        getPageSize,
+        setPageSize,
+        pageSizeWatch,
+        pageSizeWatchEffect
+    } = usePageSizes(props, {
+        count: getItemCount,
+        page: getPageNumber,
+        setPageNumber
+    });
+
     const handlerUninstall = () => {
+        pageSizeWatch();
         pageSizeWatchEffect();
+        pageNumberWatch();
         itemCountWatchEffect();
         pageNumberWatchEffect();
     };
