@@ -94,24 +94,24 @@
             },
             "children":[
                 {
-                    "name": 'form_hand',
-                    "path": '/form/hand',
+                    "name": "form_hand",
+                    "path": "/form/hand",
                     "meta": {
                         "async": true,
-                        "view": 'form-hand',
-                        "parent": 'form',
-                        "title": '表单-基础',
+                        "view": "form-hand",
+                        "parent": "form",
+                        "title": "表单-基础",
                         "isMenuRoute": true,
                     }
                 },
                 {
-                    "name": 'form_schema',
-                    "path": '/form/schema',
+                    "name": "form_schema",
+                    "path": "/form/schema",
                     "meta": {
                         "async": true,
-                        "view": 'form-schema',
-                        "parent": 'form',
-                        "title": '表单-搭建',
+                        "view": "form-schema",
+                        "parent": "form",
+                        "title": "表单-搭建",
                         "isMenuRoute": true,
                     }
                 }
