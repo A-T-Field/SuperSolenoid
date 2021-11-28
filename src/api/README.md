@@ -155,7 +155,7 @@ interface RouteMeta {
     sort?:number; // 排序值
     useFrameSrc?:boolean; // 是否使用外部链接
     frameSrc?:string; // 外部链接地址
-    [key:string]:any; // 额外属性
+    [key:string]?:any; // 额外属性
 }
 ```
 
