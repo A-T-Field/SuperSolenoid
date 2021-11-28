@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-16 17:36:19
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-21 23:46:40
+ * @LastEditTime: 2021-11-28 23:18:35
  * @Description: file content
 -->
 <script setup lang='ts'>
@@ -33,7 +33,7 @@ const handlerRouting = (response) => {
     const { path } = first;
     setRoutingCached(routing);
     store.dispatch('router/setRouting', routing);
-    router.push(path)
+    router.push(path);
 }
 
 onMounted(() => {
