@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 11:05:25
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-22 18:19:25
+ * @LastEditTime: 2021-11-29 14:22:58
  * @Description: file content
 -->
 <template>
@@ -13,6 +13,7 @@
                     <component :is="Component" :key="route.fullPath"></component>
                 </transition>
             </n-scrollbar>-->
+
             <transition name="scale-slide" mode="out-in" :appear="true">
                 <component :is="Component" :key="route.fullPath"></component>
             </transition>

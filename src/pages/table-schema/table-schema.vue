@@ -2,30 +2,25 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 15:11:39
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-26 15:48:16
+ * @LastEditTime: 2021-11-29 11:10:19
  * @Description: file content
 -->
 <script setup lang='ts'>
 import { onBeforeUnmount, onMounted } from 'vue';
 import { default as useDataTable } from '@/composables/use-data-table';
-import { default as usePages } from '@/composables/use-pages';
 
 import { getTableData } from '@/api/common.api';
 
 const {
-    pageBind,
-    pageUninstall,
-    setItemCount,
-    setPageNumber
-} = usePages();
-
-const {
     tableElRef,
     tableDataBind,
-    handlerUninstall,
+    pageBind,
     setRowKey,
     setDataSource,
-    setColumns
+    setColumns,
+    setItemCount,
+    setPageNumber,
+    handlerUninstall,
 } = useDataTable();
 
 onMounted(() => {
@@ -51,8 +46,8 @@ onMounted(() => {
                 isSort: true
             }
         ]);
-        setDataSource(context);
         setRowKey('id');
+        setDataSource(context);
         setItemCount(100);
         setPageNumber(1);
     });
@@ -60,7 +55,6 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
     handlerUninstall();
-    pageUninstall();
 });
 </script>
 

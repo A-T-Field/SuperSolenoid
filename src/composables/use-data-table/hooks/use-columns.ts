@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-25 10:45:19
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-26 11:20:37
+ * @LastEditTime: 2021-11-29 13:19:13
  * @Description: file content
  */
 import type { VNodeChild, ComputedRef } from 'vue';
@@ -14,13 +14,30 @@ import { isBoolean, isArray } from '@/utils/is';
 import { NButton } from '@/plugins/naive-ui';
 
 interface UseColumnsOptions {
-    sortKeyMap: ComputedRef<SortKeyType>
+    sortKeyMap: ComputedRef<SortKeyType>;
+    count: ComputedRef<number>;
+    pageSize: ComputedRef<number>;
+    page: ComputedRef<number>;
 }
 
 const useSort = (column: OptionColumn) => {
     const { isSort } = column;
 
     return isBoolean(isSort) ? isSort : false;
+}
+
+const setIndexWidth = (options: UseColumnsOptions) => {
+    const { count } = options;
+
+    return count.value <= 9999 ? 60 : 70;
+}
+
+const setIndexRender = (options: UseColumnsOptions) => (_: any, rowIndex: number) => {
+    const { page, pageSize } = options;
+
+    const index = rowIndex + 1 + (page.value - 1) * pageSize.value;
+
+    return h('span', index);
 }
 
 const setRender = (column: OptionColumn) => (rowData: any, rowIndex: number): VNodeChild => {
@@ -82,13 +99,14 @@ function useColumns(props: computedProps, options: UseColumnsOptions) {
     const setColumns = (columns: columnsType) => {
         columnsRef.value = columns;
 
-        // unref(props).useIndex && columnsRef.value?.unshift({
-        //     key: "ATF-index",
-        //     title: '索引',
-        //     align: 'center',
-        //     fixed: "left",
-        //     width: 120
-        // });
+        unref(props).useIndex && columnsRef.value?.unshift({
+            key: "ATF-index",
+            title: '索引',
+            align: 'center',
+            fixed: "left",
+            width: setIndexWidth(options),
+            render: setIndexRender(options)
+        });
 
         unref(props).useSelect && columnsRef.value?.unshift({
             key: "ATF-select",

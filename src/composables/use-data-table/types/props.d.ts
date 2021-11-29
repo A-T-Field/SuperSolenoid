@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-24 15:48:11
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-26 14:17:20
+ * @LastEditTime: 2021-11-29 13:38:57
  * @Description: file content
  */
 import type { ComputedRef } from 'vue';
@@ -68,7 +68,10 @@ export interface OptionProps {
     useIndex?: boolean;
     useSelect?: boolean;
     usePages?: boolean;
-    onWrapEvent?: Fn
+    count?: number;
+    page?: number;
+    pageSize?: number;
+    onWrapEvent?: Fn;
 };
 
 export interface BaseProps {

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-24 15:45:35
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-26 14:16:06
+ * @LastEditTime: 2021-11-29 14:05:47
  * @Description: file content
  */
 import type { DataTableProps } from 'naive-ui';
@@ -15,12 +15,12 @@ import { default as useSize } from './hooks/use-size';
 import { default as useLoading } from './hooks/use-loading';
 import { default as useDataSource } from './hooks/use-data-source';
 import { default as useSort } from './hooks/use-sort';
+import { default as usePages } from './hooks/use-pages';
 import { default as useColumns } from './hooks/use-columns';
 import { default as useChecked } from './hooks/use-checked';
 import { default as useElement } from './hooks/use-element';
 
 function useDataTable(optionProps?: OptionProps) {
-    console.log('use data table');
     const { props } = useProps(optionProps ?? {});
 
     const {
@@ -51,11 +51,24 @@ function useDataTable(optionProps?: OptionProps) {
     } = useSort(props);
 
     const {
+        pageBind,
+        getItemCount,
+        getPageSize,
+        getPageNumber,
+        setItemCount,
+        setPageNumber,
+        pageEventWatch
+    } = usePages(props);
+
+    const {
         getColumns,
         setColumns,
         columnsWatch
     } = useColumns(props, {
-        sortKeyMap: sortKeyMapOrderRef
+        sortKeyMap: sortKeyMapOrderRef,
+        count: getItemCount,
+        pageSize: getPageSize,
+        page: getPageNumber
     });
 
     const {
@@ -79,6 +92,7 @@ function useDataTable(optionProps?: OptionProps) {
         columnsWatch();
         checkedWatch();
         tableElWatch();
+        pageEventWatch();
     }
 
     const tableDataBind = computed(() => {
@@ -99,10 +113,13 @@ function useDataTable(optionProps?: OptionProps) {
         props,
         tableElRef,
         tableDataBind,
+        pageBind,
         setLoading,
         setRowKey,
         setDataSource,
         setColumns,
+        setItemCount,
+        setPageNumber,
         handlerUninstall,
     }
 }

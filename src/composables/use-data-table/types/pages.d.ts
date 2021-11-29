@@ -1,11 +1,13 @@
 /*
  * @Author: maggot-code
- * @Date: 2021-11-26 14:50:19
+ * @Date: 2021-11-29 10:34:29
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-26 15:33:56
+ * @LastEditTime: 2021-11-29 14:02:56
  * @Description: file content
  */
 import type { ComputedRef } from 'vue';
+
+export type pageSizesType = [number, number, number, number, number];
 
 export interface OptionProps {
     itemCount?: number;
@@ -23,4 +25,10 @@ export interface BaseProps {
 
 export type pageProps = OptionProps & BaseProps;
 
-export type computedProps = ComputedRef<pageProps>;
+export type pageEventType = {
+    count: number;
+    size: number;
+    page: number;
+};
+
+export type computedPageProps = ComputedRef<pageProps>;

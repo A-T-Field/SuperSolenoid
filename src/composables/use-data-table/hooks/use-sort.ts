@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-25 13:07:27
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-26 16:09:52
+ * @LastEditTime: 2021-11-29 13:22:02
  * @Description: file content
  */
 import type { computedProps, sortersType, SortKeyType, SortStateExpand } from '../types/props';
@@ -41,8 +41,6 @@ function useSort(props: computedProps) {
         sortKeyMapOrderRef,
         (sortKeyMap) => {
             const sortValue = filterFalseSort(sortKeyMap);
-
-            console.log('排序：');
             console.log(sortValue);
         },
         { immediate: true }

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 15:27:26
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-26 13:51:04
+ * @LastEditTime: 2021-11-29 13:10:57
  * @Description: file content
  */
 import { MockMethod } from 'vite-plugin-mock';
@@ -14,7 +14,7 @@ const Random = Mock.Random;
 // 生成表格数据
 const getTableDataModel = () => {
     const data: Array<any> = [];
-    for (let index = 0; index < 20; index++) {
+    for (let index = 0; index < 10; index++) {
         data.push({
             id: Random.id(),
             name: Random.cname(),
