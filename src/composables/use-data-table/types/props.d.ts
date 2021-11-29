@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-24 15:48:11
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-29 13:38:57
+ * @LastEditTime: 2021-11-29 18:37:06
  * @Description: file content
  */
 import type { ComputedRef } from 'vue';
@@ -11,6 +11,7 @@ import type {
     SorterMultiple,
     SortState
 } from 'naive-ui/lib/data-table/src/interface';
+import type { pageSizesTuple, pageEventType } from './pages';
 
 export type position = 'left' | 'right';
 
@@ -54,6 +55,17 @@ export type columnsType = Array<OptionColumn>;
 
 export type dataType = Array<any>;
 
+export type wrapEventType = {
+    sort: SortKeyType;
+    page: pageEventType;
+};
+
+export type computedWrapEvent = ComputedRef<wrapEventType>;
+
+export interface OnWrapEvent {
+    (wrapevent: wrapEventType): void
+};
+
 export interface OptionProps {
     bordered?: boolean;
     indent?: number;
@@ -71,7 +83,9 @@ export interface OptionProps {
     count?: number;
     page?: number;
     pageSize?: number;
-    onWrapEvent?: Fn;
+    pageDisalbed?: boolean;
+    pageSizes?: pageSizesTuple;
+    onWrapEvent?: OnWrapEvent;
 };
 
 export interface BaseProps {

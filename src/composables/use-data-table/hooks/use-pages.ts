@@ -2,24 +2,29 @@
  * @Author: maggot-code
  * @Date: 2021-11-29 10:34:11
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-29 14:29:48
+ * @LastEditTime: 2021-11-29 16:18:16
  * @Description: file content
  */
 import type { PaginationProps } from 'naive-ui';
 import type { computedProps } from '../types/props';
-import type { pageSizesType, pageEventType, pageProps, BaseProps } from '../types/pages';
+import type { pageSizesTuple, pageEventType, pageProps, BaseProps } from '../types/pages';
 
-import { ref, unref, computed, watch } from 'vue';
+import { ref, unref, computed } from 'vue';
 
-const defaultPageSizes: pageSizesType = [10, 30, 50, 70, 90];
+const defaultPageSizes: pageSizesTuple = [10, 30, 50, 70, 90];
 
 const defaultPageSlot = 8;
+
+const computedDiffPage = ({ count, size, page }: pageEventType): boolean => {
+    const diffPage = Math.floor(count / size);
+
+    return diffPage < page - 1;
+};
 
 function handlerProps(props: computedProps): BaseProps {
     return {
         showQuickJumper: true,
         showSizePicker: true,
-        pageSizes: defaultPageSizes,
         pageSlot: defaultPageSlot
     };
 };
@@ -69,11 +74,15 @@ function handlerPage(props: computedProps) {
 };
 
 function handlerPageSize(props: computedProps) {
-    const pageSizesRef = ref(defaultPageSizes);
+    const pageSizesRef = ref(unref(props).pageSizes ?? defaultPageSizes);
     const pageSizeRef = ref(unref(props).pageSize ?? pageSizesRef.value[0]);
 
     const getPageSize = computed(() => {
         return unref(pageSizeRef);
+    });
+
+    const getPageSizes = computed(() => {
+        return unref(pageSizesRef)
     });
 
     const setPageSize = (size: number) => {
@@ -82,6 +91,7 @@ function handlerPageSize(props: computedProps) {
 
     const pageSizes = {
         getPageSize,
+        getPageSizes,
         setPageSize
     };
 
@@ -91,17 +101,37 @@ function handlerPageSize(props: computedProps) {
     }
 };
 
+function handlerPageDisable(props: computedProps) {
+    const disabledRef = ref(unref(props).pageDisalbed ?? false);
+
+    const getPageDisabled = computed(() => {
+        return unref(disabledRef);
+    });
+
+    const setPageDisabled = (status: boolean) => {
+        disabledRef.value = status;
+    };
+
+    return {
+        getPageDisabled,
+        setPageDisabled
+    }
+};
+
 function usePages(props: computedProps) {
     const defaultProps = handlerProps(props);
+    const { getPageDisabled } = handlerPageDisable(props);
     const { itemCount, getItemCount } = handlerItemCount(props);
     const { pageNumber, getPageNumber, setPageNumber } = handlerPage(props);
-    const { pageSizes, getPageSize, setPageSize } = handlerPageSize(props);
+    const { pageSizes, getPageSizes, getPageSize, setPageSize } = handlerPageSize(props);
 
     const pageBind = computed<pageProps>(() => {
         const bind: PaginationProps = {
+            disabled: unref(getPageDisabled),
             itemCount: unref(getItemCount),
             page: unref(getPageNumber),
             pageSize: unref(getPageSize),
+            pageSizes: unref(getPageSizes),
             onUpdatePage: setPageNumber,
             onUpdatePageSize: setPageSize
         };
@@ -120,20 +150,10 @@ function usePages(props: computedProps) {
         page: unref(getPageNumber),
     }));
 
-    const pageEventWatch = watch(
-        () => unref(pageEvent),
-        ({ count, size, page }) => {
-            const diffPage = Math.floor(count / size);
-
-            if (diffPage < page - 1) return setPageNumber(1);
-
-            console.log(count, size, page);
-        }
-    );
-
     return {
         pageBind,
-        pageEventWatch,
+        pageEvent,
+        computedDiffPage,
         ...itemCount,
         ...pageNumber,
         ...pageSizes

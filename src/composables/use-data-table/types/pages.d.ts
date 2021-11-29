@@ -2,12 +2,12 @@
  * @Author: maggot-code
  * @Date: 2021-11-29 10:34:29
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-29 14:02:56
+ * @LastEditTime: 2021-11-29 15:33:26
  * @Description: file content
  */
 import type { ComputedRef } from 'vue';
 
-export type pageSizesType = [number, number, number, number, number];
+export type pageSizesTuple = FixedArray<number, 5>;
 
 export interface OptionProps {
     itemCount?: number;
@@ -32,3 +32,5 @@ export type pageEventType = {
 };
 
 export type computedPageProps = ComputedRef<pageProps>;
+
+export type computedPageEventType = ComputedRef<pageEventType>;

@@ -2,13 +2,14 @@
  * @Author: maggot-code
  * @Date: 2021-11-24 15:45:35
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-29 14:05:47
+ * @LastEditTime: 2021-11-29 18:33:28
  * @Description: file content
  */
 import type { DataTableProps } from 'naive-ui';
-import type { OptionProps } from './types/props';
+import type { wrapEventType, OptionProps } from './types/props';
 
-import { unref, computed } from 'vue';
+import { unref, computed, watch } from 'vue';
+import { isFunction } from '@/utils/is';
 
 import { default as useProps } from './hooks/use-props';
 import { default as useSize } from './hooks/use-size';
@@ -45,19 +46,20 @@ function useDataTable(optionProps?: OptionProps) {
     } = useDataSource(props);
 
     const {
+        getSortKeyMapOrderRef,
         sortKeyMapOrderRef,
-        setSortStates,
-        sortWatch
+        setSortStates
     } = useSort(props);
 
     const {
         pageBind,
+        pageEvent,
         getItemCount,
         getPageSize,
         getPageNumber,
         setItemCount,
         setPageNumber,
-        pageEventWatch
+        computedDiffPage
     } = usePages(props);
 
     const {
@@ -72,8 +74,8 @@ function useDataTable(optionProps?: OptionProps) {
     });
 
     const {
-        setCheckedRowKeys,
-        checkedWatch
+        // getCheckedRowKeys,
+        setCheckedRowKeys
     } = useChecked(props, {
         rowKey: getBaseRowKey,
         data: getDataSource
@@ -83,17 +85,6 @@ function useDataTable(optionProps?: OptionProps) {
         tableElRef,
         tableElWatch
     } = useElement(props, { setMaxHeight });
-
-    const handlerUninstall = () => {
-        loadingWatch();
-        rowKeyWatch();
-        dataSourceWatch();
-        sortWatch();
-        columnsWatch();
-        checkedWatch();
-        tableElWatch();
-        pageEventWatch();
-    }
 
     const tableDataBind = computed(() => {
         const bind: DataTableProps = {
@@ -108,6 +99,29 @@ function useDataTable(optionProps?: OptionProps) {
 
         return Object.assign({}, unref(props), bind);
     });
+
+    const getWrapEvent = computed<wrapEventType>(() => ({
+        sort: unref(getSortKeyMapOrderRef),
+        page: unref(pageEvent)
+    }));
+
+    const wrapEventWatch = watch(
+        () => unref(getWrapEvent),
+        (nowWrapEvent: wrapEventType) => {
+            const { page } = nowWrapEvent;
+            if (computedDiffPage(page)) return setPageNumber(1);
+            isFunction(props.value.onWrapEvent) && props.value.onWrapEvent(nowWrapEvent);
+        },
+    );
+
+    const handlerUninstall = () => {
+        loadingWatch();
+        rowKeyWatch();
+        dataSourceWatch();
+        columnsWatch();
+        tableElWatch();
+        wrapEventWatch();
+    }
 
     return {
         props,

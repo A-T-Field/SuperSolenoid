@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-24 15:50:11
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-29 11:01:30
+ * @LastEditTime: 2021-11-29 18:33:06
  * @Description: file content
  */
 import type { tableProps, OptionProps } from '../types/props';
@@ -10,7 +10,6 @@ import type { tableProps, OptionProps } from '../types/props';
 import { computed } from 'vue';
 
 function useProps(optionProps: OptionProps) {
-    const defaultHooks: Fn = () => { };
     const defaultProps: tableProps = {
         bottomBordered: true,
         cascade: true,
@@ -36,15 +35,14 @@ function useProps(optionProps: OptionProps) {
         usePages: true,
         count: 0,
         page: 0,
-        onWrapEvent: defaultHooks
+        onWrapEvent: () => { }
     };
 
     const props = computed<tableProps>(() => Object.assign({}, defaultProps, optionProps));
 
     return {
         props,
-        defaultProps,
-        defaultHooks
+        defaultProps
     }
 }
 

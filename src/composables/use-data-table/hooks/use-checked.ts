@@ -2,20 +2,20 @@
  * @Author: maggot-code
  * @Date: 2021-11-26 11:05:55
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-29 13:21:47
+ * @LastEditTime: 2021-11-29 17:21:28
  * @Description: file content
  */
 import type { ComputedRef } from 'vue';
 import type { dataType, computedProps, CheckKeyType } from '../types/props';
 
-import { ref, unref, toRaw, computed, watch } from 'vue';
+import { ref, unref, toRaw, computed } from 'vue';
 
 interface UseCheckedOptions {
     rowKey: ComputedRef<string | undefined>;
     data: ComputedRef<dataType>;
 };
 
-function filterCheckedData(options: UseCheckedOptions, checkedKeyMap: Array<CheckKeyType>) {
+const filterCheckedData = (options: UseCheckedOptions, checkedKeyMap: Array<CheckKeyType>) => {
     const { rowKey, data } = options;
 
     return unref(data)
@@ -34,18 +34,9 @@ function useChecked(props: computedProps, options: UseCheckedOptions) {
         checkedRowKeysRef.value = keys;
     };
 
-    const checkedWatch = watch(
-        checkedRowKeysRef,
-        (checkedKeyMap) => {
-            const checkedData = filterCheckedData(options, checkedKeyMap);
-            console.log(checkedData);
-        }
-    );
-
     return {
         getCheckedRowKeys,
-        setCheckedRowKeys,
-        checkedWatch
+        setCheckedRowKeys
     }
 }
 
