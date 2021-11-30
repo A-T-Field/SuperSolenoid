@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-24 15:48:11
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-29 18:37:06
+ * @LastEditTime: 2021-11-30 10:01:01
  * @Description: file content
  */
 import type { ComputedRef } from 'vue';
@@ -62,9 +62,11 @@ export type wrapEventType = {
 
 export type computedWrapEvent = ComputedRef<wrapEventType>;
 
-export interface OnWrapEvent {
-    (wrapevent: wrapEventType): void
-};
+export type wrapeventHooks = (wrapevent: wrapEventType) => void;
+
+export interface OnWrapeventHooks {
+    hooks: wrapeventHooks;
+}
 
 export interface OptionProps {
     bordered?: boolean;
@@ -85,7 +87,6 @@ export interface OptionProps {
     pageSize?: number;
     pageDisalbed?: boolean;
     pageSizes?: pageSizesTuple;
-    onWrapEvent?: OnWrapEvent;
 };
 
 export interface BaseProps {

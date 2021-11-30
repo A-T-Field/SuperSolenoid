@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-24 15:50:11
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-29 18:33:06
+ * @LastEditTime: 2021-11-30 09:50:21
  * @Description: file content
  */
 import type { tableProps, OptionProps } from '../types/props';
@@ -34,8 +34,7 @@ function useProps(optionProps: OptionProps) {
         useSelect: true,
         usePages: true,
         count: 0,
-        page: 0,
-        onWrapEvent: () => { }
+        page: 0
     };
 
     const props = computed<tableProps>(() => Object.assign({}, defaultProps, optionProps));

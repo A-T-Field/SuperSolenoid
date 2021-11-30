@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 15:11:39
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-29 18:37:51
+ * @LastEditTime: 2021-11-30 10:03:27
  * @Description: file content
 -->
 <script setup lang='ts'>
@@ -20,12 +20,12 @@ const {
     setColumns,
     setItemCount,
     setPageNumber,
-    handlerUninstall
-} = useDataTable({
-    onWrapEvent: (wrapevent) => {
-        console.log(wrapevent.page);
-        console.log(wrapevent.sort);
-    }
+    handlerUninstall,
+    onWrapEvent
+} = useDataTable();
+
+onWrapEvent((wrapevent) => {
+    console.log(wrapevent);
 });
 
 onMounted(() => {
@@ -53,7 +53,7 @@ onMounted(() => {
         ]);
         setRowKey('id');
         setDataSource(context);
-        setItemCount(60);
+        setItemCount(120);
         setPageNumber(1);
     });
 });

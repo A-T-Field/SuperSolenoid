@@ -2,15 +2,15 @@
  * @Author: maggot-code
  * @Date: 2021-11-24 15:45:35
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-29 18:33:28
+ * @LastEditTime: 2021-11-30 09:57:11
  * @Description: file content
  */
 import type { DataTableProps } from 'naive-ui';
 import type { wrapEventType, OptionProps } from './types/props';
 
 import { unref, computed, watch } from 'vue';
-import { isFunction } from '@/utils/is';
 
+import { default as useHooks } from './hooks/use-hooks';
 import { default as useProps } from './hooks/use-props';
 import { default as useSize } from './hooks/use-size';
 import { default as useLoading } from './hooks/use-loading';
@@ -22,6 +22,11 @@ import { default as useChecked } from './hooks/use-checked';
 import { default as useElement } from './hooks/use-element';
 
 function useDataTable(optionProps?: OptionProps) {
+    const {
+        getWrapevent,
+        onWrapEvent
+    } = useHooks();
+
     const { props } = useProps(optionProps ?? {});
 
     const {
@@ -110,7 +115,8 @@ function useDataTable(optionProps?: OptionProps) {
         (nowWrapEvent: wrapEventType) => {
             const { page } = nowWrapEvent;
             if (computedDiffPage(page)) return setPageNumber(1);
-            isFunction(props.value.onWrapEvent) && props.value.onWrapEvent(nowWrapEvent);
+
+            getWrapevent.value.hooks(nowWrapEvent);
         },
     );
 
@@ -135,6 +141,8 @@ function useDataTable(optionProps?: OptionProps) {
         setItemCount,
         setPageNumber,
         handlerUninstall,
+
+        onWrapEvent,
     }
 }
 
