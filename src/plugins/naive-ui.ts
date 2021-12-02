@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-28 11:27:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-26 14:46:10
+ * @LastEditTime: 2021-11-30 10:30:34
  * @Description: file content
  */
 import type { App } from 'vue';
@@ -82,6 +82,8 @@ export {
     NTable,
     NPagination,
     NButton,
+    NForm,
+    NFormItem,
 
     zhCN,
     dateZhCN,

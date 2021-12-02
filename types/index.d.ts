@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-27 15:33:30
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-29 15:23:55
+ * @LastEditTime: 2021-11-30 16:29:59
  * @Description: file content
  */
 declare interface Fn<T = any, R = T> {
@@ -16,6 +16,8 @@ declare interface PromiseFn<T = any, R = T> {
 declare interface ComponentElRef<T extends HTMLElement = HTMLDivElement> {
     $el: T;
 };
+
+declare type Nullable<T> = T | null;
 
 declare type ComponentRef<T extends HTMLElement = HTMLDivElement> = ComponentElRef<T> | null;
 
