@@ -10,7 +10,7 @@
         "strict": true,
         "noEmitOnError": true,
         "noUnusedLocals": true,
-        "experimentalDecorators": false,
+        "experimentalDecorators": true, // 注解
         "useDefineForClassFields": true,
         "resolveJsonModule": true,
         "esModuleInterop": true,

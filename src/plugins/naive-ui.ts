@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-28 11:27:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-30 10:30:34
+ * @LastEditTime: 2021-12-05 00:13:18
  * @Description: file content
  */
 import type { App } from 'vue';
@@ -37,7 +37,8 @@ import {
     NInput,
     NBreadcrumb,
     NBreadcrumbItem,
-    NScrollbar
+    NScrollbar,
+    NSpin
 } from 'naive-ui';
 
 const naiveUI = createNaiveUI({
@@ -67,7 +68,8 @@ const naiveUI = createNaiveUI({
         NInput,
         NBreadcrumb,
         NBreadcrumbItem,
-        NScrollbar
+        NScrollbar,
+        NSpin
     ]
 });
 
@@ -84,6 +86,7 @@ export {
     NButton,
     NForm,
     NFormItem,
+    NInput,
 
     zhCN,
     dateZhCN,

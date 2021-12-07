@@ -2,88 +2,77 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 14:49:45
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-02 18:32:48
+ * @LastEditTime: 2021-12-07 23:12:05
  * @Description: file content
 -->
 <script setup lang='ts'>
 import { ref } from 'vue';
-
-import { default as useForm } from '@/composables/use-form';
+import {
+    useForm
+} from '@/composables/use-data-form';
 
 const {
-    getFormSchema,
-    formRef,
-    formBind,
-    setFormSchema,
-    setFormSchemata
-} = useForm({
-    schema: {
-        field: "jiaran",
-        defaultValue: "嘉然",
-        mode: "input",
-        vessel: {
-            label: "为什么关注嘉然",
-            labelWidth: 200,
-            labelPlacement: "left",
-            labelAlign: "left",
-            prefix: "AAA",
-            suffix: "BBB",
-            tips: "就是问问",
-            describe: "看看成分",
-        }
-    }
+    formValues,
+    createField,
+    setValuesIn
+} = useForm();
+
+const a = createField({
+    key: "jiaran",
+    value: "111"
 });
 
-const handlerClick = () => {
-    setFormSchema({
-        field: "ava",
-        vessel: {
-            label: "为什么关注向晚",
-        }
-    });
+console.log(a);
 
-    setTimeout(() => {
-        setFormSchemata([
-            {
-                field: "nailin",
-                vessel: {
-                    label: "为什么关注乃琳?"
-                }
-            },
-            {
-                field: "beila",
-                vessel: {
-                    label: "为什么关注贝拉?"
-                }
-            }
-        ]);
-    }, 2000);
+
+// const {
+//     getFormProps,
+//     getComponent,
+//     setStruct
+// } = useForm({
+//     loading: false,
+//     display: "modify",
+//     props: {
+//         inline: false,
+//         labelWidth: 240,
+//         labelAlign: "left",
+//         labelPlacement: "left",
+//         showFeedback: true,
+//         showLabel: true,
+//         showRequireMark: true,
+//         requireMarkPlacement: "right",
+//         size: "large"
+//     },
+//     schema: {
+//         diana: {
+//             key: "diana",
+//             value: "",
+//             defaultValue: "",
+//             label: "为什么关注嘉然",
+//         },
+//         ava: {
+//             key: "ava",
+//             value: "",
+//             defaultValue: "",
+//             label: "为什么关注向晚"
+//         }
+//     }
+// });
+let aa = ref(0);
+const handlerAdd = () => {
+    createField({
+        key: "ava",
+        value: "222"
+    })
+    aa.value++;
+    setValuesIn("jiaran", aa.value);
 };
-
-const formValue = ref({
-    phone: ''
-})
-
-const rules = {
-    phone: {
-        required: true,
-        message: '请输入电话号码',
-        trigger: ['blur', 'input']
-    }
-}
 </script>
 
 <template>
     <div class="form-schema">
-        <n-form ref="formRef" v-bind="formBind" :model="formValue" :rules="rules">
-            <n-form-item label="电话号码" path="phone">
-                <n-input placeholder="电话号码" v-model:value="formValue.phone" />
-                <!-- <p>{{ formValue.phone }}</p> -->
-            </n-form-item>
-
-            <n-button @click="handlerClick">校验</n-button>
-        </n-form>
-        {{ getFormSchema }}
+        {{ formValues }}
+        <n-button @click="handlerAdd">增加</n-button>
     </div>
 </template>
 
