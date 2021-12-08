@@ -2,52 +2,46 @@
  * @Author: maggot-code
  * @Date: 2021-12-06 17:21:35
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-07 23:09:48
+ * @LastEditTime: 2021-12-08 18:00:48
  * @Description: file content
  */
-import type { DefineComponent } from 'vue';
 import type {
+    ComponentCase,
     FieldOptions,
 } from './type';
 
 import { ref } from 'vue';
 import { uid } from '@/utils/uid';
+import { toArray } from '@/utils/is';
 
 import { default as BaseField } from './BaseField';
 import { default as FormModel } from './Form';
 
-class FieldModel
-    <
-    Component extends DefineComponent = any
-    >
-    extends
-    BaseField<Component>
-{
-    protected _props!: FieldOptions;
+class FieldModel<Component extends ComponentCase = any>
+    extends BaseField<Component> {
+    protected _options!: FieldOptions<Component>;
 
-    constructor(form: FormModel, props: FieldOptions) {
+    constructor(form: FormModel, options: FieldOptions<Component>) {
         super();
         this._form = form;
-        this.initialize(props);
-        this.markerMode();
+        this.initialize(options);
+        this.markerComponent();
         this.markerValue();
     }
 
-    protected initialize(props: FieldOptions) {
-        this._props = props;
-        this._fieldItemProps = this._props;
-        this._key = this._props.key ?? uid();
+    protected initialize(options: FieldOptions<Component>) {
+        this._options = options;
+        this._key = this._options.key ?? uid();
         this._path = this.key;
-        this._mode = this._props.mode ?? "unknow";
-        this._initialValue = ref(this._props.initialValue);
-        this._value = ref(this._props.value);
+        this._mode = this._options.mode ?? "unknow";
+        this._initialValue = ref(this._options.initialValue);
+        this._value = ref(this._options.value);
 
-        this._display = ref(this._props.display ?? this.setDisplay());
-        this._loading = ref(this._props.loading ?? this.setLoading());
+        this._display = ref(this._options.display ?? this.setDisplay());
+        this._loading = ref(this._options.loading ?? this.setLoading());
     }
-    protected markerMode() {
-        console.log('mode');
-        console.log(this.mode);
+    protected markerComponent() {
+        this.component = toArray(this._options.component);
     }
     protected markerValue() {
         this._form.setInitialValues(this.key, this._initialValue);

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 13:18:28
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-12 15:48:44
+ * @LastEditTime: 2021-12-08 14:10:40
  * @Description: file content
  */
 export const toString = Object.prototype.toString;
@@ -132,6 +132,10 @@ export function isAsyncFunction<T = any>(val: unknown): val is Promise<T> {
 export function isImageDom(o: Element): boolean {
     return o && ['IMAGE', 'IMG'].includes(o.tagName);
 };
+
+export function toArray(val: any): any[] {
+    return isArray(val) ? val : val ? [val] : [];
+}
 
 /**
  * @description: 判断值是否为某个类型

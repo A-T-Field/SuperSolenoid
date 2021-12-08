@@ -1,27 +1,24 @@
 /*
  * @Author: maggot-code
- * @Date: 2021-12-07 09:29:53
+ * @Date: 2021-12-08 16:00:06
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-07 23:10:31
+ * @LastEditTime: 2021-12-08 16:46:49
  * @Description: file content
  */
-import type { FormOptions } from '../domain/type';
+import type { Ref } from 'vue';
 
-import {
-    useValues,
-    useFields,
-    useComponent
-} from '../index';
+import { inject, ref } from 'vue'
+
+import { FormSymbol } from '../context';
 
 import { default as FormModel } from '../domain/Form';
 
-export const useForm = (options?: FormOptions) => {
-    const form = new FormModel(options ?? {});
+export const useForm = (): Ref<FormModel> => {
+    const form = inject(FormSymbol, ref());
 
-    return {
-        form,
-        ...useValues(form),
-        ...useFields(form),
-        ...useComponent(form)
+    if (!form.value) {
+        throw new Error('Can not found form instance from context.')
     }
+
+    return form as Ref<FormModel>;
 }

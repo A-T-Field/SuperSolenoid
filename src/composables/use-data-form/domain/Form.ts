@@ -2,14 +2,14 @@
  * @Author: maggot-code
  * @Date: 2021-12-06 16:47:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-07 23:09:27
+ * @LastEditTime: 2021-12-08 18:01:16
  * @Description: file content
  */
 import type {
-    FormValues,
-    FormFields,
+    ComponentCase,
     FormOptions,
-    GeneralField,
+    FormFields,
+    FormValues,
     FieldOptions,
     FormPickProps
 } from './type';
@@ -37,19 +37,19 @@ class FormModel extends StatusModel {
         this._id = uid();
         this._options = options;
         this._props = reactive(this._options);
-        this._display = ref(this._options.display ?? "modify");
-        this._loading = ref(this._options.loading ?? false);
-
         this._fields = reactive({});
         this._initialValues = reactive({});
         this._values = reactive({});
+
+        this._display = ref(this._options.display ?? "modify");
+        this._loading = ref(this._options.loading ?? false);
     }
 
+    get props() {
+        return unref(this._props);
+    }
     get fields() {
         return unref(this._fields);
-    }
-    get fieldsLength() {
-        return Object.keys(this.fields).length;
     }
     get initialValues() {
         return unref(this._initialValues);
@@ -57,17 +57,15 @@ class FormModel extends StatusModel {
     get values() {
         return unref(this._values);
     }
-    get props() {
-        return unref(this._props);
-    }
 
-    createField(props?: FieldOptions) {
-        if (!props?.key) return;
-        if (!this.fields[props.key]) {
-            const field = new FieldModel(this, props ?? {});
+    createField<Component extends ComponentCase = any>(props: FieldOptions<Component>) {
+        const key = props.key ?? uid();
+
+        if (!this.fields[key]) {
+            const field = new FieldModel<Component>(this, props);
             this.fields[field.key] = field;
         }
-        return this.fields[props.key] as GeneralField;
+        return this.fields[key] as FieldModel<Component>;
     }
 
     getInitialValues(key: string) {

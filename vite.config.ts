@@ -2,11 +2,12 @@
  * @Author: maggot-code
  * @Date: 2021-10-14 15:36:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-16 17:08:34
+ * @LastEditTime: 2021-12-08 10:26:48
  * @Description: file content
  */
 import { defineConfig, searchForWorkspaceRoot, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
+// @vitejs/plugin-vue-jsx
 import { viteMockServe } from 'vite-plugin-mock';
 import { resolve } from 'path';
 import { wrapperEnv } from './build/utils';
@@ -95,6 +96,10 @@ export default defineConfig(({ command, mode }) => {
                     assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
                 }
             }
+        },
+        esbuild: {
+            jsxFactory: "h",
+            jsxFragment: "Fragment"
         },
         optimizeDeps: {
             include: [],
