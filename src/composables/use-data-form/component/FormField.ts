@@ -2,58 +2,68 @@
  * @Author: maggot-code
  * @Date: 2021-12-08 16:15:05
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-08 18:07:56
+ * @LastEditTime: 2021-12-09 13:23:05
  * @Description: file content
  */
+import type { PropType } from 'vue';
+
 import {
     h,
+    toRaw,
     provide,
-    shallowRef,
     defineComponent
 } from 'vue';
-
-import { NFormItem, NInput } from 'naive-ui';
-
-import { FieldSymbol } from '../context';
+import { NFormItem } from 'naive-ui';
+import { useAttach } from '../hooks/use-attach';
+import { FieldSymbol } from '../public/context';
 
 import { useForm } from '../hooks/use-form';
 
 const FormField = defineComponent({
     name: "FormField",
+    inheritAttrs: false,
     props: {
         name: {
             type: String,
             required: true
+        },
+        value: {
+            type: String as PropType<any>,
+            default: () => ""
+        },
+        component: {
+            type: Array,
+            default: () => []
         }
     },
-    setup(props, { slots }) {
+    setup(props, { attrs, slots }) {
         const formRef = useForm();
+        const createField = () => formRef.value.createField(props);
 
-        const fieldRef = shallowRef(formRef.value.createField({
-            ...props,
-            key: props.name
-        }));
+        const [fieldRef] = useAttach(createField());
 
         provide(FieldSymbol, fieldRef);
 
-        return () => {
-            const field = fieldRef.value;
-            const componentData = {
-                props: {
-                    field,
-                },
-            }
-            const children = {
-                default: () => h(NInput, {
-                    value: field.value,
-                    onInput: (value) => {
-                        field.setFieldValue(value);
-                    }
-                })
-            };
+        // return () => h(NFormItem, { ...attrs }, {
+        //     default: () => h(toRaw(fieldRef.value.component[0]), {
+        //         ...fieldRef.value.component[1],
+        //         value: fieldRef.value.getFieldValue(),
+        //         onInput: (value) => fieldRef.value.setFieldValue(value)
+        //     })
+        // });
 
-            return h(NFormItem, componentData, children);
-        };
+        return () => h(NFormItem, { ...attrs }, {
+            default: () => {
+                const aa = h(toRaw(fieldRef.value.component[0]), {
+                    ...fieldRef.value.component[1],
+                    value: fieldRef.value.getFieldValue(),
+                    onInput: (value) => fieldRef.value.setFieldValue(value),
+                    onUpdateValue: (value) => fieldRef.value.setFieldValue(value)
+                });
+
+                return aa;
+            }
+        });
     }
 });
 

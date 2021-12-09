@@ -2,11 +2,10 @@
  * @Author: maggot-code
  * @Date: 2021-12-06 17:21:35
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-08 18:00:48
+ * @LastEditTime: 2021-12-09 13:23:45
  * @Description: file content
  */
 import type {
-    ComponentCase,
     FieldOptions,
 } from './type';
 
@@ -17,7 +16,7 @@ import { toArray } from '@/utils/is';
 import { default as BaseField } from './BaseField';
 import { default as FormModel } from './Form';
 
-class FieldModel<Component extends ComponentCase = any>
+class FieldModel<Component = any>
     extends BaseField<Component> {
     protected _options!: FieldOptions<Component>;
 
@@ -31,8 +30,8 @@ class FieldModel<Component extends ComponentCase = any>
 
     protected initialize(options: FieldOptions<Component>) {
         this._options = options;
-        this._key = this._options.key ?? uid();
-        this._path = this.key;
+        this._name = this._options.name ?? uid();
+        this._path = this.name;
         this._mode = this._options.mode ?? "unknow";
         this._initialValue = ref(this._options.initialValue);
         this._value = ref(this._options.value);
@@ -44,15 +43,15 @@ class FieldModel<Component extends ComponentCase = any>
         this.component = toArray(this._options.component);
     }
     protected markerValue() {
-        this._form.setInitialValues(this.key, this._initialValue);
-        this._form.setValuesIn(this.key, this._value);
+        this._form.setInitialValues(this.name, this._initialValue);
+        this._form.setValuesIn(this.name, this._value);
     }
 
     get value() {
-        return this._form.getValuesIn(this.key);
+        return this._form.getValuesIn(this.name);
     }
     set value(value: any) {
-        this._form.setValuesIn(this.key, value);
+        this._form.setValuesIn(this.name, value);
     }
 
     getFieldValue() {

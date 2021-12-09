@@ -2,11 +2,10 @@
  * @Author: maggot-code
  * @Date: 2021-12-06 16:47:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-08 18:01:16
+ * @LastEditTime: 2021-12-09 12:22:15
  * @Description: file content
  */
 import type {
-    ComponentCase,
     FormOptions,
     FormFields,
     FormValues,
@@ -58,14 +57,14 @@ class FormModel extends StatusModel {
         return unref(this._values);
     }
 
-    createField<Component extends ComponentCase = any>(props: FieldOptions<Component>) {
-        const key = props.key ?? uid();
+    createField<Component>(props: FieldOptions<Component>) {
+        const name = props.name ?? uid();
 
-        if (!this.fields[key]) {
-            const field = new FieldModel<Component>(this, props);
-            this.fields[field.key] = field;
+        if (!this.fields[name]) {
+            const field = new FieldModel(this, props);
+            this.fields[field.name] = field;
         }
-        return this.fields[key] as FieldModel<Component>;
+        return this.fields[name] as FieldModel;
     }
 
     getInitialValues(key: string) {

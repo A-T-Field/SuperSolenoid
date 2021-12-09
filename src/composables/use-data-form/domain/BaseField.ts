@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-06 16:51:21
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-08 16:55:41
+ * @LastEditTime: 2021-12-09 10:46:45
  * @Description: file content
  */
 import type { Ref } from 'vue';
@@ -17,7 +17,7 @@ import { default as FormModel } from './Form';
 class BaseField<Component = any>
     extends StatusModel {
     protected _form!: FormModel;
-    protected _key!: string;
+    protected _name!: string;
     protected _path!: string;
     protected _mode!: string;
     protected _componentType!: Component;
@@ -36,8 +36,8 @@ class BaseField<Component = any>
     get form() {
         return this._form;
     }
-    get key() {
-        return this._key;
+    get name() {
+        return this._name;
     }
     get path() {
         return this._path;

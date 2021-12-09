@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-06 16:50:11
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-08 17:58:28
+ * @LastEditTime: 2021-12-09 11:01:42
  * @Description: file content
  */
 import { default as FieldModel } from './Field';
@@ -26,9 +26,6 @@ export type StatusType = {
     loading: boolean;
 }
 
-// 组件实例类型
-export type ComponentCase = object;
-
 // 表单子域模型集合类型
 export type GeneralField = FieldModel;
 
@@ -37,7 +34,7 @@ export type FormFields = Record<string, GeneralField>;
 
 // 表单子域组件实例类型
 export type FieldComponent<
-    Component extends ComponentCase,
+    Component = any,
     ComponentProps = any
     > = [Component] | [Component, ComponentProps] | boolean | any[];
 
@@ -51,7 +48,7 @@ export type FieldVesselExtends = {
 
 // 表单子域选项扩展类型
 export type FieldOptionExtends<C> = StatusType & {
-    key: string;
+    name: string;
     mode: string;
     initialValue: any;
     value: any;
@@ -60,9 +57,8 @@ export type FieldOptionExtends<C> = StatusType & {
 
 // 表单子域选项类型
 export type FieldOptions<
-    Component extends ComponentCase = any
+    Component = any
     > = FormItemProps
-    & Component
     & Partial<FieldOptionExtends<Component>>
     & Partial<FieldVesselExtends>;
 
