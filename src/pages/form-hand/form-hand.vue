@@ -2,46 +2,42 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 14:48:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-09 18:49:04
+ * @LastEditTime: 2021-12-10 11:30:25
  * @Description: file content
 -->
 <script setup lang='ts'>
-// import { createForm } from '@/composables/use-data-form';
-// import FormProvider from '@/composables/use-data-form/component/FormProvider';
-// import FormField from '@/composables/use-data-form/component/FormField';
-
-import FormVessel from '@/composables/use-data-form/component/FormVessel';
-
+import { createForm } from '@/composables/use-data-form';
 import { NInput } from 'naive-ui';
+import FormProvider from '@/composables/use-data-form/component/FormProvider';
+import FormField from '@/composables/use-data-form/component/FormField';
 
-// const form = createForm();
+// import FormVessel from '@/composables/use-data-form/component/FormVessel';
 
-const data = [
-    {
-        name: "jiaran",
-        mode: "input",
-        component: [NInput]
-    },
-    {
-        name: "jiaran2",
-        mode: "input",
-        component: [NInput]
-    },
-    {
-        name: "jiaran1",
-        mode: "input",
-        component: [NInput]
-    }
-];
+const form = createForm({
+    labelWidth: 120,
+    labelPlacement: "left",
+    requireMarkPlacement: "left"
+});
 </script>
 
 <template>
     <div class="form-hand">
-        <!-- <form-provider :form="form">
-            <form-field name="jiaran" mode="input"></form-field>
-            <form-field name="ava" mode="input"></form-field>
-        </form-provider>-->
-        <form-vessel :schema="data"></form-vessel>
+        <form-provider :form="form">
+            <form-field
+                name="jiaran"
+                label="为什么关注嘉然"
+                :component="[NInput, {
+                    rule: [
+                        {
+                            required: true,
+                            message: '正面回答',
+                            trigger: ['input', 'blur']
+                        }
+                    ]
+                }]"
+            />
+        </form-provider>
+        <!-- <form-vessel :form="form" :schema="data"></form-vessel> -->
     </div>
 </template>
 

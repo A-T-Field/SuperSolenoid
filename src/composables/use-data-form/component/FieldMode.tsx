@@ -2,44 +2,47 @@
  * @Author: maggot-code
  * @Date: 2021-12-09 17:08:20
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-09 18:25:58
+ * @LastEditTime: 2021-12-10 10:06:37
  * @Description: file content
  */
+import type { FieldSetupProps } from './FormField';
 import type {
     ExtractPropTypes
 } from 'vue';
 
 import {
     h,
-    ref,
-    defineComponent
+    defineComponent,
 } from 'vue';
+// import { useForm } from '../hooks/use-form';
 import { useField } from '../hooks/use-field';
-import { NButton } from 'naive-ui';
+import { getRawComponent } from '../public';
+import { fieldProps } from '../props/field';
 
-const modeProps = {} as const;
+const modeProps = {
+    ...fieldProps
+} as const;
 
-export type ModeSetupProps = ExtractPropTypes<typeof modeProps>;
+export type ModeSetupProps = ExtractPropTypes<typeof modeProps> & FieldSetupProps;
 
 export default defineComponent({
     name: "FieldMode",
-    // props: modeProps,
+    props: modeProps,
     setup(props, { attrs }) {
+        // const formRef = useForm();
         const fieldRef = useField();
-        const a = ref(0);
-        const add = () => {
-            a.value++;
-            fieldRef.value.setFieldValue(a);
-        };
-        return () => h(
-            <div>
-                <h1>{fieldRef.value.name} {fieldRef.value.value}</h1>
-                <NButton onClick={() => add()}>{{
-                    default: () => h(
-                        <p>增加</p>
-                    )
-                }}</NButton>
-            </div>
-        )
+
+        const [component, componentProps] = getRawComponent(props);
+
+        return () => h(component, {
+            ...componentProps,
+            value: fieldRef.value.getFieldValue(),
+            onInput: (value) => {
+                fieldRef.value.setFieldValue(value)
+            },
+            onUpdateValue: (value) => {
+                fieldRef.value.setFieldValue(value);
+            }
+        })
     }
 })

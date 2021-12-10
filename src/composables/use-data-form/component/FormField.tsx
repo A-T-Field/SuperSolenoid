@@ -2,59 +2,41 @@
  * @Author: maggot-code
  * @Date: 2021-12-08 16:15:05
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-09 18:45:21
+ * @LastEditTime: 2021-12-10 11:31:56
  * @Description: file content
  */
 import type {
-    PropType,
-    DefineComponent,
     ExtractPropTypes
 } from 'vue';
-import type {
-    FieldComponent
-} from '../domain/type';
 
 import {
     h,
     provide,
-    defineComponent
+    defineComponent,
+    toRaw
 } from 'vue';
-import { NFormItem } from 'naive-ui';
+import { fieldProps } from '../props/field';
+import { isNil } from '@/utils/is';
+import { NFormItem, NTooltip } from 'naive-ui';
 import { useAttach } from '../hooks/use-attach';
 import { useForm } from '../hooks/use-form';
 import { FieldSymbol } from '../public';
 import FieldMode from './FieldMode';
 import FormUnknow from './FormUnknow';
+import { default as IconImg } from '@/components/icon-img';
 
 const FormFieldClass = {
-    field: "form-field",
-    prefix: "form-field-prefix",
-    suffix: "form-field-suffix",
-    body: "form-field-body",
-    explain: "form-field-body-explain",
-    label: "form-field-body-label",
-    title: "field-body-label-title",
-    tips: "field-body-label-tips"
+    field: "ATF-form-field",
+    prefix: "ATF-form-field-prefix",
+    suffix: "ATF-form-field-suffix",
+    body: "ATF-form-field-body",
+    explain: "ATF-form-field-body-explain",
+    label: "ATF-form-field-body-label",
+    title: "ATF-field-body-label-title",
+    tips: "ATF-field-body-label-tips"
 };
 
-const fieldProps = {
-    name: {
-        type: String,
-        required: true
-    },
-    mode: {
-        type: String,
-        default: "unknow"
-    },
-    value: {},
-    component: {
-        type: Array as PropType<
-            FieldComponent<DefineComponent, any>
-        >,
-        default: () => []
-    }
-} as const;
-
+// component 优先级高于 mode
 export type FieldSetupProps = ExtractPropTypes<typeof fieldProps>;
 
 export default defineComponent({
@@ -72,34 +54,80 @@ export default defineComponent({
         provide(FieldSymbol, fieldRef);
 
         const fieldLabel = () => h(
-            <p>
-                <span class={FormFieldClass.title}>标题</span>
-                <span class={FormFieldClass.tips}>提示</span>
-            </p>
+            <span>
+                <span class={FormFieldClass.title} style={{
+                    paddingRight: '6px'
+                }}>标题</span>
+                <NTooltip trigger='hover'>
+                    {{
+                        trigger: () => h(
+                            <IconImg name="ATF-question-circle"></IconImg>
+                        ),
+                        default: () => h(
+                            <span>提示</span>
+                        )
+                    }}
+                </NTooltip>
+                <span>：</span>
+            </span>
         );
 
         const fieldMode = () => {
-            if (
-                props.mode === 'unknow'
-            ) return h(<FormUnknow></FormUnknow>);
+            if (isNil(props.component[0]) && props.mode === 'unknow') {
+                return h(<FormUnknow></FormUnknow>);
+            }
 
-            return h(<FieldMode></FieldMode>);
+            const context = {
+                ...toRaw(props),
+                ...toRaw(attrs)
+            }
+
+            return h(
+                <div class={FormFieldClass.field} style={{
+                    flex: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between"
+                }}>
+                    <div class={FormFieldClass.body} style={{
+                        flex: 1,
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center"
+                    }}>
+                        <span class={FormFieldClass.prefix} style={{
+                            flexShrink: 1,
+                            paddingRight: '12px'
+                        }}>前缀</span>
+
+                        <FieldMode style={{
+                            flex: 1,
+                            flexShrink: 0
+                        }} {...context}></FieldMode>
+
+                        <span class={FormFieldClass.suffix} style={{
+                            flexShrink: 1,
+                            paddingLeft: '12px'
+                        }}>后缀</span>
+                    </div>
+                    <p class={FormFieldClass.explain}>说明</p>
+                </div>
+            );
+        }
+
+        const context = {
+            ...attrs,
+            ...props.component[1],
+            path: fieldRef.value.path
         }
 
         return () => h(
-            <div class={FormFieldClass.field}>
-                <h1 class={FormFieldClass.prefix}>前缀</h1>
-                <div class={FormFieldClass.body}>
-                    <NFormItem {...attrs}>
-                        {{
-                            default: fieldMode,
-                            label: fieldLabel,
-                        }}
-                    </NFormItem>
-                    <p class={FormFieldClass.explain}>说明</p>
-                </div>
-                <h1 class={FormFieldClass.suffix}>后缀</h1>
-            </div>
+            <NFormItem {...context}>
+                {{
+                    label: fieldLabel,
+                    default: fieldMode,
+                }}
+            </NFormItem>
         );
     }
 })

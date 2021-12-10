@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-08 16:16:34
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-09 18:43:20
+ * @LastEditTime: 2021-12-10 11:25:47
  * @Description: file content
  */
 import type {
@@ -39,8 +39,18 @@ export default defineComponent({
 
         provide(FormSymbol, formRef);
 
+        const context = {
+            ...attrs,
+            ...formRef.value.props,
+            model: formRef.value.values
+        }
+
         return () => h(
-            <NForm {...attrs} >{slots}</NForm>
+            <NForm
+                {...context}
+            >
+                {slots}
+            </NForm>
         )
     },
 });
