@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-28 11:27:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-05 00:13:18
+ * @LastEditTime: 2021-12-10 13:13:55
  * @Description: file content
  */
 import type { App } from 'vue';
@@ -38,7 +38,9 @@ import {
     NBreadcrumb,
     NBreadcrumbItem,
     NScrollbar,
-    NSpin
+    NSpin,
+    NTooltip,
+    NTag
 } from 'naive-ui';
 
 const naiveUI = createNaiveUI({
@@ -69,7 +71,9 @@ const naiveUI = createNaiveUI({
         NBreadcrumb,
         NBreadcrumbItem,
         NScrollbar,
-        NSpin
+        NSpin,
+        NTooltip,
+        NTag
     ]
 });
 
@@ -79,14 +83,35 @@ function useNaiveUI(app: App<Element>, appextend: App<Element>): void {
 }
 
 export {
-    NAvatar,
+    NConfigProvider,
+    NLoadingBarProvider,
+    NMessageProvider,
+
     NDataTable,
     NTable,
     NPagination,
+    NBadge,
+    NAvatar,
+    NPopover,
+    NSpace,
+    NLayout,
+    NLayoutContent,
+    NLayoutFooter,
+    NLayoutHeader,
+    NLayoutSider,
+    NMenu,
+    NDropdown,
     NButton,
+    NButtonGroup,
     NForm,
     NFormItem,
     NInput,
+    NBreadcrumb,
+    NBreadcrumbItem,
+    NScrollbar,
+    NSpin,
+    NTooltip,
+    NTag,
 
     zhCN,
     dateZhCN,

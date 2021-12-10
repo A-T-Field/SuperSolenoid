@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-08 16:16:34
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-10 11:25:47
+ * @LastEditTime: 2021-12-10 13:13:32
  * @Description: file content
  */
 import type {
@@ -15,7 +15,7 @@ import {
     provide,
     defineComponent
 } from 'vue';
-import { NForm } from 'naive-ui';
+import { NForm } from '@/plugins/naive-ui';
 import { useAttach } from '../hooks/use-attach';
 import { FormSymbol } from '../public';
 import { default as FormModel } from '../domain/Form';

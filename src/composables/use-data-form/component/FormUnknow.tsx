@@ -2,14 +2,14 @@
  * @Author: maggot-code
  * @Date: 2021-12-08 16:14:57
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-09 17:58:15
+ * @LastEditTime: 2021-12-10 13:14:16
  * @Description: file content
  */
 import {
     h,
     defineComponent
 } from 'vue';
-import { NTag } from 'naive-ui';
+import { NTag } from '@/plugins/naive-ui';
 
 export default defineComponent({
     name: "FormUnknow",

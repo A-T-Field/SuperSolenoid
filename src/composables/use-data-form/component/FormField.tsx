@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-08 16:15:05
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-10 11:31:56
+ * @LastEditTime: 2021-12-10 13:13:05
  * @Description: file content
  */
 import type {
@@ -17,10 +17,10 @@ import {
 } from 'vue';
 import { fieldProps } from '../props/field';
 import { isNil } from '@/utils/is';
-import { NFormItem, NTooltip } from 'naive-ui';
 import { useAttach } from '../hooks/use-attach';
 import { useForm } from '../hooks/use-form';
 import { FieldSymbol } from '../public';
+import { NFormItem, NTooltip } from '@/plugins/naive-ui';
 import FieldMode from './FieldMode';
 import FormUnknow from './FormUnknow';
 import { default as IconImg } from '@/components/icon-img';
