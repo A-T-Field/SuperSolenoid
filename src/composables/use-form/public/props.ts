@@ -1,17 +1,24 @@
 /*
  * @Author: maggot-code
- * @Date: 2021-12-10 09:45:01
+ * @Date: 2021-12-12 22:14:42
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-10 09:47:38
+ * @LastEditTime: 2021-12-12 22:29:26
  * @Description: file content
  */
 import type {
     PropType,
     DefineComponent,
 } from 'vue';
-import type {
-    FieldComponent
-} from '../domain/type';
+import type { ComponentUnit } from '../type/public';
+
+import { default as FormModel } from '../domain/Form';
+
+export const providerProps = {
+    form: {
+        type: Object as PropType<FormModel>,
+        required: true
+    }
+} as const;
 
 export const fieldProps = {
     name: {
@@ -19,13 +26,9 @@ export const fieldProps = {
         required: true
     },
     value: {},
-    mode: {
-        type: String,
-        default: "unknow"
-    },
     component: {
         type: Array as PropType<
-            FieldComponent<DefineComponent, any>
+            ComponentUnit<DefineComponent, any>
         >,
         default: () => []
     }

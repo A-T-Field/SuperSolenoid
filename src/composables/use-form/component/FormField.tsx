@@ -1,28 +1,25 @@
 /*
  * @Author: maggot-code
- * @Date: 2021-12-08 16:15:05
+ * @Date: 2021-12-12 22:29:41
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-10 13:13:05
+ * @LastEditTime: 2021-12-12 23:18:42
  * @Description: file content
  */
-import type {
-    ExtractPropTypes
-} from 'vue';
+import type { ExtractPropTypes } from 'vue';
 
 import {
     h,
+    toRaw,
     provide,
     defineComponent,
-    toRaw
 } from 'vue';
-import { fieldProps } from '../props/field';
-import { isNil } from '@/utils/is';
+import { fieldProps } from '../public/props';
 import { useAttach } from '../hooks/use-attach';
 import { useForm } from '../hooks/use-form';
-import { FieldSymbol } from '../public';
+import { FieldSymbol } from '../public/context';
 import { NFormItem, NTooltip } from '@/plugins/naive-ui';
-import FieldMode from './FieldMode';
-import FormUnknow from './FormUnknow';
+import { default as FormUnknow } from './FormUnknow';
+import { default as FieldMode } from './FieldMode';
 import { default as IconImg } from '@/components/icon-img';
 
 const FormFieldClass = {
@@ -36,7 +33,6 @@ const FormFieldClass = {
     tips: "ATF-field-body-label-tips"
 };
 
-// component 优先级高于 mode
 export type FieldSetupProps = ExtractPropTypes<typeof fieldProps>;
 
 export default defineComponent({
@@ -53,30 +49,28 @@ export default defineComponent({
 
         provide(FieldSymbol, fieldRef);
 
-        const fieldLabel = () => h(
-            <span>
-                <span class={FormFieldClass.title} style={{
-                    paddingRight: '6px'
-                }}>标题</span>
-                <NTooltip trigger='hover'>
-                    {{
-                        trigger: () => h(
-                            <IconImg name="ATF-question-circle"></IconImg>
-                        ),
-                        default: () => h(
-                            <span>提示</span>
-                        )
-                    }}
-                </NTooltip>
-                <span>：</span>
-            </span>
-        );
+        const fieldLabel = () => {
+            return h(
+                <span>
+                    <span class={FormFieldClass.title} style={{
+                        paddingRight: '6px'
+                    }}>标题</span>
+                    <NTooltip trigger='hover'>
+                        {{
+                            trigger: () => h(
+                                <IconImg name="ATF-question-circle"></IconImg>
+                            ),
+                            default: () => h(
+                                <span>提示</span>
+                            )
+                        }}
+                    </NTooltip>
+                    <span>：</span>
+                </span>
+            );
+        };
 
         const fieldMode = () => {
-            if (isNil(props.component[0]) && props.mode === 'unknow') {
-                return h(<FormUnknow></FormUnknow>);
-            }
-
             const context = {
                 ...toRaw(props),
                 ...toRaw(attrs)
@@ -118,7 +112,7 @@ export default defineComponent({
         const context = {
             ...attrs,
             ...props.component[1],
-            path: fieldRef.value.path
+            path: fieldRef.value?.name
         }
 
         return () => h(
@@ -130,4 +124,4 @@ export default defineComponent({
             </NFormItem>
         );
     }
-})
+});

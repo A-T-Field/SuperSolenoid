@@ -1,31 +1,24 @@
 /*
  * @Author: maggot-code
- * @Date: 2021-12-08 16:16:34
+ * @Date: 2021-12-12 22:16:22
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-10 13:13:32
+ * @LastEditTime: 2021-12-12 22:26:52
  * @Description: file content
  */
 import type {
-    PropType,
-    ExtractPropTypes,
+    ExtractPropTypes
 } from 'vue';
 
 import {
     h,
+    unref,
     provide,
     defineComponent
 } from 'vue';
 import { NForm } from '@/plugins/naive-ui';
 import { useAttach } from '../hooks/use-attach';
-import { FormSymbol } from '../public';
-import { default as FormModel } from '../domain/Form';
-
-const providerProps = {
-    form: {
-        type: Object as PropType<FormModel>,
-        required: true
-    },
-} as const;
+import { providerProps } from '../public/props';
+import { FormSymbol } from '../public/context';
 
 export type ProviderSetupProps = ExtractPropTypes<typeof providerProps>;
 
@@ -41,16 +34,14 @@ export default defineComponent({
 
         const context = {
             ...attrs,
-            ...formRef.value.props,
-            model: formRef.value.values
+            ...unref(formRef.value.options),
+            model: unref(formRef.value.values)
         }
 
         return () => h(
-            <NForm
-                {...context}
-            >
+            <NForm {...context}>
                 {slots}
             </NForm>
         )
-    },
+    }
 });
