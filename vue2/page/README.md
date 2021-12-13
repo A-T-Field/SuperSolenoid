@@ -1,1 +1,0 @@
-# vue2 page template

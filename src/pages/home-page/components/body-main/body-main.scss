@@ -1,0 +1,18 @@
+@import '@/style/var.scss';
+
+.ATF-body-main{
+    & .ATF-body-main-context{
+        display: flex;
+        flex-direction: column;
+        &-content{
+            flex: 1;
+            width: 100%;
+            height: auto;
+            padding: 10px;
+            border-radius: 6px;
+            background-color: $ATF-background-color-base;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+    }
+}

@@ -1,1 +1,1 @@
-# SuperSolenoid
+# vue3 project template
