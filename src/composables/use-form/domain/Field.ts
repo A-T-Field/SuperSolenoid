@@ -2,55 +2,55 @@
  * @Author: maggot-code
  * @Date: 2021-12-11 16:49:57
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-12 23:04:04
+ * @LastEditTime: 2021-12-13 15:57:04
  * @Description: file content
  */
-import type { Ref } from 'vue';
+import { Ref } from 'vue';
 import type {
     FieldOptions
 } from '../type/domain';
-import type {
-    ComponentUnit
-} from '../type/public';
 
 import { unref, ref } from 'vue';
 import { uid } from '@/utils/uid';
 import { toArray } from '@/utils/is';
-import { default as Share } from './Share';
+import { default as BaseField } from './BaseField';
 import { default as FormModel } from './Form';
 
-class Field extends Share {
-    protected _form!: FormModel;
+class Field extends BaseField {
     protected _name: Ref<string> = ref(uid());
-    protected _componentType!: ComponentUnit;
-    protected _componentProps!: Record<string, any>;
+    protected _initialValue: Ref<any> = ref();
+    protected _value: Ref<any> = ref();
+    protected _componentType!: any;
+    protected _componentProps!: any;
 
     constructor(options: Partial<FieldOptions>, form: FormModel) {
-        super();
-        this._form = form;
-        this.defaultOptions(Object.assign({}, unref(this._form.options), options));
+        super(options, form);
         this.initialization(options);
-        this.markerComponent(options);
         this.markerValue(options);
+        this.markerComponent(options);
         this.onCreate();
     }
 
     protected initialization(options: Partial<FieldOptions>) {
-        this._name.value = options.name ?? uid();
-    }
-    protected markerComponent(options: Partial<FieldOptions>) {
-        this.component = toArray(options.component);
+        const key = uid();
+        this._name.value = options.name ?? key;
     }
     protected markerValue(options: Partial<FieldOptions>) {
         this.initialValue = options.initialValue;
         this.value = options.value;
     }
+    protected markerComponent(options: Partial<FieldOptions>) {
+        this.component = options.component;
+    }
 
     get name() {
         return unref(this._name);
     }
+    get path() {
+        return this.name;
+    }
     get initialValue() {
-        return this._form.getInitialValuesIn(this.name);
+        return unref(this._initialValue);
     }
     get value() {
         return this._form.getValuesIn(this.name);
@@ -59,28 +59,30 @@ class Field extends Share {
         return [this._componentType, this._componentProps];
     }
     set initialValue(value: any) {
-        this._form.setInitialValuesIn(this.name, value);
+        this._initialValue.value = value;
     }
     set value(value: any) {
-        this._form.setValuesIn(this.name, value);
+        this._value.value = value;
+        this._form.setValuesIn(this.name, unref(this._value));
     }
-    set component(value: ComponentUnit) {
-        const [component, props] = toArray(value);
-        this._componentType = component;
-        this._componentProps = props ?? {};
+    set component(component: any) {
+        const [render, props] = toArray(component);
+        this._componentType = render;
+        this._componentProps = props;
     }
 
-    getFieldInitialValue = () => {
-        return this._form.getInitialValuesIn(this.name);
-    }
     getFieldValue = () => {
-        return this._form.getValuesIn(this.name);
-    }
-    setFieldInitialValue = (value: any) => {
-        this._form.setInitialValuesIn(this.name, value);
+        return this.value;
     }
     setFieldValue = (value: any) => {
-        this._form.setValuesIn(this.name, value);
+        this.value = value;
+    }
+
+    onInput = async (value: any) => {
+        this.setFieldValue(value);
+    }
+    onUpdateValue = async (value: any) => {
+        this.setFieldValue(value);
     }
 };
 

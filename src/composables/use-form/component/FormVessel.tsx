@@ -2,30 +2,13 @@
  * @Author: maggot-code
  * @Date: 2021-12-12 22:27:21
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-12 23:12:05
+ * @LastEditTime: 2021-12-13 09:58:46
  * @Description: file content
  */
-import type { PropType, ExtractPropTypes } from 'vue';
-import type { FieldSetupProps } from './FormField';
-
 import { h, defineComponent } from 'vue';
-import { providerProps } from '../public/props';
+import { vesselProps } from '../public/props';
 import FormProvider from './FormProvider';
 import FormField from './FormField';
-
-const vesselProps = {
-    ...providerProps,
-    schema: {
-        type: Array as PropType<Array<
-            Partial<FieldSetupProps> & {
-                name: string
-            }
-        >>,
-        default: () => []
-    }
-} as const;
-
-export type VesselSetupProps = ExtractPropTypes<typeof vesselProps>;
 
 export default defineComponent({
     name: "FormVessel",

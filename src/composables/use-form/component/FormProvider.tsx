@@ -2,12 +2,10 @@
  * @Author: maggot-code
  * @Date: 2021-12-12 22:16:22
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-12 22:26:52
+ * @LastEditTime: 2021-12-13 15:24:39
  * @Description: file content
  */
-import type {
-    ExtractPropTypes
-} from 'vue';
+import type { FormProps } from '../type/domain';
 
 import {
     h,
@@ -20,8 +18,6 @@ import { useAttach } from '../hooks/use-attach';
 import { providerProps } from '../public/props';
 import { FormSymbol } from '../public/context';
 
-export type ProviderSetupProps = ExtractPropTypes<typeof providerProps>;
-
 export default defineComponent({
     name: "FormProvider",
     props: providerProps,
@@ -32,14 +28,14 @@ export default defineComponent({
 
         provide(FormSymbol, formRef);
 
-        const context = {
+        const context: FormProps = {
             ...attrs,
-            ...unref(formRef.value.options),
-            model: unref(formRef.value.values)
+            ...unref(formRef.value.optionExtends),
+            model: unref(formRef.value.getValues()),
         }
 
         return () => h(
-            <NForm {...context}>
+            <NForm ref={unref(formRef).setFormCase} {...context}>
                 {slots}
             </NForm>
         )
