@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 14:49:45
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-13 16:12:04
+ * @LastEditTime: 2021-12-13 16:22:52
  * @Description: file content
 -->
 <script setup lang='ts'>
@@ -34,9 +34,6 @@ const schema = [
         name: "textinput",
         mode: "NInput",
         label: "测试文本框",
-        describe: "说明内容",
-        prefix: "123",
-        suffix: "312",
         componentProps: {
             placeholder: "内容内容占位的",
             rows: 5,

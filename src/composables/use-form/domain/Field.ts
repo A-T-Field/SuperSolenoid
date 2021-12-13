@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-11 16:49:57
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-13 15:57:04
+ * @LastEditTime: 2021-12-13 16:32:17
  * @Description: file content
  */
 import { Ref } from 'vue';
@@ -79,6 +79,12 @@ class Field extends BaseField {
     }
 
     onInput = async (value: any) => {
+        this.setFieldValue(value);
+    }
+    onSelect = async (value: any) => {
+        this.setFieldValue(value);
+    }
+    onUpdateChecked = async (value: any) => {
         this.setFieldValue(value);
     }
     onUpdateValue = async (value: any) => {
