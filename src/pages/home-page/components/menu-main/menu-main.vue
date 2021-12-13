@@ -1,0 +1,47 @@
+<!--
+ * @Author: maggot-code
+ * @Date: 2021-11-17 15:02:22
+ * @LastEditors: maggot-code
+ * @LastEditTime: 2021-11-22 00:05:06
+ * @Description: file content
+-->
+<script setup lang='ts'>
+import type { PropType } from 'vue';
+import type { RouteRecordRaw, RouteRecordName } from 'vue-router';
+
+defineProps({
+    routes: {
+        type: Array as PropType<Array<RouteRecordRaw>>,
+        default: []
+    },
+    active: {
+        type: String as PropType<RouteRecordName>,
+        default: ""
+    }
+});
+const emit = defineEmits([
+    'wrap:active',
+    'wrap:route'
+]);
+function handlerValue(name: RouteRecordName, route: RouteRecordRaw) {
+    emit('wrap:active', name);
+    emit('wrap:route', route);
+}
+</script>
+
+<template>
+    <n-menu
+        key-field="name"
+        label-field="title"
+        children-field="nextNode"
+        mode="vertical"
+        :accordion="true"
+        :inverted="true"
+        :indent="24"
+        :options="routes"
+        :value="active"
+        @update:value="handlerValue"
+    ></n-menu>
+</template>
+
+<style scoped lang='scss'></style>
