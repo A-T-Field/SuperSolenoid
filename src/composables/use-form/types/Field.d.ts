@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-13 20:58:15
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-14 00:03:49
+ * @LastEditTime: 2021-12-14 13:49:40
  * @Description: file content
  */
 import type { ValueType } from './Public';
@@ -10,8 +10,8 @@ import type { ShareOptions } from './Share';
 
 export type FieldExtends = {
     key: string;
-    void: boolean;
     path: string;
+    void: boolean;
     required: boolean;
     label: string;
     placeholder: string;

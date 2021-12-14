@@ -2,16 +2,17 @@
  * @Author: maggot-code
  * @Date: 2021-12-13 21:06:35
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-13 23:45:59
+ * @LastEditTime: 2021-12-14 13:26:55
  * @Description: file content
  */
 // 功能性类型
-export type OmitState = Omit<
-    "path"
+export type OmitState<P> = Omit<
+    P,
+    'schema'
 >;
 
 // 功能性类型
-export type NonPropertyNames<T> = {
+export type PickupPropertyNames<T> = {
     [K in keyof T]: T[K] extends (...args: any) => any ? never : K
 }[keyof T];
 

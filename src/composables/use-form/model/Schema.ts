@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-13 23:48:20
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-14 11:42:34
+ * @LastEditTime: 2021-12-14 12:49:44
  * @Description: file content
  */
 import type {
@@ -10,6 +10,7 @@ import type {
 } from '../types/Schema';
 
 import { unref, reactive } from 'vue';
+import { useIterator } from '../hooks/useIterator';
 
 class Schema {
     protected _schemaUnit: SchemaOptions = reactive({});
@@ -24,6 +25,9 @@ class Schema {
 
     get schemaUnit() {
         return unref(this._schemaUnit);
+    }
+    get schemaIterator() {
+        return useIterator(this.schemaUnit);
     }
     set schemaUnit(schema: SchemaOptions) {
         this._schemaUnit = schema;

@@ -2,18 +2,20 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 14:48:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-14 11:43:35
+ * @LastEditTime: 2021-12-14 14:59:23
  * @Description: file content
 -->
 <script setup lang='ts'>
-// import Test1JSON from '@/composables/use-form/json/test1.json';
-// import { Form } from '@/composables/use-form/model/Form';
-// import { Field } from '@/composables/use-form/model/Field';
-// import { Schema } from '@/composables/use-form/model/Schema';
+import Test1JSON from '@/composables/use-form/json/test1.json';
+import { schemaParser, createForm } from '@/composables/use-form';
+const schema = schemaParser(Test1JSON);
+createForm({
+    schema
+});
 </script>
 
 <template>
-    <div class="form-hand">123</div>
+    <div class="form-hand"></div>
 </template>
 
 <style scoped lang='scss'>
