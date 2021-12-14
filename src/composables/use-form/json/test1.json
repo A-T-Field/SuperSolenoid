@@ -2,6 +2,7 @@
     "jichu": {
         "key": "jichu",
         "void": true,
+        "label": "基础",
         "children": {
             "name": {
                 "key": "name",
@@ -21,6 +22,16 @@
                 "label": "年龄",
                 "placeholder": "请输入年龄",
                 "initialValue": 18,
+                "vessel": "div",
+                "vesselProps": {},
+                "component": "p",
+                "componentProps": {}
+            },
+            "address": {
+                "key": "address",
+                "required": false,
+                "label": "住址",
+                "placeholder": "请输入住址",
                 "vessel": "div",
                 "vesselProps": {},
                 "component": "p",
