@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-14 11:31:40
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-14 11:40:55
+ * @LastEditTime: 2021-12-14 16:20:08
  * @Description: file content
  */
 import { uid } from '@/utils/uid';
@@ -23,10 +23,12 @@ export const useIterator = <S extends SchemaExtends>(schema: S, parentName?: Nul
 
         const hasParent = !isNull(parentName ?? null);
 
-        const path = hasParent ? `${parentName ?? null}.${nodeName}` : nodeName;
+        const basePath = hasParent ? `${parentName ?? null}.${nodeName}` : nodeName;
+        const path = hasParent ? `${parentName ?? null}.children.${nodeName}` : nodeName;
 
         const target = {
             ...schema[member],
+            basePath,
             path,
             hasParent,
             level: level ?? 0,

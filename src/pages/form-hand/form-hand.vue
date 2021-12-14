@@ -2,20 +2,34 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 14:48:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-14 14:59:23
+ * @LastEditTime: 2021-12-14 18:31:18
  * @Description: file content
 -->
 <script setup lang='ts'>
+import { unref, watch } from 'vue';
 import Test1JSON from '@/composables/use-form/json/test1.json';
-import { schemaParser, createForm } from '@/composables/use-form';
+import {
+    FormProvider,
+    schemaParser,
+    createForm
+} from '@/composables/use-form';
 const schema = schemaParser(Test1JSON);
-createForm({
+const form = createForm({
     schema
 });
+
+watch(
+    () => unref(form.getValues()),
+    (a) => {
+        console.log(a);
+    }
+)
 </script>
 
 <template>
-    <div class="form-hand"></div>
+    <div class="form-hand">
+        <form-provider :form="form"></form-provider>
+    </div>
 </template>
 
 <style scoped lang='scss'>

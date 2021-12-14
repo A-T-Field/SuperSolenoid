@@ -2,11 +2,12 @@
  * @Author: maggot-code
  * @Date: 2021-12-13 20:58:29
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-14 14:45:45
+ * @LastEditTime: 2021-12-14 18:27:21
  * @Description: file content
  */
-import type { Ref } from 'vue';
+import { reactive, Ref } from 'vue';
 import type { FieldOptions } from '../types/Field';
+import type { FormVoidTree } from '../types/Form';
 
 import { unref, ref, computed } from 'vue';
 import { uid } from '@/utils/uid';
@@ -16,11 +17,13 @@ import { Form } from './Form';
 class Field extends Share {
     protected _form: Form;
     protected _key: string;
+    protected _basePath: string;
     protected _path: string;
     protected _void: boolean;
 
     protected _initialValue: Ref<any> = ref();
     protected _value: Ref<any> = ref();
+    protected _children: FormVoidTree = reactive({});
 
     protected _required: Ref<boolean> = ref<boolean>(false);
     protected _label: Ref<string> = ref<string>("标题");
@@ -35,8 +38,10 @@ class Field extends Share {
         super(options);
         this._form = form;
         this._key = options.key ?? id;
+        this._basePath = options.basePath ?? id;
         this._path = options.path ?? id;
         this._void = options.void ?? false;
+        this.initialization(options);
     }
     protected initialization(options: Partial<FieldOptions>) {
         this.initialValue = options.initialValue;
@@ -54,6 +59,9 @@ class Field extends Share {
     get key() {
         return this._key;
     }
+    get basePath() {
+        return this._basePath;
+    }
     get path() {
         return this._path;
     }
@@ -65,6 +73,9 @@ class Field extends Share {
     }
     get value() {
         return unref(this._value);
+    }
+    get children() {
+        return unref(this._children);
     }
     get required() {
         return unref(this._required);
@@ -94,6 +105,9 @@ class Field extends Share {
     set value(value: any) {
         this._value.value = value;
     }
+    set children(children: FormVoidTree) {
+        this._children = children;
+    }
     set required(state: boolean) {
         this._required.value = state;
     }
@@ -116,6 +130,11 @@ class Field extends Share {
         this._suffix.value = text;
     }
 
+    hasChildren = () => {
+        return computed(() => {
+            return Object.keys(unref(this.children)).length > 0;
+        })
+    }
     getFieldInitialValue = () => {
         return computed(() => this.initialValue)
     }

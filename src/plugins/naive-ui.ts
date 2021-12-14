@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-28 11:27:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-10 13:13:55
+ * @LastEditTime: 2021-12-14 15:34:11
  * @Description: file content
  */
 import type { App } from 'vue';
@@ -101,15 +101,17 @@ export {
     NLayoutSider,
     NMenu,
     NDropdown,
+    NBreadcrumb,
+    NBreadcrumbItem,
+    NScrollbar,
+    NSpin,
+
+    // form
     NButton,
     NButtonGroup,
     NForm,
     NFormItem,
     NInput,
-    NBreadcrumb,
-    NBreadcrumbItem,
-    NScrollbar,
-    NSpin,
     NTooltip,
     NTag,
 

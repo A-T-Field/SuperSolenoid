@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-13 23:38:30
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-14 13:44:42
+ * @LastEditTime: 2021-12-14 16:36:10
  * @Description: file content
  */
 import type { FieldOptions } from './Field';
@@ -13,7 +13,7 @@ export type SchemaDefine = Partial<{
     vesselProps: Record<string, any>;
     component: any;
     componentProps: Record<string, any>;
-    children: SchemaIterator;
+    children: any;
 }>;
 
 export type SchemaMemberOptions = Partial<
