@@ -38,5 +38,27 @@
                 "componentProps": {}
             }
         }
+    },
+    "sex": {
+        "key": "sex",
+        "required": true,
+        "label": "性别",
+        "placeholder": "请选择性别",
+        "initialValue": 1,
+        "value": 1,
+        "options": [
+            {
+                "label": "男",
+                "value": 1
+            },
+            {
+                "label": "女",
+                "value": 0
+            }
+        ],
+        "vessel": "div",
+        "vesselProps": {},
+        "component": "p",
+        "componentProps": {}
     }
 }
