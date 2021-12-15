@@ -1,0 +1,32 @@
+@import '@/style/var.scss';
+
+html,body{
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+}
+
+h1,h2,h3,h4,h5,h6,p,ul,ol{
+    margin: 0;
+    padding: 0;
+}
+ul,ol{
+    list-style: none;
+}
+i{
+    font-style: normal;
+}
+
+#app {
+    width: 100%;
+    height: 100%;
+    color: $ATF-font-color-def;
+    background-color: transparent;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    & .n-config-provider{
+        width: 100%;
+        height: 100%;
+    }
+}
