@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-13 20:58:29
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-14 18:27:21
+ * @LastEditTime: 2021-12-15 10:57:32
  * @Description: file content
  */
 import { reactive, Ref } from 'vue';
@@ -19,10 +19,14 @@ class Field extends Share {
     protected _key: string;
     protected _basePath: string;
     protected _path: string;
-    protected _void: boolean;
+    protected _isVoid: boolean;
 
     protected _initialValue: Ref<any> = ref();
     protected _value: Ref<any> = ref();
+    protected _vessel: Ref<string> = ref("");
+    protected _vesselProps: Record<string, any> = reactive({});
+    protected _component: Ref<string> = ref("");
+    protected _componentProps: Record<string, any> = reactive({});
     protected _children: FormVoidTree = reactive({});
 
     protected _required: Ref<boolean> = ref<boolean>(false);
@@ -40,12 +44,17 @@ class Field extends Share {
         this._key = options.key ?? id;
         this._basePath = options.basePath ?? id;
         this._path = options.path ?? id;
-        this._void = options.void ?? false;
+        this._isVoid = options.isVoid ?? false;
+
         this.initialization(options);
     }
     protected initialization(options: Partial<FieldOptions>) {
         this.initialValue = options.initialValue;
         this.value = options.value;
+        this.vessel = options.vessel;
+        this.vesselProps = options.vesselProps;
+        this.component = options.component;
+        this.componentProps = options.componentProps;
 
         this.required = options.required ?? false;
         this.label = options.label ?? "标题";
@@ -65,14 +74,26 @@ class Field extends Share {
     get path() {
         return this._path;
     }
-    get void() {
-        return this._void;
+    get isVoid() {
+        return this._isVoid;
     }
     get initialValue() {
         return unref(this._initialValue);
     }
     get value() {
         return unref(this._value);
+    }
+    get vessel() {
+        return unref(this._vessel);
+    }
+    get vesselProps() {
+        return unref(this._vesselProps);
+    }
+    get component() {
+        return unref(this._component);
+    }
+    get componentProps() {
+        return unref(this._componentProps);
     }
     get children() {
         return unref(this._children);
@@ -104,6 +125,18 @@ class Field extends Share {
     }
     set value(value: any) {
         this._value.value = value;
+    }
+    set vessel(name: string) {
+        this._vessel.value = name;
+    }
+    set vesselProps(props: any) {
+        this._vesselProps = props;
+    }
+    set component(name: string) {
+        this._component.value = name;
+    }
+    set componentProps(props: any) {
+        this._componentProps = props;
     }
     set children(children: FormVoidTree) {
         this._children = children;

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-13 20:54:52
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-14 18:21:03
+ * @LastEditTime: 2021-12-15 13:00:03
  * @Description: file content
  */
 import type {
@@ -60,7 +60,7 @@ class Form extends Share {
             for (const key in this._voidFormTreeMap) {
                 const { basePath, path } = this._voidFormTreeMap[key];
                 const target = get(this._voidFormTree, path);
-                if (target.void) continue;
+                if (target.isVoid) continue;
                 set(data, basePath, unref(target.getFieldValue()));
             }
 

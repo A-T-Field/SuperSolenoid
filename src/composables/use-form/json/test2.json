@@ -1,0 +1,42 @@
+{
+    "grid1": {
+        "key": "grid1",
+        "void": true,
+        "grid": true,
+        "vessel": "Grid",
+        "vesselProps": {
+            "XGap": 12,
+            "cols": 8
+        },
+        "children": {
+            "name": {
+                "key": "name",
+                "required": true,
+                "label": "姓名",
+                "placeholder": "请输入姓名",
+                "value": "张",
+                "vessel": "Gi",
+                "component": "Input",
+                "componentProps": {}
+            },
+            "age": {
+                "key": "age",
+                "required": true,
+                "label": "年龄",
+                "placeholder": "请输入年龄",
+                "vessel": "Gi",
+                "component": "Input",
+                "componentProps": {}
+            },
+            "address": {
+                "key": "address",
+                "required": true,
+                "label": "地址",
+                "placeholder": "请输入地址",
+                "vessel": "Gi",
+                "component": "Input",
+                "componentProps": {}
+            }
+        }
+    }
+}

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-13 20:58:15
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-14 18:25:21
+ * @LastEditTime: 2021-12-15 10:57:02
  * @Description: file content
  */
 import type { ValueType } from './Public';
@@ -15,7 +15,7 @@ export type FieldExtends = {
     key: string;
     basePath: string;
     path: string;
-    void: boolean;
+    isVoid: boolean;
     required: boolean;
     label: string;
     placeholder: string;
@@ -30,5 +30,9 @@ export type FieldOptions = ShareOptions
     & {
         initialValue: ValueType;
         value: ValueType;
+        vessel: any;
+        vesselProps: Record<string, any>;
+        component: any;
+        componentProps: Record<string, any>;
         children: FormVoidTree;
     };
