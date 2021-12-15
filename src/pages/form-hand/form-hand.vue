@@ -3,6 +3,7 @@
  * @Date: 2021-11-22 14:48:59
  * @LastEditors: maggot-code
 <<<<<<< HEAD
+<<<<<<< HEAD
  * @LastEditTime: 2021-12-15 22:40:31
  * @Description: file content
 -->
@@ -12,6 +13,12 @@
  * @Description: file content
 -->
 <script setup lang='ts'>
+=======
+ * @LastEditTime: 2021-12-14 18:31:18
+ * @Description: file content
+-->
+<script setup lang='ts'>
+>>>>>>> parent of 9b41bf6 (#)
 import { unref, watch } from 'vue';
 import Test1JSON from '@/composables/use-form/json/test1.json';
 import {
@@ -30,6 +37,9 @@ watch(
         console.log(a);
     }
 )
+<<<<<<< HEAD
+>>>>>>> parent of 9b41bf6 (#)
+=======
 >>>>>>> parent of 9b41bf6 (#)
 </script>
 
