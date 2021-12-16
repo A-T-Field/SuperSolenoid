@@ -1,0 +1,7 @@
+{
+    "grid1": {
+        "modelName": "VoidField",
+        "display": "visable",
+        "interact": "modify"
+    }
+}

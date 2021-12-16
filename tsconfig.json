@@ -6,6 +6,8 @@
         "target": "esnext",
         "module": "esnext",
         "moduleResolution": "node",
+        "skipDefaultLibCheck": false,
+        "skipLibCheck": false,
         "allowJs": false,
         "strict": true,
         "noEmitOnError": true,
@@ -25,8 +27,6 @@
             "./node_modules/@types/",
             "./types"
         ],
-        "noImplicitAny": false,
-        "skipLibCheck": true,
         "paths": {
             "@/*": [
                 "src/*"
