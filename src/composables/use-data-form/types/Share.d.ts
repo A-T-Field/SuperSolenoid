@@ -2,14 +2,12 @@
  * @Author: maggot-code
  * @Date: 2021-12-16 17:38:41
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-16 17:53:24
+ * @LastEditTime: 2021-12-17 00:33:54
  * @Description: file content
  */
 export type OmitState<P> = Omit<
     P,
-    "loading"
-    | "vessel"
-    | "component"
+    "children"
 >;
 
 export type NonPropertyNames<T> = {
