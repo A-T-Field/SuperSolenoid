@@ -2,13 +2,18 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 14:49:45
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-13 17:02:43
+ * @LastEditTime: 2021-12-16 18:54:14
  * @Description: file content
 -->
-<script setup lang='ts'></script>
+<script setup lang='ts'>
+import TESTJSON from '@/composables/use-data-form/json/tree.json';
+import { useParser } from '@/composables/use-data-form';
+const schema = useParser(TESTJSON);
+console.log(schema);
+</script>
 
 <template>
-    <div class="form-schema">123</div>
+    <div class="form-schema">form schema</div>
 </template>
 
 <style scoped lang='scss'>
