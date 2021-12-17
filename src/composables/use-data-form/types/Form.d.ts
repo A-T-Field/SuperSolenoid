@@ -2,13 +2,12 @@
  * @Author: maggot-code
  * @Date: 2021-12-17 10:47:21
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-17 11:06:50
+ * @LastEditTime: 2021-12-17 11:32:48
  * @Description: file content
  */
 import type { ShareProps } from './Share';
-// import type { ModelType, FieldProps } from './Field';
-
-// import { Field } from '../model/Field';
-// import { VoidField } from '../model/VoidField';
+import type { FieldGather } from './Field';
 
 export type FormProps = Partial<ShareProps & {}>;
+
+export type FormFieldsGather = Record<string, FieldGather>;
