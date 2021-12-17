@@ -1,18 +1,5 @@
 {
-    "home": {
-        "sort": 1,
-        "modelType": "Field",
-        "vessel": "FormItem",
-        "vesselProps": {
-            "label": "地址"
-        },
-        "component": "Input",
-        "componentProps": {
-            "placeholder": "请输入地址"
-        }
-    },
     "grid1": {
-        "sort": 2,
         "modelType": "VoidField",
         "display": "visable",
         "interact": "modify",
@@ -22,8 +9,20 @@
             "xGap": 12
         },
         "children": {
+            "home": {
+                "sort": 1,
+                "modelType": "Field",
+                "vessel": "FormItem",
+                "vesselProps": {
+                    "label": "地址"
+                },
+                "component": "Input",
+                "componentProps": {
+                    "placeholder": "请输入地址"
+                }
+            },
             "name": {
-                "sort": 21,
+                "sort": 2,
                 "modelType": "Field",
                 "display": "visable",
                 "interact": "modify",
@@ -40,7 +39,7 @@
                 }
             },
             "hobby": {
-                "sort": 22,
+                "sort": 3,
                 "modelType": "Field",
                 "vessel": "FormItem",
                 "vesselProps": {
@@ -52,7 +51,7 @@
                 }
             },
             "age": {
-                "sort": 12,
+                "sort": 4,
                 "modelType": "Field",
                 "value": 18,
                 "vessel": "FormItem",
