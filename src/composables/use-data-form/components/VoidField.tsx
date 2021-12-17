@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-17 17:01:39
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-17 17:40:34
+ * @LastEditTime: 2021-12-17 17:51:30
  * @Description: file content
  */
 import type { VoidFieldSetupProps } from '../types/Props';
@@ -11,18 +11,19 @@ import { h } from "vue";
 import { useRender } from '../hooks/use-render';
 import { NGrid, NGridItem } from '@/plugins/naive-ui';
 
-
 const setupGrid = (props: VoidFieldSetupProps) => {
     const { vesselProps } = props.model;
 
     const gridItem = useRender(props.children).map(item => {
-        return h(NGridItem, {}, {
+        return h(NGridItem, { ...item.props.model.vesselProps }, {
             default: () => item
         });
     });
 
+    console.log(vesselProps);
+
     return h(
-        <NGrid xGap={12} cols="1 600:2 900:3">
+        <NGrid {...vesselProps}>
             {{
                 default: () => gridItem
             }}
