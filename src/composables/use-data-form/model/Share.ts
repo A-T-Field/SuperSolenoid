@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-16 22:24:07
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-17 10:51:40
+ * @LastEditTime: 2021-12-17 11:30:25
  * @Description: file content
  */
 import type { Ref } from 'vue';
@@ -17,6 +17,8 @@ import { uid } from '@/utils/uid';
 import { LifeCycle } from './LifeCycle';
 
 class Share extends LifeCycle {
+    displayName = "Share";
+
     protected DesignID: string = uid();
     protected _loading: Ref<boolean> = ref<boolean>(false);
     protected _display: Ref<DisplayType> = ref<DisplayType>("hidden");

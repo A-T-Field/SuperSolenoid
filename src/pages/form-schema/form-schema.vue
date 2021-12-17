@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 14:49:45
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-17 11:17:43
+ * @LastEditTime: 2021-12-17 11:27:34
  * @Description: file content
 -->
 <script setup lang='ts'>
@@ -12,7 +12,8 @@ import { useParser, useForm } from '@/composables/use-data-form';
 const schema = useParser(TESTJSON);
 const form = useForm();
 form.setupSchema(schema);
-console.log(form);
+const aa = form.getFieldGather();
+console.log(aa);
 </script>
 
 <template>

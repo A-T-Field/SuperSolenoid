@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-16 17:24:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-17 11:26:02
+ * @LastEditTime: 2021-12-17 11:29:21
  * @Description: file content
  */
 import type { FormProps } from '../types/Form';
@@ -17,13 +17,15 @@ import { Field } from './Field';
 import { VoidField } from './VoidField';
 
 class Form extends Share {
+    displayName = "Form";
+
     protected _fieldGather: Record<string, FieldGather> = {};
 
     constructor(props: FormProps) {
         super(props);
     }
 
-    get fieldGather() {
+    getFieldGather = (): Record<string, FieldGather> => {
         return this._fieldGather;
     }
 

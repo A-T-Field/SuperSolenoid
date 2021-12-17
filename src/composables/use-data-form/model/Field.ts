@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-16 22:23:51
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-17 11:25:13
+ * @LastEditTime: 2021-12-17 11:29:54
  * @Description: file content
  */
 import type { Ref } from 'vue';
@@ -18,6 +18,8 @@ import { BaseField } from './BaseField';
 import { Form } from './Form';
 
 class Field extends BaseField {
+    displayName = "Field";
+
     protected _initialValue: Ref<ValueType> = ref<ValueType>();
     protected _value: Ref<ValueType> = ref<ValueType>();
     protected _vessel: Ref<string> = ref<string>("Unknow");

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-16 22:23:28
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-17 11:25:43
+ * @LastEditTime: 2021-12-17 11:29:46
  * @Description: file content
  */
 import type { Ref } from 'vue';
@@ -16,6 +16,8 @@ import { Share } from './Share';
 import { Form } from './Form';
 
 class BaseField extends Share {
+    displayName = "BaseField";
+
     protected _form!: Form;
     protected _modelType: Ref<ModelType> = ref<ModelType>("Unknow");
     protected _key: Ref<string> = ref<string>("");
