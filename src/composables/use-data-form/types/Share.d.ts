@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-16 17:38:41
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-17 00:33:54
+ * @LastEditTime: 2021-12-17 10:06:45
  * @Description: file content
  */
 export type OmitState<P> = Omit<
@@ -45,6 +45,7 @@ export interface ComponentProps {
 }
 
 export type ShareProps = {
+    loading: boolean;
     display: DisplayType;
     interact: InteractType;
 };

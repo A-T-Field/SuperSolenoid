@@ -1,6 +1,6 @@
 {
     "grid1": {
-        "isVoid": true,
+        "modelType": "VoidField",
         "display": "visable",
         "interact": "modify",
         "component": "Grid",
@@ -10,13 +10,13 @@
         },
         "children": {
             "grid2": {
-                "isVoid": true,
+                "modelType": "VoidField",
                 "display": "visable",
                 "interact": "modify",
                 "component": "Grid",
                 "children": {
                     "name": {
-                        "isField": true,
+                        "modelType": "Field",
                         "display": "visable",
                         "interact": "modify",
                         "required": true,
@@ -41,7 +41,7 @@
                 }
             },
             "age": {
-                "isField": true,
+                "modelType": "Field",
                 "value": 18,
                 "vessel": "FormItemGi",
                 "component": "InputNumber",
@@ -52,7 +52,7 @@
         }
     },
     "address": {
-        "isField": true,
+        "modelType": "Field",
         "vessel": "FormItemGi",
         "component": "Input",
         "componentProps": {

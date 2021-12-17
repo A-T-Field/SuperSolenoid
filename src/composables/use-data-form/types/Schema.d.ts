@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-16 17:37:45
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-17 00:46:23
+ * @LastEditTime: 2021-12-17 10:07:52
  * @Description: file content
  */
 import type {
@@ -11,30 +11,27 @@ import type {
     ComponentProps,
     ShareProps
 } from './Share';
+import type { ModelType } from './Field';
 
 export type SchemaBase = ShareProps & {
-    isVoid: boolean;
-    isField: boolean;
+    modelType: ModelType;
+    sort: number;
     required: boolean;
     initialValue: ValueType;
     value: ValueType;
-    componentProps: ComponentProps;
+    vessel: string;
     vesselProps: VesselProps;
-    children: Record<string, Partial<SchemaStruct>>;
+    component: string;
+    componentProps: ComponentProps;
 };
 
 export type SchemaMember = SchemaBase & {
-    vessel: string;
-    component: string;
-};
-
-export type SchemaOutput = SchemaMember & {
     key: string;
     parent: Nullable<string>;
     address: Nullable<string>;
     path: string;
     level: number;
-    loading: boolean;
+    children: SchemaStruct<Partial<SchemaMember>>;
 };
 
-export type SchemaStruct = SchemaMember & SchemaOutput;
+export type SchemaStruct<ST = SchemaMember> = Record<string, ST>;

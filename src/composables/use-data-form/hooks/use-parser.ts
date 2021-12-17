@@ -2,12 +2,11 @@
  * @Author: maggot-code
  * @Date: 2021-12-16 18:00:08
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-17 00:46:41
+ * @LastEditTime: 2021-12-17 10:07:45
  * @Description: file content
  */
 import type {
     SchemaMember,
-    SchemaOutput,
     SchemaStruct
 } from '../types/Schema';
 
@@ -19,13 +18,13 @@ type ParserExtend = {
     level: number;
 };
 
-const hasChild = (children?: Record<string, Partial<SchemaStruct>>) => {
+const hasChild = (children?: SchemaStruct<Partial<SchemaMember>>) => {
     if (isNil(children)) return false;
 
     return Object.keys(children).length > 0;
 };
 
-const setupStruct = (key: string, schema: Partial<SchemaMember>, extend: ParserExtend): SchemaOutput => {
+const setupStruct = (key: string, schema: Partial<SchemaMember>, extend: ParserExtend): SchemaMember => {
     const path = key;
     const parent = isNil<string>(extend.parent) ? null : extend.parent;
     const address = isNil<string>(extend.address) ? path : `${extend.address}.${path}`;
@@ -36,37 +35,40 @@ const setupStruct = (key: string, schema: Partial<SchemaMember>, extend: ParserE
         address,
         path,
         level,
-        loading: false,
+        loading: schema.loading ?? false,
+        required: schema.required ?? false,
+        modelType: schema.modelType ?? "Unknow",
         display: schema.display ?? "hidden",
         interact: schema.interact ?? "disable",
+        sort: schema.sort ?? 0,
+        initialValue: schema.initialValue,
+        value: schema.value,
         vessel: schema.vessel ?? "",
         vesselProps: schema.vesselProps ?? {},
         component: schema.component ?? "",
         componentProps: schema.componentProps ?? {},
-        isVoid: schema.isVoid ?? false,
-        isField: schema.isField ?? false,
-        required: schema.required ?? false,
-        initialValue: schema.initialValue,
-        value: schema.value,
         children: {}
     };
 };
 
-export const useParser = (schemata?: Record<string, Partial<SchemaStruct>>, extend?: ParserExtend) => {
+export const useParser = (
+    schemata?: SchemaStruct<Partial<SchemaMember>>,
+    extend?: ParserExtend
+): SchemaStruct => {
     const setupExtend: ParserExtend = extend ?? {
         parent: null,
         address: null,
         level: 0
     };
 
-    const data: Record<string, SchemaStruct> = {};
+    const data: SchemaStruct = {};
 
     for (const key in schemata) {
         const schema = schemata[key];
-        const { isVoid, isField, children } = schema;
+        const { modelType, children } = schema;
         const isChild = hasChild(children);
 
-        if (isVoid) {
+        if (modelType === "VoidField") {
             const voidField = setupStruct(key, schema, setupExtend);
 
             if (isChild) {
@@ -82,7 +84,7 @@ export const useParser = (schemata?: Record<string, Partial<SchemaStruct>>, exte
             continue;
         }
 
-        if (isField) {
+        if (modelType === "Field") {
             data[key] = setupStruct(key, schema, setupExtend);
         }
     }

@@ -1,0 +1,10 @@
+{
+    "address": {
+        "modelType": "Field",
+        "vessel": "FormItemGi",
+        "component": "Input",
+        "componentProps": {
+            "placeholder": "请输入地址"
+        }
+    }
+}
