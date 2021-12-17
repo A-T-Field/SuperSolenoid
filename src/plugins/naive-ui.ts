@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-28 11:27:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-14 15:34:11
+ * @LastEditTime: 2021-12-17 16:25:45
  * @Description: file content
  */
 import type { App } from 'vue';
@@ -34,6 +34,11 @@ import {
     NButtonGroup,
     NForm,
     NFormItem,
+    NFormItemGridItem,
+    NFormItemGi,
+    NGrid,
+    NGridItem,
+    NGi,
     NInput,
     NBreadcrumb,
     NBreadcrumbItem,
@@ -67,6 +72,11 @@ const naiveUI = createNaiveUI({
         NButtonGroup,
         NForm,
         NFormItem,
+        NFormItemGridItem,
+        NFormItemGi,
+        NGrid,
+        NGridItem,
+        NGi,
         NInput,
         NBreadcrumb,
         NBreadcrumbItem,
@@ -111,6 +121,11 @@ export {
     NButtonGroup,
     NForm,
     NFormItem,
+    NFormItemGridItem,
+    NFormItemGi,
+    NGrid,
+    NGridItem,
+    NGi,
     NInput,
     NTooltip,
     NTag,

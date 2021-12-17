@@ -1,0 +1,69 @@
+{
+    "home": {
+        "sort": 1,
+        "modelType": "Field",
+        "vessel": "FormItem",
+        "vesselProps": {
+            "label": "地址"
+        },
+        "component": "Input",
+        "componentProps": {
+            "placeholder": "请输入地址"
+        }
+    },
+    "grid1": {
+        "sort": 2,
+        "modelType": "VoidField",
+        "display": "visable",
+        "interact": "modify",
+        "vessel": "Grid",
+        "vesselProps": {
+            "cols": "1 600:2 900:3",
+            "xGap": 12
+        },
+        "children": {
+            "name": {
+                "sort": 21,
+                "modelType": "Field",
+                "display": "visable",
+                "interact": "modify",
+                "required": true,
+                "initialValue": "",
+                "value": "",
+                "vessel": "FormItem",
+                "vesselProps": {
+                    "label": "姓名"
+                },
+                "component": "Input",
+                "componentProps": {
+                    "placeholder": "请输入姓名"
+                }
+            },
+            "hobby": {
+                "sort": 22,
+                "modelType": "Field",
+                "vessel": "FormItem",
+                "vesselProps": {
+                    "label": "爱好"
+                },
+                "component": "Input",
+                "componentProps": {
+                    "placeholder": "请输入爱好"
+                }
+            },
+            "age": {
+                "sort": 12,
+                "modelType": "Field",
+                "value": 18,
+                "vessel": "FormItem",
+                "vesselProps": {
+                    "label": "年龄"
+                },
+                "component": "Input",
+                "componentProps": {
+                    "placeholder": "请输入年龄"
+                }
+            }
+        }
+    }
+}

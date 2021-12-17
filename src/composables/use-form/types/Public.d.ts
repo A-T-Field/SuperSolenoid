@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-15 23:44:27
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-16 14:57:21
+ * @LastEditTime: 2021-12-17 17:36:26
  * @Description: file content
  */
 export type OmitState<P> = Omit<
@@ -36,19 +36,19 @@ export type ValueType<T = any> = string | number | boolean | null | undefined | 
 export type VesselType = any;
 
 export interface VesselProps {
-    tips?: string;
-    explain?: string;
-    prefix?: string;
-    suffix?: string;
+    // tips?: string;
+    // explain?: string;
+    // prefix?: string;
+    // suffix?: string;
     [key: string]: any;
 }
 
 export type ComponentType = any;
 
 export interface ComponentProps {
-    beforePrefix?: string;
-    afterSuffix?: string;
-    prefix?: string;
-    suffix?: string;
+    // beforePrefix?: string;
+    // afterSuffix?: string;
+    // prefix?: string;
+    // suffix?: string;
     [key: string]: any;
 }

@@ -1,11 +1,20 @@
 {
-    "grid1": {
+    "home": {
         "sort": 1,
+        "modelType": "Field",
+        "vessel": "FormItem",
+        "component": "Input",
+        "componentProps": {
+            "placeholder": "请输入地址"
+        }
+    },
+    "grid1": {
+        "sort": 2,
         "modelType": "VoidField",
         "display": "visable",
         "interact": "modify",
-        "component": "Grid",
-        "componentProps": {
+        "vessel": "Grid",
+        "vesselProps": {
             "cols": "1 600:2 900:3",
             "xGap": 12
         },
@@ -15,7 +24,7 @@
                 "modelType": "VoidField",
                 "display": "visable",
                 "interact": "modify",
-                "component": "Grid",
+                "vessel": "Grid",
                 "children": {
                     "name": {
                         "sort": 21,
@@ -25,7 +34,7 @@
                         "required": true,
                         "initialValue": "",
                         "value": "",
-                        "vessel": "FormItemGi",
+                        "vessel": "FormItem",
                         "vesselProps": {
                             "tips": "提示",
                             "explain": "说明",
@@ -40,6 +49,15 @@
                             "prefix": "前缀",
                             "suffix": "后缀"
                         }
+                    },
+                    "hobby": {
+                        "sort": 22,
+                        "modelType": "Field",
+                        "vessel": "FormItem",
+                        "component": "Input",
+                        "componentProps": {
+                            "placeholder": "请输入爱好"
+                        }
                     }
                 }
             },
@@ -47,21 +65,12 @@
                 "sort": 12,
                 "modelType": "Field",
                 "value": 18,
-                "vessel": "FormItemGi",
-                "component": "InputNumber",
+                "vessel": "FormItem",
+                "component": "Input",
                 "componentProps": {
                     "placeholder": "请输入年龄"
                 }
             }
-        }
-    },
-    "address": {
-        "sort": 2,
-        "modelType": "Field",
-        "vessel": "FormItemGi",
-        "component": "Input",
-        "componentProps": {
-            "placeholder": "请输入地址"
         }
     }
 }

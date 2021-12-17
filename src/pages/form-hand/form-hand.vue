@@ -2,20 +2,27 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 14:48:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-16 15:57:01
+ * @LastEditTime: 2021-12-17 16:58:25
  * @Description: file content
 -->
-<script setup lang='ts'>
-import TestJSON1 from '@/composables/use-form/json/test.json';
-
-import { useParser, useForm } from '@/composables/use-form';
-const schema = useParser(TestJSON1);
-const form = useForm({ schema });
-console.log(form);
-</script>
+<script setup lang='ts'></script>
 
 <template>
-    <div class="form-hand">123</div>
+    <div class="form-hand">
+        <n-grid cols="1 600:2 900:3" x-gap="12">
+            <n-form-item-gi>
+                <n-input></n-input>
+            </n-form-item-gi>
+
+            <n-form-item-gi>
+                <n-input></n-input>
+            </n-form-item-gi>
+
+            <n-form-item-gi>
+                <n-input></n-input>
+            </n-form-item-gi>
+        </n-grid>
+    </div>
 </template>
 
 <style scoped lang='scss'>

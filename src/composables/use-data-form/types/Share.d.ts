@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-16 17:38:41
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-17 10:06:45
+ * @LastEditTime: 2021-12-17 12:21:41
  * @Description: file content
  */
 export type OmitState<P> = Omit<
