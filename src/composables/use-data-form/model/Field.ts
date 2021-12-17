@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-16 22:23:51
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-17 10:41:30
+ * @LastEditTime: 2021-12-17 11:25:13
  * @Description: file content
  */
 import type { Ref } from 'vue';
@@ -15,6 +15,7 @@ import type {
 
 import { unref, ref, reactive } from 'vue';
 import { BaseField } from './BaseField';
+import { Form } from './Form';
 
 class Field extends BaseField {
     protected _initialValue: Ref<ValueType> = ref<ValueType>();
@@ -24,8 +25,8 @@ class Field extends BaseField {
     protected _component: Ref<string> = ref<string>("Unknow");
     protected _componentProps: ComponentProps = reactive<ComponentProps>({});
 
-    constructor(props: FieldProps) {
-        super(props);
+    constructor(props: FieldProps, form: Form) {
+        super(props, form);
 
         this.initialValue = props.initialValue;
         this.value = props.value;

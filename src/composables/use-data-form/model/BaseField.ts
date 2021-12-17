@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-16 22:23:28
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-17 10:44:57
+ * @LastEditTime: 2021-12-17 11:25:43
  * @Description: file content
  */
 import type { Ref } from 'vue';
@@ -20,14 +20,15 @@ class BaseField extends Share {
     protected _modelType: Ref<ModelType> = ref<ModelType>("Unknow");
     protected _key: Ref<string> = ref<string>("");
     protected _parent: Ref<Nullable<string>> = ref<Nullable<string>>(null);
-    protected _address: Ref<Nullable<string>> = ref<Nullable<string>>(null);
+    protected _address: Ref<string> = ref<string>("");
     protected _path: Ref<string> = ref<string>("");
     protected _level: Ref<number> = ref<number>(-1);
     protected _sort: Ref<number> = ref<number>(-1);
     protected _required: Ref<boolean> = ref<boolean>(false);
 
-    constructor(props: FieldProps) {
+    constructor(props: FieldProps, form: Form) {
         super(props);
+        this._form = form;
 
         this.modelType = props.modelType;
         this.key = props.key;
@@ -72,7 +73,7 @@ class BaseField extends Share {
     set parent(val: Nullable<string>) {
         this._parent.value = val;
     }
-    set address(val: Nullable<string>) {
+    set address(val: string) {
         this._address.value = val;
     }
     set path(val: string) {

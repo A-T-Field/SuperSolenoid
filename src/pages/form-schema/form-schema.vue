@@ -2,15 +2,17 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 14:49:45
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-17 10:46:27
+ * @LastEditTime: 2021-12-17 11:17:43
  * @Description: file content
 -->
 <script setup lang='ts'>
-// import TESTJSON from '@/composables/use-data-form/json/tree.json';
-import TESTJSON from '@/composables/use-data-form/json/tree2.json';
-import { useParser } from '@/composables/use-data-form';
+import TESTJSON from '@/composables/use-data-form/json/tree.json';
+// import TESTJSON from '@/composables/use-data-form/json/tree2.json';
+import { useParser, useForm } from '@/composables/use-data-form';
 const schema = useParser(TESTJSON);
-console.log(schema);
+const form = useForm();
+form.setupSchema(schema);
+console.log(form);
 </script>
 
 <template>

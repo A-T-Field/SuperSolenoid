@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-16 22:24:07
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-17 10:08:14
+ * @LastEditTime: 2021-12-17 10:51:40
  * @Description: file content
  */
 import type { Ref } from 'vue';
@@ -22,12 +22,12 @@ class Share extends LifeCycle {
     protected _display: Ref<DisplayType> = ref<DisplayType>("hidden");
     protected _interact: Ref<InteractType> = ref<InteractType>("disable");
 
-    constructor(props: ShareProps) {
+    constructor(props: Partial<ShareProps>) {
         super();
 
-        this.loading = props.loading;
-        this.display = props.display;
-        this.interact = props.interact;
+        this.loading = props.loading ?? false;
+        this.display = props.display ?? "hidden";
+        this.interact = props.interact ?? "disable";
     }
 
     get loading() {

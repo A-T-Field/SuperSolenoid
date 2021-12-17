@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-16 17:37:45
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-17 10:07:52
+ * @LastEditTime: 2021-12-17 11:15:04
  * @Description: file content
  */
 import type {
@@ -28,7 +28,7 @@ export type SchemaBase = ShareProps & {
 export type SchemaMember = SchemaBase & {
     key: string;
     parent: Nullable<string>;
-    address: Nullable<string>;
+    address: string;
     path: string;
     level: number;
     children: SchemaStruct<Partial<SchemaMember>>;
