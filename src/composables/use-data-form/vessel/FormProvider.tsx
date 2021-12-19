@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-17 14:52:33
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-17 15:28:40
+ * @LastEditTime: 2021-12-19 16:35:33
  * @Description: file content
  */
 import type { FormProviderSetupProps } from '../types/Props';
@@ -17,7 +17,8 @@ import {
 import { formProviderProps } from '../public/props';
 import { useAttach } from '../hooks/use-attach';
 import { FormSymbol } from '../public/context';
-import { FormSchema } from '../index';
+import { FormRecursion } from '../index';
+import { NForm } from '@/plugins/naive-ui';
 
 export default defineComponent({
     name: "FormProvider",
@@ -33,16 +34,22 @@ export default defineComponent({
             () => (formRef.value = checker(getForm()))
         );
 
+        const recursion = {
+            default: () => [
+                ...FormRecursion(formRef.value.getFieldGraph())
+            ]
+        }
+
         provide(FormSymbol, formRef);
 
         onBeforeUnmount(() => {
             formWatch();
         });
 
-        if (props.useSchema) return () => h(FormSchema, { attrs }, slots);
-
         return () => h(
-            <h1>form provider</h1>
+            <NForm>
+                {recursion}
+            </NForm>
         )
     }
 });

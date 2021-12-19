@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-28 11:27:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-17 16:25:45
+ * @LastEditTime: 2021-12-19 15:26:59
  * @Description: file content
  */
 import type { App } from 'vue';
@@ -115,10 +115,10 @@ export {
     NBreadcrumbItem,
     NScrollbar,
     NSpin,
+    NTag,
+    NTooltip,
 
     // form
-    NButton,
-    NButtonGroup,
     NForm,
     NFormItem,
     NFormItemGridItem,
@@ -126,9 +126,9 @@ export {
     NGrid,
     NGridItem,
     NGi,
+    NButton,
+    NButtonGroup,
     NInput,
-    NTooltip,
-    NTag,
 
     zhCN,
     dateZhCN,

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-16 17:32:44
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-17 16:55:33
+ * @LastEditTime: 2021-12-19 15:24:15
  * @Description: file content
  */
 import type { GraphDOMtree } from '../types/Graph';
@@ -18,19 +18,16 @@ class Graph {
         this._form = form;
     }
 
-    getGraph = (baseL: number) => {
+    getGraph = (baseLevel: number) => {
         const data: GraphDOMtree = {}
 
         for (const address in this._form.fieldsGather) {
             const field = this._form.fieldsGather[address];
-            const { displayName, key, level, sort, vessel } = field;
+            const { displayName, key, level } = field;
 
-            if (level !== baseL) continue;
+            if (level !== baseLevel) continue;
 
             data[key] = {
-                sort,
-                name: displayName,
-                isStrict: vessel === "Grid",
                 model: field
             };
 

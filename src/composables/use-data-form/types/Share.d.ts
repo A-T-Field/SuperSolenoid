@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-16 17:38:41
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-17 12:21:41
+ * @LastEditTime: 2021-12-19 15:19:21
  * @Description: file content
  */
 export type OmitState<P> = Omit<
@@ -28,21 +28,9 @@ export type ValueType<T = any> = string | number | boolean | null | undefined | 
 
 export type VNodeComponent = any;
 
-export interface VesselProps {
-    tips?: string;
-    explain?: string;
-    prefix?: string;
-    suffix?: string;
-    [key: string]: any;
-}
+export type VesselProps = Record<string, any>;
 
-export interface ComponentProps {
-    beforePrefix?: string;
-    afterSuffix?: string;
-    prefix?: string;
-    suffix?: string;
-    [key: string]: any;
-}
+export type ComponentProps = Record<string, any>;
 
 export type ShareProps = {
     loading: boolean;
