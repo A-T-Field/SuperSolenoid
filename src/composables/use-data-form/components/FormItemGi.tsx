@@ -1,19 +1,19 @@
 /*
  * @Author: maggot-code
- * @Date: 2021-12-19 16:43:18
+ * @Date: 2021-12-19 23:53:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-19 21:07:21
+ * @LastEditTime: 2021-12-20 00:21:56
  * @Description: file content
  */
 import { h } from 'vue';
 import { Field } from '../model/Field';
 import { NGridItem } from '@/plugins/naive-ui';
-import { default as FormItem } from './FormItem';
+import { default as Package } from '../components';
 
 export default (model: Field) => {
     const { vesselProps } = model;
 
     return h(NGridItem, { ...vesselProps }, {
-        default: () => FormItem(model)
-    })
+        default: () => Package['FormItem'](model)
+    });
 }

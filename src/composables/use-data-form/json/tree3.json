@@ -13,7 +13,8 @@
                 "modelType": "Field",
                 "vessel": "FormItemGi",
                 "vesselProps": {
-                    "label": "地址"
+                    "label": "地址",
+                    "span": "1"
                 },
                 "component": "Input",
                 "componentProps": {
@@ -29,7 +30,8 @@
                 "value": "",
                 "vessel": "FormItemGi",
                 "vesselProps": {
-                    "label": "姓名"
+                    "label": "姓名",
+                    "span": "1"
                 },
                 "component": "Input",
                 "componentProps": {
@@ -40,25 +42,26 @@
                 "modelType": "Field",
                 "vessel": "FormItemGi",
                 "vesselProps": {
-                    "label": "爱好"
+                    "label": "爱好",
+                    "span": "3 600:2 900:1"
                 },
                 "component": "Input",
                 "componentProps": {
                     "placeholder": "请输入爱好"
                 }
-            },
-            "age": {
-                "modelType": "Field",
-                "value": 18,
-                "vessel": "FormItemGi",
-                "vesselProps": {
-                    "label": "年龄"
-                },
-                "component": "Input",
-                "componentProps": {
-                    "placeholder": "请输入年龄"
-                }
             }
+        }
+    },
+    "age": {
+        "modelType": "Field",
+        "value": 18,
+        "vessel": "FormItem",
+        "vesselProps": {
+            "label": "年龄"
+        },
+        "component": "Input",
+        "componentProps": {
+            "placeholder": "请输入年龄"
         }
     }
 }

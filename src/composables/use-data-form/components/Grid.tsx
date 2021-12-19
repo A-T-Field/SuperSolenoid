@@ -1,17 +1,17 @@
 /*
  * @Author: maggot-code
- * @Date: 2021-12-19 16:42:55
+ * @Date: 2021-12-19 23:53:43
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-19 19:00:07
+ * @LastEditTime: 2021-12-19 23:56:33
  * @Description: file content
  */
 import type { VNode } from 'vue';
-import type { FieldGather } from '../types/Field';
 
 import { h } from 'vue';
+import { VoidField } from '../model/VoidField';
 import { NGrid } from '@/plugins/naive-ui';
 
-export default (model: FieldGather, children: Array<VNode>) => {
+export default (model: VoidField, children: Array<VNode>) => {
     const { vesselProps } = model;
 
     return h(NGrid, { ...vesselProps }, {

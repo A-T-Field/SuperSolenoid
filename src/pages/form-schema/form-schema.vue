@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 14:49:45
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-19 21:03:23
+ * @LastEditTime: 2021-12-20 00:30:28
  * @Description: file content
 -->
 <script setup lang='ts'>
@@ -21,7 +21,9 @@ form.setupSchema(schema);
 
 <template>
     <div class="form-schema">
-        <form-provider :form="form"></form-provider>
+        <form-provider :form="form">
+            <h1>123</h1>
+        </form-provider>
     </div>
 </template>
 
