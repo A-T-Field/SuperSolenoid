@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 13:58:37
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-22 11:05:18
+ * @LastEditTime: 2021-12-20 09:46:08
  * @Description: file content
  */
 import type { Router, RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
@@ -54,15 +54,7 @@ const routerBeforeEach = (router: Router) => (to: RouteLocationNormalized, from:
 };
 
 // 路由后置守卫
-const routerAfterEach = (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
-    // console.log('路由后置守卫');
-    // console.log(to);
-
-    // const toDepth = to.path.split('/').length;
-    // const fromDepth = from.path.split('/').length;
-
-    // to.meta['transition'] = toDepth < fromDepth ? 'slide-right' : 'slide-left'
-};
+const routerAfterEach = (to: RouteLocationNormalized, from: RouteLocationNormalized) => { };
 
 // 路由异常守卫
 const routerError = (router: Router) => (error: any) => {

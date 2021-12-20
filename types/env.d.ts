@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-14 15:36:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-15 09:24:56
+ * @LastEditTime: 2021-12-20 09:30:18
  * @Description: file content
  */
 /// <reference types="vite/client" />
@@ -29,5 +29,5 @@ interface ImportMetaEnv extends Readonly<Record<string, any>> {
 }
 
 interface ImportMeta {
-    env: ImportMetaEnv
+    env: ImportMetaEnv;
 }

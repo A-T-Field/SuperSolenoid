@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-10 11:30:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-03 15:21:51
+ * @LastEditTime: 2021-12-20 09:33:54
  * @Description: file content
  */
 import type { App, Component } from 'vue';
@@ -28,7 +28,7 @@ export function getPort(): number {
 }
 
 export function urlBreakupParams(url: string): any {
-    const params = {};
+    const params: Record<string, any> = {};
     const paramsString = url.split('?');
     if (paramsString.length <= 1) return {};
 
