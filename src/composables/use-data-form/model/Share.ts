@@ -2,17 +2,19 @@
  * @Author: maggot-code
  * @Date: 2021-12-16 22:24:07
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-17 11:30:25
+ * @LastEditTime: 2021-12-20 15:45:07
  * @Description: file content
  */
 import type { Ref } from 'vue';
 import type {
     DisplayType,
+    DisplayState,
     InteractType,
+    InteractState,
     ShareProps
 } from '../types/Share';
 
-import { unref, ref } from 'vue';
+import { unref, ref, computed } from 'vue';
 import { uid } from '@/utils/uid';
 import { LifeCycle } from './LifeCycle';
 
@@ -21,15 +23,15 @@ class Share extends LifeCycle {
 
     protected DesignID: string = uid();
     protected _loading: Ref<boolean> = ref<boolean>(false);
-    protected _display: Ref<DisplayType> = ref<DisplayType>("hidden");
-    protected _interact: Ref<InteractType> = ref<InteractType>("disable");
+    protected _display: Ref<DisplayType> = ref<DisplayType>("visable");
+    protected _interact: Ref<InteractType> = ref<InteractType>("modify");
 
     constructor(props: Partial<ShareProps>) {
         super();
 
         this.loading = props.loading ?? false;
-        this.display = props.display ?? "hidden";
-        this.interact = props.interact ?? "disable";
+        this.display = props.display ?? "visable";
+        this.interact = props.interact ?? "modify";
     }
 
     get loading() {
@@ -49,6 +51,25 @@ class Share extends LifeCycle {
     }
     set interact(type: InteractType) {
         this._interact.value = type;
+    }
+
+    displayState = () => {
+        return unref(computed<DisplayState>(() => {
+            return {
+                isVisable: this.display === "visable",
+                isHidden: this.display === "hidden"
+            }
+        }))
+    }
+
+    interactState = () => {
+        return unref(computed<InteractState>(() => {
+            return {
+                isModify: this.interact === "modify",
+                isPreview: this.interact === "preview",
+                isDisable: this.interact === "disable"
+            }
+        }))
     }
 }
 

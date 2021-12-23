@@ -2,10 +2,10 @@
  * @Author: maggot-code
  * @Date: 2021-12-16 17:24:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-17 14:50:36
+ * @LastEditTime: 2021-12-20 15:50:23
  * @Description: file content
  */
-import type { FormProps, FormFieldsGather } from '../types/Form';
+import type { FormBaseProps, FormProps, FormFieldsGather } from '../types/Form';
 import type {
     SchemaMember,
     SchemaStruct
@@ -22,11 +22,25 @@ class Form extends Share {
 
     protected _graph!: Graph;
     protected _fieldsGather: FormFieldsGather = {};
+    protected _baseProps: Partial<FormBaseProps> = {};
 
     constructor(props: FormProps) {
         super(props);
-
         this._graph = new Graph(this);
+        this.setupBaseProps(props.baseProps)
+    }
+
+    protected setupBaseProps(baseProps?: Partial<FormBaseProps>) {
+        const defaultProps: FormBaseProps = {
+            inline: false,
+            labelWidth: 90,
+            labelAlign: "right",
+            labelPlacement: "left",
+            requireMarkPlacement: "left",
+            size: "large"
+        };
+
+        this._baseProps = Object.assign({}, defaultProps, baseProps);
     }
 
     get fieldsGather() {
@@ -76,8 +90,14 @@ class Form extends Share {
     }
 
     // 应用方法
+    getFormProps = () => {
+        return this._baseProps;
+    }
     getFieldGraph = () => {
         return this._graph.getGraph(0);
+    }
+    getField = (address: string) => {
+        return this._fieldsGather[address];
     }
 }
 

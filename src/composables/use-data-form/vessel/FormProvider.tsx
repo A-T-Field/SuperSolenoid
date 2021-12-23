@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-19 23:13:42
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-20 00:33:07
+ * @LastEditTime: 2021-12-20 11:19:21
  * @Description: file content
  */
 import type { FormProviderSetupProps } from '../types/Props';
@@ -32,7 +32,6 @@ export default defineComponent({
         const formWatch = watch(
             () => props.form,
             () => (formRef.value = checker(getForm())),
-            { immediate: true }
         );
 
         onBeforeUnmount(() => {
@@ -40,7 +39,7 @@ export default defineComponent({
         });
 
         return () => h(
-            <NForm>{recursion}</NForm>
+            <NForm {...formRef.value.getFormProps()}>{recursion}</NForm>
         )
     }
 });

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-19 23:21:08
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-19 23:50:13
+ * @LastEditTime: 2021-12-20 16:02:35
  * @Description: file content
  */
 // import type { VNode } from 'vue';
@@ -18,6 +18,9 @@ const doSort = (preve: GraphDOMnode, next: GraphDOMnode) => {
 
 export default (graphes: GraphDOMtree) => {
     return Object.values(graphes).sort(doSort).map(node => {
+        const { displayState } = node.model;
+        if (displayState().isHidden) return false;
+
         if (node.model.displayName === "VoidField") {
             return VoidField(node);
         }
@@ -27,5 +30,5 @@ export default (graphes: GraphDOMtree) => {
         }
 
         return Unknow();
-    })
+    }).filter(item => item);
 }

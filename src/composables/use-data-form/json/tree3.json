@@ -11,13 +11,23 @@
         "children": {
             "home": {
                 "modelType": "Field",
+                "display": "visable",
+                "interact": "modify",
                 "vessel": "FormItemGi",
                 "vesselProps": {
                     "label": "地址",
-                    "span": "1"
+                    "span": "1",
+                    "tips": "帮助",
+                    "explain": "说明",
+                    "prefixText": "前缀",
+                    "suffixText": "后缀"
                 },
                 "component": "Input",
                 "componentProps": {
+                    "beforePrefix": "前缀之前",
+                    "afterSuffix": "后缀之后",
+                    "prefixText": "前缀",
+                    "suffixText": "后缀",
                     "placeholder": "请输入地址"
                 }
             },
@@ -25,9 +35,6 @@
                 "modelType": "Field",
                 "display": "visable",
                 "interact": "modify",
-                "required": true,
-                "initialValue": "",
-                "value": "",
                 "vessel": "FormItemGi",
                 "vesselProps": {
                     "label": "姓名",
@@ -40,6 +47,8 @@
             },
             "hobby": {
                 "modelType": "Field",
+                "display": "visable",
+                "interact": "modify",
                 "vessel": "FormItemGi",
                 "vesselProps": {
                     "label": "爱好",
@@ -54,7 +63,9 @@
     },
     "age": {
         "modelType": "Field",
-        "value": 18,
+        "display": "visable",
+        "interact": "modify",
+        "value": "18",
         "vessel": "FormItem",
         "vesselProps": {
             "label": "年龄"

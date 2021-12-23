@@ -1,24 +1,24 @@
 /*
  * @Author: maggot-code
- * @Date: 2021-12-20 00:24:27
+ * @Date: 2021-12-20 14:39:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-20 11:24:52
+ * @LastEditTime: 2021-12-20 14:45:57
  * @Description: file content
  */
 import { h } from 'vue';
 import { Field } from '../model/Field';
-import { NInput } from '@/plugins/naive-ui';
+import { NSelect } from '@/plugins/naive-ui';
 
 export default (model: Field) => {
     const {
         componentProps,
         getFieldValue,
-        onInput
+        onUpdateValue
     } = model;
 
-    return h(NInput, {
+    return h(NSelect, {
         ...componentProps,
         value: getFieldValue(),
-        onInput,
+        onUpdateValue
     });
 }

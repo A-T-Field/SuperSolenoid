@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-16 18:00:08
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-17 13:27:24
+ * @LastEditTime: 2021-12-23 10:11:34
  * @Description: file content
  */
 import type {
@@ -40,7 +40,7 @@ const setupStruct = (key: string, schema: Partial<SchemaMember>, extend: ParserE
         modelType: schema.modelType ?? "Unknow",
         display: schema.display ?? "hidden",
         interact: schema.interact ?? "disable",
-        sort: schema.sort ?? level * 10,
+        sort: schema.sort ?? level * 2,
         initialValue: schema.initialValue,
         value: schema.value,
         vessel: schema.vessel ?? "",

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-16 22:23:51
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-17 11:29:54
+ * @LastEditTime: 2021-12-22 23:01:09
  * @Description: file content
  */
 import type { Ref } from 'vue';
@@ -74,6 +74,23 @@ class Field extends BaseField {
     set componentProps(props: ComponentProps) {
         this._componentProps = props;
     }
+
+    getFieldInitialValue = <V = any>() => {
+        return this.initialValue as V;
+    }
+    getFieldValue = <V = any>() => {
+        return this.value as V;
+    }
+    setFieldInitialValue = (value: ValueType) => {
+        this.initialValue = value;
+    }
+    setFieldValue = (value: ValueType) => {
+        this.value = value;
+    }
+
+    // 应用方法
+    onInput = this.setFieldValue
+    onUpdateValue = this.setFieldValue
 }
 
 export {

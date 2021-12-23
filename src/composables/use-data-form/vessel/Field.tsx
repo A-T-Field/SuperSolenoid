@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-19 23:29:39
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-20 00:19:58
+ * @LastEditTime: 2021-12-20 16:00:21
  * @Description: file content
  */
 import type { VNode } from 'vue';
@@ -15,5 +15,5 @@ export default (node: GraphDOMnode): VNode => {
     const { vessel } = model;
     const setupRender = Package[vessel];
 
-    return setupRender(model);
+    return setupRender(model)
 }

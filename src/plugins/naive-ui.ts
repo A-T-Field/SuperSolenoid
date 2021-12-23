@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-28 11:27:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-19 15:26:59
+ * @LastEditTime: 2021-12-20 14:40:33
  * @Description: file content
  */
 import type { App } from 'vue';
@@ -40,6 +40,8 @@ import {
     NGridItem,
     NGi,
     NInput,
+    NInputNumber,
+    NSelect,
     NBreadcrumb,
     NBreadcrumbItem,
     NScrollbar,
@@ -78,6 +80,8 @@ const naiveUI = createNaiveUI({
         NGridItem,
         NGi,
         NInput,
+        NInputNumber,
+        NSelect,
         NBreadcrumb,
         NBreadcrumbItem,
         NScrollbar,
@@ -129,6 +133,8 @@ export {
     NButton,
     NButtonGroup,
     NInput,
+    NInputNumber,
+    NSelect,
 
     zhCN,
     dateZhCN,

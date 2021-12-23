@@ -1,0 +1,28 @@
+{
+    "name": {
+        "modelType": "Field",
+        "display": "visable",
+        "interact": "modify",
+        "vessel": "FormItem",
+        "vesselProps": {
+            "label": "姓名"
+        },
+        "component": "Input",
+        "componentProps": {
+            "placeholder": "请输入姓名"
+        }
+    },
+    "age": {
+        "modelType": "Field",
+        "display": "visable",
+        "interact": "modify",
+        "vessel": "FormItem",
+        "vesselProps": {
+            "label": "年龄"
+        },
+        "component": "Input",
+        "componentProps": {
+            "placeholder": "请输入年龄"
+        }
+    }
+}
