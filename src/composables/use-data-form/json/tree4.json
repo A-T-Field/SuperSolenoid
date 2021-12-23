@@ -1,28 +1,39 @@
 {
-    "name": {
+    "sheng": {
         "modelType": "Field",
         "display": "visable",
         "interact": "modify",
+        "dataSource": [
+            {
+                "label": "河北省",
+                "value": "hb"
+            },
+            {
+                "label": "东北省",
+                "value": "db"
+            }
+        ],
         "vessel": "FormItem",
         "vesselProps": {
-            "label": "姓名"
+            "label": "省份"
         },
-        "component": "Input",
+        "component": "Select",
         "componentProps": {
-            "placeholder": "请输入姓名"
+            "placeholder": "请选择省份"
         }
     },
-    "age": {
+    "city": {
         "modelType": "Field",
         "display": "visable",
         "interact": "modify",
+        "dataSource": [],
         "vessel": "FormItem",
         "vesselProps": {
-            "label": "年龄"
+            "label": "市区"
         },
-        "component": "Input",
+        "component": "Select",
         "componentProps": {
-            "placeholder": "请输入年龄"
+            "placeholder": "请选择市区"
         }
     }
 }

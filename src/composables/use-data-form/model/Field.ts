@@ -2,10 +2,11 @@
  * @Author: maggot-code
  * @Date: 2021-12-16 22:23:51
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-22 23:01:09
+ * @LastEditTime: 2021-12-23 15:29:01
  * @Description: file content
  */
 import type { Ref } from 'vue';
+import type { SchemaDataSource } from '../types/Schema';
 import type { FieldProps } from '../types/Field';
 import type {
     ValueType,
@@ -26,6 +27,7 @@ class Field extends BaseField {
     protected _vesselProps: VesselProps = reactive<VesselProps>({});
     protected _component: Ref<string> = ref<string>("Unknow");
     protected _componentProps: ComponentProps = reactive<ComponentProps>({});
+    protected _dataSource: SchemaDataSource = reactive<SchemaDataSource>([]);
 
     constructor(props: FieldProps, form: Form) {
         super(props, form);
@@ -36,6 +38,7 @@ class Field extends BaseField {
         this.vesselProps = props.vesselProps;
         this.component = props.component;
         this.componentProps = props.componentProps;
+        this.dataSource = props.dataSource;
     }
 
     get initialValue() {
@@ -56,6 +59,9 @@ class Field extends BaseField {
     get componentProps() {
         return unref(this._componentProps);
     }
+    get dataSource() {
+        return unref(this._dataSource);
+    }
     set initialValue(val: ValueType) {
         this._initialValue.value = val;
     }
@@ -73,6 +79,9 @@ class Field extends BaseField {
     }
     set componentProps(props: ComponentProps) {
         this._componentProps = props;
+    }
+    set dataSource(data: SchemaDataSource) {
+        this._dataSource = data;
     }
 
     getFieldInitialValue = <V = any>() => {

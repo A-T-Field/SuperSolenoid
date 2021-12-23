@@ -2,16 +2,21 @@
  * @Author: maggot-code
  * @Date: 2021-12-16 17:37:45
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-23 10:11:35
+ * @LastEditTime: 2021-12-23 14:49:38
  * @Description: file content
  */
 import type {
+    DataSourceLabel,
+    DataSourceValue,
+    DataSourceType,
     ValueType,
     VesselProps,
     ComponentProps,
     ShareProps
 } from './Share';
 import type { ModelType } from './Field';
+
+export type SchemaDataSource = Array<DataSourceType>;
 
 export type SchemaBase = ShareProps & {
     modelType: ModelType;
@@ -23,6 +28,7 @@ export type SchemaBase = ShareProps & {
     vesselProps: VesselProps;
     component: string;
     componentProps: ComponentProps;
+    dataSource: SchemaDataSource;
 };
 
 export type SchemaMember = SchemaBase & {

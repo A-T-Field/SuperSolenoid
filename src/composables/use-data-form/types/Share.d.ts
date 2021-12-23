@@ -2,9 +2,11 @@
  * @Author: maggot-code
  * @Date: 2021-12-16 17:38:41
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-20 15:41:43
+ * @LastEditTime: 2021-12-23 14:57:05
  * @Description: file content
  */
+// import type { SchemaDataSource } from './Schema';
+
 export type OmitState<P> = Omit<
     P,
     "children"
@@ -19,6 +21,17 @@ export type PickSetup<T> = Partial<
         NonPropertyNames<OmitState<T>>
     >
 >;
+
+export type DataSourceLabel = "label" | ({} & string);
+
+export type DataSourceValue = "value" | ({} & string);
+
+export type DataSourceType = {
+    label: string;
+    value: string | number | boolean | ({} & string);
+    // children: SchemaDataSource;
+    [key: string]: any;
+}
 
 export type DisplayType = "visable" | "hidden" | ({} & string);
 
@@ -52,6 +65,8 @@ export interface ComponentProps {
     afterSuffix?: string;
     prefixText?: string;
     suffixText?: string;
+    labelKey?: DataSourceLabel;
+    valueKey?: DataSourceValue;
     [key: string]: any;
 };
 
