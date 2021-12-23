@@ -2,11 +2,10 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 14:49:45
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-23 10:09:53
+ * @LastEditTime: 2021-12-23 10:38:25
  * @Description: file content
 -->
 <script setup lang='ts'>
-import { ref, watchEffect } from 'vue';
 // import TESTJSON from '@/composables/use-data-form/json/tree.json';
 // import TESTJSON from '@/composables/use-data-form/json/tree2.json';
 // import TESTJSON3 from '@/composables/use-data-form/json/tree3.json';
@@ -19,26 +18,11 @@ import {
 const schema = useParser(TESTJSON4);
 const form = createForm();
 form.setupSchema(schema);
-
-const value = ref("");
-const value11 = ref("");
-
-const handlerInput = (val) => {
-    value.value = val;
-}
-
-watchEffect(() => {
-    value11.value = value.value
-})
 </script>
 
 <template>
     <div class="form-schema">
         <form-provider :form="form"></form-provider>
-
-        <n-input :value="value" @input="handlerInput"></n-input>
-
-        <n-input :value="value11"></n-input>
     </div>
 </template>
 

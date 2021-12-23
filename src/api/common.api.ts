@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-11 10:42:02
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-22 15:29:42
+ * @LastEditTime: 2021-12-23 13:45:18
  * @Description: file content
  */
 import { atfApi } from '@/api/request';
@@ -33,4 +33,11 @@ export const getRouting = <T = any>(data: T) => send({
 export const getTableData = () => send({
     url: '/table/get',
     method: RequestMethodsEnum.GET,
+})
+
+// 获取市区列表
+export const getCityList = (code: string) => send({
+    url: '/city/get',
+    method: RequestMethodsEnum.GET,
+    params: { code }
 })

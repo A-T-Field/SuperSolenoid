@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-15 17:46:34
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-22 15:13:29
+ * @LastEditTime: 2021-12-23 10:47:26
  * @Description: file content
  */
 import { MockMethod } from 'vite-plugin-mock';
@@ -78,6 +78,31 @@ const workerRoutingData = [
                     parent: 'table',
                     title: '表格-搭建',
                     isMenuRoute: true,
+                }
+            }
+        ]
+    },
+    {
+        name: "json",
+        path: "/json",
+        redirect: "/json/test",
+        meta: {
+            async: true,
+            view: "home-page",
+            title: "JSON",
+            isMenuRoute: true,
+            hasPower: true
+        },
+        children: [
+            {
+                name: "json_test",
+                path: '/json/test',
+                meta: {
+                    async: true,
+                    view: "json-test",
+                    parent: "json",
+                    title: "JSON-测试",
+                    isMenuRoute: true
                 }
             }
         ]
