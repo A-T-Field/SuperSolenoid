@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-10-14 15:36:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-09 14:51:38
+ * @LastEditTime: 2021-12-31 09:28:22
  * @Description: file content
  */
 import { defineConfig, searchForWorkspaceRoot, loadEnv } from 'vite';
@@ -52,8 +52,8 @@ export default defineConfig(({ command, mode }) => {
         envDir: "root",
         envPrefix: "VITE_",
         server: {
-            host: "127.0.0.1",
-            port: 8000,
+            // host: "127.0.0.1",
+            // port: 8000,
             strictPort: false,
             https: false,
             open: false,
