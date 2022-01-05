@@ -1,0 +1,20 @@
+{
+    "grid": {
+        "type": "void",
+        "key": "grid",
+        "children": {
+            "name": {
+                "type": "string",
+                "key": "name",
+                "title": "姓名",
+                "value": "zz"
+            },
+            "age": {
+                "type": "number",
+                "key": "age",
+                "title": "年龄",
+                "value": 18
+            }
+        }
+    }
+}

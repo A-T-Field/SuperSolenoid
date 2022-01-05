@@ -2,53 +2,44 @@
  * @Author: maggot-code
  * @Date: 2022-01-03 14:02:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-03 23:06:19
+ * @LastEditTime: 2022-01-05 10:52:07
  * @Description: file content
  */
-import type { Ref } from 'vue';
-import type { IBaseFieldProps } from './types';
+import type { GatherFields } from './types';
 
-import { unref, ref } from 'vue';
+import { unref, ref, reactive } from 'vue';
 import { uid } from '../utils/uid';
-import { Form } from './Form';
 import { Share } from './Share';
+import { Path } from './Path';
+import { Form } from './Form';
 
 class BaseField extends Share {
     designID = uid();
+    address!: Path;
 
-    form!: Form;
-    parent!: string;
-    address!: string;
-    path!: string;
-    level!: number;
+    protected form!: Form;
+    protected parent!: GatherFields | null;
+    protected level!: number;
 
-    protected componentType!: any;
-    protected componentProps!: Record<string, any>;
-    protected vesselType!: any;
-    protected vesselProps!: Record<string, any>;
-    protected selfRequired!: Ref<boolean>;
-    protected selfActive!: Ref<boolean>;
-    protected selfVisite!: Ref<boolean>;
-
-    constructor(props: IBaseFieldProps, form: Form) {
-        super(props);
-
-        this.form = form;
-
-        this.componentType = props?.componentType ?? "";
-        this.componentProps = props?.componentProps ?? {};
-        this.vesselType = props?.vesselType ?? "";
-        this.vesselProps = props?.vesselProps ?? {};
-        this.selfRequired = ref(props?.required ?? false);
-        this.selfActive = ref(false);
-        this.selfVisite = ref(false);
-    }
+    protected componentType = undefined;
+    protected componentProps = reactive<Record<string, any>>({});
+    protected vesselType = undefined;
+    protected vesselProps = reactive<Record<string, any>>({});
+    protected selfRequired = ref<boolean>(false);
+    protected selfActive = ref<boolean>(false);
+    protected selfVisite = ref<boolean>(false);
 
     get component() {
-        return [this.componentType, this.componentProps];
+        return [
+            this.componentType,
+            unref(this.componentProps)
+        ];
     }
     get vessel() {
-        return [this.vesselType, this.vesselProps];
+        return [
+            this.vesselType,
+            unref(this.vesselProps)
+        ];
     }
     get active() {
         return unref(this.selfActive);
@@ -59,28 +50,17 @@ class BaseField extends Share {
 
     setComponent = (type: any, props: Record<string, any>) => {
         this.componentType = type;
-        this.componentProps = Object.assign({}, this.componentProps, props);
+        this.setComponentProps(props);
     }
     setComponentProps = (props: Record<string, any>) => {
-        this.componentProps = Object.assign({}, this.componentProps, props);
+        this.componentProps = props;
     }
     setVessel = (type: any, props: Record<string, any>) => {
         this.vesselType = type;
-        this.vesselProps = Object.assign({}, this.vesselProps, props);
+        this.setVesselProps(props);
     }
     setVesselProps = (props: Record<string, any>) => {
-        this.vesselProps = Object.assign({}, this.vesselProps, props);
-    }
-
-    onFocus = () => {
-        if (!this.visite) this.selfVisite.value = true;
-        this.selfActive.value = true;
-        console.log('on focus');
-
-    }
-    onBlur = () => {
-        this.selfActive.value = false;
-        console.log('on blur');
+        this.vesselProps = props;
     }
 }
 

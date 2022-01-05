@@ -2,94 +2,109 @@
  * @Author: maggot-code
  * @Date: 2022-01-03 14:02:44
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-03 23:06:59
+ * @LastEditTime: 2022-01-05 10:22:53
  * @Description: file content
  */
-import type { Ref } from 'vue';
-import type { ValueType, IFieldProps } from './types';
+import type { IFieldProps } from './types';
 
-import { unref, ref, reactive } from 'vue';
+import { unref, ref, computed } from 'vue';
 import { uid } from '../utils/uid';
 import { isEmpty } from '../utils/isEmpty';
+import { Path } from './Path';
 import { Form } from './Form';
 import { BaseField } from './BaseField';
 
-class Field extends BaseField {
+class Field<ValueType = any> extends BaseField {
     displayName = "Field";
+    path!: Path;
 
-    name!: string;
-    value!: Ref<ValueType>;
-    defaultValue!: Ref<ValueType>;
-    dataSource!: Record<string, any>;
-    title!: Ref<string>;
-    explain!: Ref<string>;
-    tips!: Ref<string>;
-    prefix!: Ref<string>;
-    suffix!: Ref<string>;
-    beforePrefix!: Ref<string>;
-    afterSuffix!: Ref<string>;
+    protected selfProps: IFieldProps<ValueType> = {};
+    protected selfKey = ref(uid());
+    protected selfTitle = ref(this.displayName);
+    protected selfExplain = ref("");
+    protected selfTips = ref("");
+    protected selfPrefix = ref("");
+    protected selfSuffix = ref("");
+    protected selfBeforePrefix = ref("");
+    protected selfAfterSuffix = ref("");
+    // protected selfValue = ref<ValueType>();
+    // protected selfDefaultValue = ref<ValueType>();
+    // protected selfDataSource = reactive<DataSourceType>([]);
 
-    constructor(props: IFieldProps, form: Form) {
-        super(props, form);
-
-        this.name = props?.name ?? uid();
-        this.value = ref(props?.value);
-        this.defaultValue = ref(props?.defaultValue);
-        this.dataSource = reactive(props?.dataSource ?? {});
-        this.title = ref(props?.title ?? "");
-        this.explain = ref(props?.explain ?? "");
-        this.tips = ref(props?.tips ?? "");
-        this.prefix = ref(props?.prefix ?? "");
-        this.suffix = ref(props?.suffix ?? "");
-        this.beforePrefix = ref(props?.beforePrefix ?? "");
-        this.afterSuffix = ref(props?.afterSuffix ?? "");
+    constructor(props: IFieldProps<ValueType>, form: Form) {
+        super();
+        this.form = form;
+        this.selfProps = props;
     }
 
+    get key() {
+        return unref(this.selfKey);
+    }
+    get title() {
+        return unref(this.selfTitle);
+    }
+    get explain() {
+        return unref(this.selfExplain);
+    }
+    get tips() {
+        return unref(this.selfTips);
+    }
+    get prefix() {
+        return unref(this.selfPrefix);
+    }
+    get suffix() {
+        return unref(this.selfSuffix);
+    }
+    get beforePrefix() {
+        return unref(this.selfBeforePrefix);
+    }
+    get afterSuffix() {
+        return unref(this.selfAfterSuffix);
+    }
+    get hasTitle() {
+        return unref(computed(() => !isEmpty(this.title)));
+    }
     get hasExplain() {
-        return !isEmpty(unref(this.explain));
+        return unref(computed(() => !isEmpty(this.explain)));
     }
     get hasTips() {
-        return !isEmpty(unref(this.tips));
+        return unref(computed(() => !isEmpty(this.tips)));
     }
     get hasPrefix() {
-        return !isEmpty(unref(this.prefix));
+        return unref(computed(() => !isEmpty(this.prefix)));
     }
     get hasSuffix() {
-        return !isEmpty(unref(this.suffix));
+        return unref(computed(() => !isEmpty(this.suffix)));
     }
     get hasBeforePrefix() {
-        return !isEmpty(unref(this.beforePrefix));
+        return unref(computed(() => !isEmpty(this.beforePrefix)));
     }
     get hasAfterSuffix() {
-        return !isEmpty(unref(this.afterSuffix));
+        return unref(computed(() => !isEmpty(this.afterSuffix)));
     }
-
-    setValue = (val: ValueType) => {
-        this.value.value = val;
+    set key(key: string) {
+        this.selfKey.value = key;
     }
-    setDefaultValue = (val: ValueType) => {
-        this.defaultValue.value = val;
+    set title(val: string) {
+        this.selfTitle.value = val;
     }
-    setTitle = (val: string) => {
-        this.title.value = val;
+    set explain(val: string) {
+        this.selfExplain.value = val;
     }
-    setExplain = (val: string) => {
-        this.explain.value = val;
+    set tips(val: string) {
+        this.selfTips.value = val;
     }
-    setTips = (val: string) => {
-        this.tips.value = val;
+    set prefix(val: string) {
+        this.selfPrefix.value = val;
     }
-    setPrefix = (val: string) => {
-        this.prefix.value = val;
+    set suffix(val: string) {
+        this.selfSuffix.value = val;
     }
-    setSuffix = (val: string) => {
-        this.suffix.value = val;
+    set beforePrefix(val: string) {
+        this.selfBeforePrefix.value = val;
     }
-    setBeforePrefix = (val: string) => {
-        this.beforePrefix.value = val;
-    }
-    setAfterSuffix = (val: string) => {
-        this.afterSuffix.value = val;
+    set afterSuffix(val: string) {
+        this.selfAfterSuffix.value = val;
     }
 }
 

@@ -2,18 +2,22 @@
  * @Author: maggot-code
  * @Date: 2021-12-23 10:40:21
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-03 23:08:38
+ * @LastEditTime: 2022-01-05 16:05:54
  * @Description: file content
 -->
 <script setup lang='ts'>
-import { Form } from '@/composables/use-form';
-const form = new Form();
-form.createField({});
+// import TestSchema from './test1.json';
+import {
+    createdForm
+} from '@/composables/use-form';
+
+const form = createdForm();
 console.log(form);
 </script>
 
 <template>
-    <div></div>
+    <!-- <form-provider :form="form" :schema="TestSchema"></form-provider> -->
+    <h1>json test</h1>
 </template>
 
 <style scoped lang='scss'>

@@ -2,10 +2,17 @@
  * @Author: maggot-code
  * @Date: 2021-12-31 14:49:15
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-03 22:56:54
+ * @LastEditTime: 2022-01-05 11:23:50
  * @Description: file content
  */
-import { isValid } from './isEmpty';
+import {
+    Form,
+    Field,
+    VoidField,
+    GatherFields
+} from '../model';
+
+import { isValid, isVoid } from './isEmpty';
 
 export const getType = (obj: any) => Object.prototype.toString.call(obj);
 
@@ -42,3 +49,11 @@ export const isObject = (val: unknown): val is object => typeof val === `object`
 export const isRegExp = isType<RegExp>('RegExp');
 
 export const isSymbolLike = (val: unknown): val is Symbol => typeof val === 'symbol' || (isObject(val) && isValid(val) && isSymbol(val));
+
+export const isForm = (form: unknown): form is Form => form instanceof Form && form.displayName === 'Form';
+
+export const isField = (field: unknown): field is Field => field instanceof Field && field.displayName === 'Field';
+
+export const isVoidField = (field: unknown): field is VoidField => field instanceof VoidField && field.displayName === 'VoidField';
+
+export const isGatherField = (field: unknown): field is GatherFields => isField(field) || isVoidField(field);

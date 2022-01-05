@@ -2,9 +2,11 @@
  * @Author: maggot-code
  * @Date: 2021-12-31 09:30:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-03 14:28:03
+ * @LastEditTime: 2022-01-04 16:39:08
  * @Description: file content
  */
+import { Form, IFormProps } from './model';
+
 const ExpRE = /^\s*\{\{([\s\S]*)\}\}\s*$/;
 const Registry = {
     silent: false,
@@ -35,5 +37,9 @@ export const shallowCompile = (source: any, scope: any) => {
 }
 
 export * from './utils';
-export * from './path';
 export * from './model';
+export * from './components';
+
+export const createdForm = (props?: IFormProps) => {
+    return new Form(props ?? {});
+}
