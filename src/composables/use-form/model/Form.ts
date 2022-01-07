@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2022-01-03 14:02:58
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-07 15:01:37
+ * @LastEditTime: 2022-01-07 16:26:14
  * @Description: file content
  */
 import type { WatchStopHandle } from 'vue';
@@ -10,10 +10,11 @@ import type { StructTree } from '../types/schema';
 import type { IFormProps } from '../types/form';
 import type { FieldProps, VoidFieldProps } from '../types/field';
 
-import { watchEffect } from 'vue';
+import { unref, computed, watchEffect } from 'vue';
 import { isEmpty, uid, each } from '../utils';
 import { Schema } from './Schema';
 import { Graph } from './Graph';
+import { Data } from './Data';
 import { Path } from './Path';
 import { Field } from './Field';
 import { VoidField } from './VoidField';
@@ -25,11 +26,12 @@ class Form {
     private schemaWatch: WatchStopHandle;
     protected schema!: Schema;
     protected graph!: Graph;
+    protected data!: Data;
 
     constructor(props: IFormProps) {
         this.initialization(props);
         this.schemaWatch = watchEffect(() => {
-            this.makeGraphTree(this.schema.structTree);
+            this.makeGraph(unref(this.context).body);
         });
         this.onInit();
     }
@@ -37,16 +39,23 @@ class Form {
     get rootKeyword() {
         return this.schema.rootKey;
     }
+    get context() {
+        return computed(() => ({
+            date: this.schema.changeRecord,
+            body: this.schema.structTree
+        }))
+    }
 
     protected initialization(props: IFormProps) {
         this.schema = props.schema ?? new Schema([]);
         this.graph = new Graph(this);
+        this.data = new Data(this);
     }
 
-    protected makeGraphTree(structTree: StructTree) {
+    protected makeGraph(structTree: StructTree) {
         each(structTree, (node, keyword) => {
             if (!isEmpty(node.children)) {
-                this.makeGraphTree(node.children)
+                this.makeGraph(node.children)
             }
 
             if (node.hasVoid) {
@@ -85,10 +94,23 @@ class Form {
         return this.graph.setIn(sign, field) as VoidField;
     }
 
+    getFieldIn(address: string) {
+        return this.graph.getIn(address);
+    }
+
+    setValueIn(valuePath: string | number, val: any) {
+        this.data.setDataValue(valuePath, val);
+    }
+    setDefaultValueIn(valuePath: string | number, val: any) {
+        this.data.setDataDefaultValue(valuePath, val);
+    }
+
     onInit = () => { }
     onMount = () => { }
     onUnmount = () => {
         this.schemaWatch();
+        this.graph.destroy();
+        this.data.destroy();
     }
 }
 

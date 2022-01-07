@@ -2,17 +2,18 @@
  * @Author: maggot-code
  * @Date: 2021-12-31 14:49:15
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-05 11:23:50
+ * @LastEditTime: 2022-01-07 16:16:22
  * @Description: file content
  */
+import type { GatherFields } from '../types/share';
+
 import {
     Form,
     Field,
-    VoidField,
-    GatherFields
+    VoidField
 } from '../model';
 
-import { isValid, isVoid } from './isEmpty';
+import { isValid } from './isEmpty';
 
 export const getType = (obj: any) => Object.prototype.toString.call(obj);
 

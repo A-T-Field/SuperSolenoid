@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2022-01-03 14:02:44
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-07 14:18:51
+ * @LastEditTime: 2022-01-07 16:27:50
  * @Description: file content
  */
 import type { CheckValueType, ElementComponent } from '../types/share';
@@ -37,6 +37,7 @@ class Field extends BaseField {
         super(props, path, form);
 
         this.initialization(props);
+        this.makeValue(props);
         this.onInit();
     }
 
@@ -131,9 +132,6 @@ class Field extends BaseField {
 
     protected initialization(props: FieldProps) {
         this.propsProto = props;
-        this.type = props.type ?? "undefined";
-        this.value = props.value ?? undefined;
-        this.defaultValue = props.defaultValue ?? undefined;
         this.dataSource = props.dataSource ?? [];
         this.componentType = props.componentType;
         this.componentProps = props.componentProps ?? {};
@@ -144,6 +142,21 @@ class Field extends BaseField {
         this.suffix = props.suffix ?? "";
         this.beforePrefix = props.beforePrefix ?? "";
         this.afterSuffix = props.afterSuffix ?? "";
+    }
+    protected makeValue(props: FieldProps) {
+        this.type = props.type ?? "undefined";
+        this.value = props.value ?? undefined;
+        this.defaultValue = props.defaultValue ?? undefined;
+
+        this.form.setValueIn(this.keyword, this.value);
+        this.form.setDefaultValueIn(this.keyword, this.defaultValue);
+    }
+
+    setValue = (val: any) => {
+        this.form.setValueIn(this.keyword, val);
+    }
+    setDefaultValue = (val: any) => {
+        this.form.setDefaultValueIn(this.keyword, val);
     }
 
     onInit = () => { }
