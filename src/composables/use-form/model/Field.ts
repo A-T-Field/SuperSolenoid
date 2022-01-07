@@ -2,88 +2,108 @@
  * @Author: maggot-code
  * @Date: 2022-01-03 14:02:44
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-05 10:22:53
+ * @LastEditTime: 2022-01-07 11:01:19
  * @Description: file content
  */
-import type { IFieldProps } from './types';
+import type { CheckValueType, ElementComponent } from '../types/share';
+import type { DataSourceType } from '../types/schema';
+import type { FieldProps } from '../types/field';
 
-import { unref, ref, computed } from 'vue';
-import { uid } from '../utils/uid';
-import { isEmpty } from '../utils/isEmpty';
-import { Path } from './Path';
-import { Form } from './Form';
+import { ref, reactive, unref, computed } from 'vue';
+import { isEmpty } from '../utils';
 import { BaseField } from './BaseField';
 
-class Field<ValueType = any> extends BaseField {
+class Field extends BaseField {
     displayName = "Field";
-    path!: Path;
 
-    protected selfProps: IFieldProps<ValueType> = {};
-    protected selfKey = ref(uid());
-    protected selfTitle = ref(this.displayName);
-    protected selfExplain = ref("");
-    protected selfTips = ref("");
-    protected selfPrefix = ref("");
-    protected selfSuffix = ref("");
-    protected selfBeforePrefix = ref("");
-    protected selfAfterSuffix = ref("");
-    // protected selfValue = ref<ValueType>();
-    // protected selfDefaultValue = ref<ValueType>();
-    // protected selfDataSource = reactive<DataSourceType>([]);
+    protected propsProto = reactive<FieldProps>({});
+    protected selfType = ref<CheckValueType>("undefined");
+    protected selfValue = ref(undefined);
+    protected selfDefaultValue = ref(undefined);
+    protected selfDataSource = reactive<DataSourceType>([]);
+    protected selfTitle = ref<string>("");
+    protected selfExplain = ref<string>("");
+    protected selfTips = ref<string>("");
+    protected selfPrefix = ref<string>("");
+    protected selfSuffix = ref<string>("");
+    protected selfBeforePrefix = ref<string>("");
+    protected selfAfterSuffix = ref<string>("");
+    protected selfComponentType: ElementComponent;
+    protected selfComponentProps: Record<string, any> = {};
 
-    constructor(props: IFieldProps<ValueType>, form: Form) {
-        super();
-        this.form = form;
-        this.selfProps = props;
+    constructor(props: FieldProps) {
+        super(props);
+
+        this.initialization(props);
+        this.onInit();
     }
 
-    get key() {
-        return unref(this.selfKey);
+    get type() {
+        return unref(this.selfType);
     }
-    get title() {
-        return unref(this.selfTitle);
+    get value() {
+        return unref(this.selfValue);
     }
-    get explain() {
-        return unref(this.selfExplain);
+    get defaultValue() {
+        return unref(this.selfDefaultValue);
     }
-    get tips() {
-        return unref(this.selfTips);
+    get dataSource() {
+        return unref(this.selfDataSource);
     }
-    get prefix() {
-        return unref(this.selfPrefix);
+    get component() {
+        return unref(computed(() => {
+            return [this.selfComponentType, this.selfComponentProps];
+        }));
     }
-    get suffix() {
-        return unref(this.selfSuffix);
-    }
-    get beforePrefix() {
-        return unref(this.selfBeforePrefix);
-    }
-    get afterSuffix() {
-        return unref(this.selfAfterSuffix);
+    get content() {
+        return unref(computed(() => ({
+            title: unref(this.selfTitle),
+            explain: unref(this.selfExplain),
+            tips: unref(this.selfTips),
+            prefix: unref(this.selfPrefix),
+            suffix: unref(this.selfSuffix),
+            beforePrefix: unref(this.selfBeforePrefix),
+            afterSuffix: unref(this.selfAfterSuffix)
+        })))
     }
     get hasTitle() {
-        return unref(computed(() => !isEmpty(this.title)));
+        return unref(computed(() => !isEmpty(unref(this.content).title)))
     }
     get hasExplain() {
-        return unref(computed(() => !isEmpty(this.explain)));
+        return unref(computed(() => !isEmpty(unref(this.content).explain)))
     }
     get hasTips() {
-        return unref(computed(() => !isEmpty(this.tips)));
+        return unref(computed(() => !isEmpty(unref(this.content).tips)))
     }
     get hasPrefix() {
-        return unref(computed(() => !isEmpty(this.prefix)));
+        return unref(computed(() => !isEmpty(unref(this.content).prefix)))
     }
     get hasSuffix() {
-        return unref(computed(() => !isEmpty(this.suffix)));
+        return unref(computed(() => !isEmpty(unref(this.content).suffix)))
     }
     get hasBeforePrefix() {
-        return unref(computed(() => !isEmpty(this.beforePrefix)));
+        return unref(computed(() => !isEmpty(unref(this.content).beforePrefix)))
     }
     get hasAfterSuffix() {
-        return unref(computed(() => !isEmpty(this.afterSuffix)));
+        return unref(computed(() => !isEmpty(unref(this.content).afterSuffix)))
     }
-    set key(key: string) {
-        this.selfKey.value = key;
+    set type(type: CheckValueType) {
+        this.selfType.value = type;
+    }
+    set value(val: any) {
+        this.selfValue.value = val;
+    }
+    set defaultValue(val: any) {
+        this.selfDefaultValue.value = val;
+    }
+    set dataSource(data: DataSourceType) {
+        this.selfDataSource = data;
+    }
+    set componentType(type: ElementComponent) {
+        this.selfComponentType = type;
+    }
+    set componentProps(props: Record<string, any>) {
+        this.selfComponentProps = props;
     }
     set title(val: string) {
         this.selfTitle.value = val;
@@ -106,6 +126,27 @@ class Field<ValueType = any> extends BaseField {
     set afterSuffix(val: string) {
         this.selfAfterSuffix.value = val;
     }
+
+    protected initialization(props: FieldProps) {
+        this.propsProto = props;
+        this.type = props.type ?? "undefined";
+        this.value = props.value ?? undefined;
+        this.defaultValue = props.defaultValue ?? undefined;
+        this.dataSource = props.dataSource ?? [];
+        this.componentType = props.componentType;
+        this.componentProps = props.componentProps ?? {};
+        this.title = props.title ?? "";
+        this.explain = props.explain ?? "";
+        this.tips = props.tips ?? "";
+        this.prefix = props.prefix ?? "";
+        this.suffix = props.suffix ?? "";
+        this.beforePrefix = props.beforePrefix ?? "";
+        this.afterSuffix = props.afterSuffix ?? "";
+    }
+
+    onInit = () => { }
+    onMount = () => { }
+    onUnmount = () => { }
 }
 
 export {

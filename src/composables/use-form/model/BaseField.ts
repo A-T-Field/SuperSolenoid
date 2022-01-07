@@ -2,65 +2,55 @@
  * @Author: maggot-code
  * @Date: 2022-01-03 14:02:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-05 10:52:07
+ * @LastEditTime: 2022-01-07 10:55:44
  * @Description: file content
  */
-import type { GatherFields } from './types';
+import { Ref, unref } from 'vue';
+import type { ElementComponent } from '../types/share';
+import type { BaseFieldProps } from '../types/field';
 
-import { unref, ref, reactive } from 'vue';
+import { ref, computed } from 'vue';
 import { uid } from '../utils/uid';
 import { Share } from './Share';
-import { Path } from './Path';
-import { Form } from './Form';
 
 class BaseField extends Share {
     designID = uid();
-    address!: Path;
+    parent: string | number;
+    keyword: string | number;
+    address: string;
 
-    protected form!: Form;
-    protected parent!: GatherFields | null;
-    protected level!: number;
+    protected selfHasVoid: boolean;
+    protected selfRequired: Ref<boolean>;
+    protected selfSort: Ref<number>;
+    protected selfVesselType: ElementComponent;
+    protected selfVesselProps: Record<string, any>;
 
-    protected componentType = undefined;
-    protected componentProps = reactive<Record<string, any>>({});
-    protected vesselType = undefined;
-    protected vesselProps = reactive<Record<string, any>>({});
-    protected selfRequired = ref<boolean>(false);
-    protected selfActive = ref<boolean>(false);
-    protected selfVisite = ref<boolean>(false);
+    constructor(props: BaseFieldProps) {
+        super();
 
-    get component() {
-        return [
-            this.componentType,
-            unref(this.componentProps)
-        ];
+        this.parent = props.parent ?? uid();
+        this.keyword = props.keyword ?? uid();
+        this.address = props.address ?? "";
+        this.selfHasVoid = props.hasVoid ?? true;
+        this.selfRequired = ref(props.required ?? false);
+        this.selfSort = ref(props.sort ?? 0);
+        this.selfVesselType = props.vesselType;
+        this.selfVesselProps = props.vesselProps ?? {};
+
+        this.setDisplay(props.display ?? "vissable");
+        this.setInteract(props.interact ?? "modify");
     }
+
     get vessel() {
-        return [
-            this.vesselType,
-            unref(this.vesselProps)
-        ];
+        return unref(computed(() => {
+            return [this.selfVesselType, this.selfVesselProps];
+        }));
     }
-    get active() {
-        return unref(this.selfActive);
+    set vesselType(type: ElementComponent) {
+        this.selfVesselType = type;
     }
-    get visite() {
-        return unref(this.selfVisite);
-    }
-
-    setComponent = (type: any, props: Record<string, any>) => {
-        this.componentType = type;
-        this.setComponentProps(props);
-    }
-    setComponentProps = (props: Record<string, any>) => {
-        this.componentProps = props;
-    }
-    setVessel = (type: any, props: Record<string, any>) => {
-        this.vesselType = type;
-        this.setVesselProps(props);
-    }
-    setVesselProps = (props: Record<string, any>) => {
-        this.vesselProps = props;
+    set vesselProps(props: Record<string, any>) {
+        this.selfVesselProps = props;
     }
 }
 

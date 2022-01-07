@@ -2,55 +2,77 @@
  * @Author: maggot-code
  * @Date: 2022-01-03 14:02:58
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-05 10:27:41
+ * @LastEditTime: 2022-01-07 09:25:35
  * @Description: file content
  */
-import type { IFormProps, ICreatedField } from './types';
+import type { StructTree } from '../types/schema';
+import type { IFormProps } from '../types/form';
+import type { FieldProps, VoidFieldProps } from '../types/field';
 
-import { uid } from '../utils/uid';
-import { Share } from './Share';
+import { unref, reactive, computed, watchEffect, WatchStopHandle } from 'vue';
+import { isEmpty, uid, each } from '../utils';
+import { Schema } from './Schema';
+import { Graph } from './Graph';
 import { Path } from './Path';
-import { Struct } from './Struct';
-import { Data } from './Data';
 import { Field } from './Field';
+import { VoidField } from './VoidField';
 
-class Form extends Share {
+class Form {
     designID = uid();
     displayName = "Form";
-    fieldStruct!: Struct;
-    fieldData!: Data;
 
-    protected selfProps: IFormProps;
+    private schemaWatch: WatchStopHandle;
+
+    protected schema!: Schema;
+    protected graph!: Graph;
 
     constructor(props: IFormProps) {
-        super();
-
-        this.selfProps = props;
-
-        this.initialization();
+        this.initialization(props);
+        this.schemaWatch = watchEffect(() => {
+            this.makeGraphTree(this.schema.structTree);
+        });
         this.onInit();
     }
 
-    protected initialization() {
-        this.fieldStruct = new Struct();
-        this.fieldData = new Data();
+    protected initialization(props: IFormProps) {
+        this.schema = props.schema ?? new Schema([]);
+        this.graph = new Graph({});
     }
 
-    createdField: ICreatedField = (props) => {
-        const field = new Field(props, this);
-        console.log(field);
+    protected makeGraphTree(structTree: StructTree) {
+        each(structTree, (node, keyword) => {
+            if (!isEmpty(node.children)) {
+                this.makeGraphTree(node.children)
+            }
+
+            if (node.hasVoid) {
+                this.createVoidField(node);
+                return;
+            }
+
+            this.createField(node);
+        })
+    }
+
+    createField = (props: FieldProps) => {
+        const field = new Field(props);
+
+        this.graph.setup(field);
+
+        return field;
+    }
+    createVoidField = (props: VoidFieldProps) => {
+        const field = new VoidField(props);
+
+        this.graph.setup(field);
 
         return field;
     }
 
-    onInit = () => {
-        this.initialized.value = true;
-    }
-    onMount = () => {
-        this.mounted.value = true;
-    }
+    onInit = () => { }
+    onMount = () => { }
     onUnmount = () => {
-        this.unmounted.value = true;
+        this.schemaWatch();
     }
 }
 

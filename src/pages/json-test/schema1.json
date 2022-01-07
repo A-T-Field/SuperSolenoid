@@ -1,0 +1,50 @@
+{
+    "url": "表单提交地址 <标准URL地址>",
+    "method": "表单数据提交方式 [ POST | GET ] : POST",
+    "format": "表单数据格式化 [ json | formData ] : json",
+    "submitValidate": "提交是否校验 [ true | false ] : true",
+    "$schema": [
+        {
+            "type": "数据类型校验 [ string | number | boolean | null | undefine | array | object ] : undefine",
+            "parent": "父节点关键字 <如果没有父节点可以忽略该项，或者写入为 [ null | 'root' ]> [ string | number ] : string",
+            "keyword": "关键字，表单唯一标识，如果出现重复会使用第一个后续所有都会忽略 <禁止使用 'root' 作为关键字,如果发现会被忽略> [ string | number ] : string",
+            "value": "数据值 <根据 type 关键字确定>",
+            "defaultValue": "数据默认值 <根据 type  关键字确定>",
+            "dataSource": [
+                {
+                    "type": "数据类型校验 [ string | number | boolean | null | undefine | array | object ] : undefine",
+                    "label": "数据来源描述 <数据源主要用来承载 下拉框、检索框、单选框、多选框所需要的属性支持，通常也会被联动异步替换> string",
+                    "value": "数据值 <根据 type 关键字确定>",
+                    "children": " Array<dataSource> ",
+                    "extra": "扩展数据源 <该属性不会被使用到，主要用来承载后端需要自控的一些数据> [ object ] : {}"
+                }
+            ],
+            "display": "展示状态 [ vissable | hidden ] : vissable",
+            "interact": "交互状态 [ modify | preview | disable ] : modify",
+            "title": "关键字描述 string",
+            "explain": "说明内容 string",
+            "tips": "提示内容 string",
+            "prefix": "前缀内容 string",
+            "suffix": "后缀内容 string",
+            "beforePrefix": "前缀之前的内容 string",
+            "afterSuffix": "后缀之后的内容 string",
+            "void": "是否是虚拟字段 [ true | false ] : true",
+            "required": "是否必填 [ true | false ] : false",
+            "sort": "排序数值 <由于会将 Schema 整理为树，所以 sort 作用域只会在当前 level 中生效，所以可以重复定义> number",
+            "componentType": "表单项类型 <如果 void 为 true 会忽略该项> [ string ] : 'unknow'",
+            "componentProps": "表单项属性 <如果 void 为 true 会忽略该项> [ object ] : {}",
+            "vesselType": "容器项类型 [ string ] : 'unknow'",
+            "vesselProps": "容器项属性 [ object ] : {}",
+            "$action": [
+                {
+                    "async": "是否是异步联动(目前如果使用异步方式会单独将依赖的整个表单项提交) <通常用来与后端进行接口的交互> [ true | false ] : false",
+                    "depend": "依赖关键字 <可以是路径关键字，例如：'aa.bb.cc' 默认情况自动获取路径下的 value 属性,支持数组格式，如果是字符串也会被解构为数组> [ string | array<string> ] : string",
+                    "when": "依赖关键字属性变化更新的条件 <是一条 {{ xxx }} 这样的表达式数据，具体看文档>",
+                    "url": "异步联动交换数据的地址(async 为 false 时忽略会该属性) <标准的URL地址>",
+                    "method": "异步联动交换数据的请求方式(async 为 false 时忽略会该属性) <最好是 GET > [ POST | GET ] : GET",
+                    "format": "异步联动交换数据格式化类型(async 为 false 时忽略会该属性) [ json | formData ] : json"
+                }
+            ]
+        }
+    ]
+}

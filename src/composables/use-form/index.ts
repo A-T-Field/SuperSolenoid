@@ -2,10 +2,12 @@
  * @Author: maggot-code
  * @Date: 2021-12-31 09:30:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-04 16:39:08
+ * @LastEditTime: 2022-01-06 17:40:14
  * @Description: file content
  */
-import { Form, IFormProps } from './model';
+import type { IFormProps, SchemaProps } from './types';
+
+import { Form, Schema } from './model';
 
 const ExpRE = /^\s*\{\{([\s\S]*)\}\}\s*$/;
 const Registry = {
@@ -36,10 +38,14 @@ export const shallowCompile = (source: any, scope: any) => {
     return source
 }
 
+export * from './types';
 export * from './utils';
 export * from './model';
-export * from './components';
 
-export const createdForm = (props?: IFormProps) => {
+export const createForm = (props?: IFormProps) => {
     return new Form(props ?? {});
+}
+
+export const compileSchema = (props?: SchemaProps) => {
+    return Schema.parsers(props?.$schema ?? []).compiler();
 }
