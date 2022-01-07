@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2022-01-03 14:02:44
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-07 16:27:50
+ * @LastEditTime: 2022-01-07 16:32:23
  * @Description: file content
  */
 import type { CheckValueType, ElementComponent } from '../types/share';
@@ -159,9 +159,17 @@ class Field extends BaseField {
         this.form.setDefaultValueIn(this.keyword, val);
     }
 
-    onInit = () => { }
-    onMount = () => { }
-    onUnmount = () => { }
+    onInit = () => {
+        this.selfInitialized.value = true;
+    }
+    onMount = () => {
+        this.selfMounted.value = true;
+    }
+    onUnmount = () => {
+        this.path.destroy();
+
+        this.selfUnmounted.value = true;
+    }
 }
 
 export {

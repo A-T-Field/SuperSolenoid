@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2022-01-03 14:02:29
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-06 18:21:48
+ * @LastEditTime: 2022-01-07 16:35:53
  * @Description: file content
  */
 import type { DisplayType, InteractType } from '../types/share';
@@ -28,6 +28,12 @@ class Share {
     }
     get loading() {
         return unref(this.selfLoading);
+    }
+    get display() {
+        return unref(this.selfDisplay);
+    }
+    get interact() {
+        return unref(this.selfInteract);
     }
     get vissable() {
         return unref(this.selfDisplay) === 'visable';

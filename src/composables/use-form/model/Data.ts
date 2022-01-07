@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2022-01-03 14:03:20
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-07 16:25:30
+ * @LastEditTime: 2022-01-07 16:38:18
  * @Description: file content
  */
 import { reactive } from 'vue';
@@ -11,8 +11,8 @@ import { Form } from './Form';
 class Data {
     protected form: Form;
     // protected dataWatch: WatchStopHandle;
-    protected dataValues = reactive({});
-    protected dataDefaultValues = reactive({});
+    dataValues = reactive({});
+    dataDefaultValues = reactive({});
 
     constructor(form: Form) {
         this.form = form;

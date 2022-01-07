@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2022-01-03 14:02:58
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-07 16:26:14
+ * @LastEditTime: 2022-01-07 16:38:47
  * @Description: file content
  */
 import type { WatchStopHandle } from 'vue';
@@ -12,6 +12,7 @@ import type { FieldProps, VoidFieldProps } from '../types/field';
 
 import { unref, computed, watchEffect } from 'vue';
 import { isEmpty, uid, each } from '../utils';
+import { Share } from './Share';
 import { Schema } from './Schema';
 import { Graph } from './Graph';
 import { Data } from './Data';
@@ -19,7 +20,7 @@ import { Path } from './Path';
 import { Field } from './Field';
 import { VoidField } from './VoidField';
 
-class Form {
+class Form extends Share {
     designID = uid();
     displayName = "Form";
 
@@ -29,6 +30,8 @@ class Form {
     protected data!: Data;
 
     constructor(props: IFormProps) {
+        super();
+
         this.initialization(props);
         this.schemaWatch = watchEffect(() => {
             this.makeGraph(unref(this.context).body);
@@ -44,6 +47,12 @@ class Form {
             date: this.schema.changeRecord,
             body: this.schema.structTree
         }))
+    }
+    get values() {
+        return computed(() => unref(this.data.dataValues))
+    }
+    get defaultValues() {
+        return computed(() => unref(this.data.dataDefaultValues))
     }
 
     protected initialization(props: IFormProps) {
@@ -105,12 +114,18 @@ class Form {
         this.data.setDataDefaultValue(valuePath, val);
     }
 
-    onInit = () => { }
-    onMount = () => { }
+    onInit = () => {
+        this.selfInitialized.value = true;
+    }
+    onMount = () => {
+        this.selfMounted.value = true;
+    }
     onUnmount = () => {
         this.schemaWatch();
         this.graph.destroy();
         this.data.destroy();
+
+        this.selfUnmounted.value = true;
     }
 }
 

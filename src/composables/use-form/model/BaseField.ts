@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2022-01-03 14:02:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-07 14:18:18
+ * @LastEditTime: 2022-01-07 16:36:14
  * @Description: file content
  */
 import { Ref, unref } from 'vue';
@@ -43,8 +43,8 @@ class BaseField extends Share {
         this.selfVesselType = props.vesselType;
         this.selfVesselProps = props.vesselProps ?? {};
 
-        this.setDisplay(props.display ?? "vissable");
-        this.setInteract(props.interact ?? "modify");
+        this.setDisplay(props.display ?? this.form.display ?? "vissable");
+        this.setInteract(props.interact ?? this.form.interact ?? "modify");
     }
 
     get vessel() {

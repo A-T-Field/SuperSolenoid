@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2022-01-04 13:16:27
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-07 14:40:28
+ * @LastEditTime: 2022-01-07 16:30:51
  * @Description: file content
  */
 import type { Ref, WatchStopHandle } from 'vue';
@@ -149,7 +149,7 @@ class Path<Target = FieldGraph>{
     // }
     // is = (target: Target, defaultValue: any): any => { }
 
-    onDestroy = () => {
+    destroy = () => {
         this.cacheWatch();
     }
 

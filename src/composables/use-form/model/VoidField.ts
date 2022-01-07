@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2022-01-03 14:02:51
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-07 14:19:21
+ * @LastEditTime: 2022-01-07 16:31:03
  * @Description: file content
  */
 import type { VoidFieldProps } from '../types/field';
@@ -28,9 +28,17 @@ class VoidField extends BaseField {
         this.propsProto = props;
     }
 
-    onInit = () => { }
-    onMount = () => { }
-    onUnmount = () => { }
+    onInit = () => {
+        this.selfInitialized.value = true;
+    }
+    onMount = () => {
+        this.selfMounted.value = true;
+    }
+    onUnmount = () => {
+        this.path.destroy();
+
+        this.selfUnmounted.value = true;
+    }
 }
 
 export {
