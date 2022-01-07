@@ -2,13 +2,14 @@
  * @Author: maggot-code
  * @Date: 2022-01-06 18:24:53
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-07 09:57:35
+ * @LastEditTime: 2022-01-07 14:06:56
  * @Description: file content
  */
 import type { NonPropertyNames } from './share';
 import type { StructNode } from './schema';
 
-// import { Path } from '../model/Path';
+import { Field } from '../model/Field';
+import { VoidField } from '../model/VoidField';
 
 type OmitBaseField<P> = Omit<
     P,
@@ -27,9 +28,7 @@ type OmitBaseField<P> = Omit<
     | "componentProps"
     | "children"
 >;
-export type BaseFieldProps = {
-    // path: Path
-} & Partial<
+export type BaseFieldProps = {} & Partial<
     Pick<
         StructNode,
         NonPropertyNames<OmitBaseField<Required<StructNode>>>
@@ -74,3 +73,5 @@ export type VoidFieldProps = {} & Partial<
         NonPropertyNames<OmitVoidField<Required<StructNode>>>
     >
 >;
+
+export type GatherFields = Field | VoidField;

@@ -2,14 +2,15 @@
  * @Author: maggot-code
  * @Date: 2022-01-03 14:02:58
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-07 09:25:35
+ * @LastEditTime: 2022-01-07 14:38:22
  * @Description: file content
  */
+import type { WatchStopHandle } from 'vue';
 import type { StructTree } from '../types/schema';
 import type { IFormProps } from '../types/form';
 import type { FieldProps, VoidFieldProps } from '../types/field';
 
-import { unref, reactive, computed, watchEffect, WatchStopHandle } from 'vue';
+import { watchEffect } from 'vue';
 import { isEmpty, uid, each } from '../utils';
 import { Schema } from './Schema';
 import { Graph } from './Graph';
@@ -22,7 +23,6 @@ class Form {
     displayName = "Form";
 
     private schemaWatch: WatchStopHandle;
-
     protected schema!: Schema;
     protected graph!: Graph;
 
@@ -54,19 +54,31 @@ class Form {
         })
     }
 
-    createField = (props: FieldProps) => {
-        const field = new Field(props);
+    createField = (props: FieldProps): Field => {
+        const path = Path.parser(props.address ?? "");
 
-        this.graph.setup(field);
+        const sign = path.toString();
 
-        return field;
+        if (this.graph.hasIn(sign)) {
+            return this.graph.getIn(sign) as Field;
+        }
+
+        const field = new Field({ ...props, address: sign }, path, this);
+
+        return this.graph.setIn(sign, field) as Field;
     }
-    createVoidField = (props: VoidFieldProps) => {
-        const field = new VoidField(props);
+    createVoidField = (props: VoidFieldProps): VoidField => {
+        const path = Path.parser(props.address ?? "");
 
-        this.graph.setup(field);
+        const sign = path.toString();
 
-        return field;
+        if (this.graph.hasIn(sign)) {
+            return this.graph.getIn(sign) as VoidField;
+        }
+
+        const field = new VoidField({ ...props, address: sign }, path, this);
+
+        return this.graph.setIn(sign, field) as VoidField;
     }
 
     onInit = () => { }

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2022-01-03 14:02:44
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-07 11:01:19
+ * @LastEditTime: 2022-01-07 14:18:51
  * @Description: file content
  */
 import type { CheckValueType, ElementComponent } from '../types/share';
@@ -11,6 +11,8 @@ import type { FieldProps } from '../types/field';
 
 import { ref, reactive, unref, computed } from 'vue';
 import { isEmpty } from '../utils';
+import { Form } from './Form';
+import { Path } from './Path';
 import { BaseField } from './BaseField';
 
 class Field extends BaseField {
@@ -31,8 +33,8 @@ class Field extends BaseField {
     protected selfComponentType: ElementComponent;
     protected selfComponentProps: Record<string, any> = {};
 
-    constructor(props: FieldProps) {
-        super(props);
+    constructor(props: FieldProps, path: Path, form: Form) {
+        super(props, path, form);
 
         this.initialization(props);
         this.onInit();

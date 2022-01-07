@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2022-01-03 14:02:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-07 10:55:44
+ * @LastEditTime: 2022-01-07 14:18:18
  * @Description: file content
  */
 import { Ref, unref } from 'vue';
@@ -11,10 +11,14 @@ import type { BaseFieldProps } from '../types/field';
 
 import { ref, computed } from 'vue';
 import { uid } from '../utils/uid';
+import { Form } from './Form';
 import { Share } from './Share';
+import { Path } from './Path';
 
 class BaseField extends Share {
     designID = uid();
+    form: Form;
+    path: Path;
     parent: string | number;
     keyword: string | number;
     address: string;
@@ -25,9 +29,11 @@ class BaseField extends Share {
     protected selfVesselType: ElementComponent;
     protected selfVesselProps: Record<string, any>;
 
-    constructor(props: BaseFieldProps) {
+    constructor(props: BaseFieldProps, path: Path, form: Form) {
         super();
 
+        this.form = form;
+        this.path = path;
         this.parent = props.parent ?? uid();
         this.keyword = props.keyword ?? uid();
         this.address = props.address ?? "";
