@@ -2,19 +2,22 @@
  * @Author: maggot-code
  * @Date: 2022-01-06 17:40:30
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-07 14:40:02
+ * @LastEditTime: 2022-01-07 15:01:31
  * @Description: file content
  */
 import type { GatherFields } from '../types/share';
-import type { FieldGraph, IGraphProps } from '../types/graph';
+import type { FieldGraph } from '../types/graph';
 
-import { reactive } from 'vue';
 import { isValid } from '../utils';
+import { Form } from './Form';
 
 class Graph {
-    protected fieldGraph = reactive<FieldGraph>({});
+    protected form: Form;
+    protected fieldGraph: FieldGraph = {};
 
-    constructor(props: IGraphProps) { }
+    constructor(form: Form) {
+        this.form = form;
+    }
 
     hasIn = (sign: string): boolean => {
         return isValid(this.fieldGraph[sign]);

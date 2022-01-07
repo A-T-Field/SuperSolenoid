@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2022-01-03 14:02:58
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-07 14:38:22
+ * @LastEditTime: 2022-01-07 15:01:37
  * @Description: file content
  */
 import type { WatchStopHandle } from 'vue';
@@ -34,9 +34,13 @@ class Form {
         this.onInit();
     }
 
+    get rootKeyword() {
+        return this.schema.rootKey;
+    }
+
     protected initialization(props: IFormProps) {
         this.schema = props.schema ?? new Schema([]);
-        this.graph = new Graph({});
+        this.graph = new Graph(this);
     }
 
     protected makeGraphTree(structTree: StructTree) {

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2022-01-05 17:53:19
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-06 17:43:01
+ * @LastEditTime: 2022-01-07 14:57:44
  * @Description: file content
  */
 import type {
@@ -22,14 +22,13 @@ import {
     isBoolean,
     isEmpty,
     each,
-    uid
+    uid,
+    getHasOwnProperty,
 } from '../utils';
 
 const BASE_KEY = 'root';
 
 const MAX_CACHE_SIZE = 500;
-
-const getHasOwnProperty = <T = any>(obj: T, property: any) => Object.prototype.hasOwnProperty.call(obj, property);
 
 const isFlase = (state: any): state is boolean => isBoolean(state) ? state === false ? true : false : false;
 
@@ -79,8 +78,8 @@ class Schema {
     // private MAX_Level: number = 0;
     private TempCache: StructTree = {};
 
-    protected rootKey!: string;
     protected schemaUnit: SchemaStruct = [];
+    rootKey!: string;
     structTree = reactive<StructTree>({});
     changeRecord = ref(Date.now());
 

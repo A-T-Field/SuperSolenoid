@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-31 14:52:33
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-31 14:52:33
+ * @LastEditTime: 2022-01-07 14:57:29
  * @Description: file content
  */
 const ExpRE = /^\s*\{\{([\s\S]*)\}\}\s*$/;
@@ -31,3 +31,5 @@ export const shallowCompile = (source: any, scope: any) => {
     }
     return source
 }
+
+export const getHasOwnProperty = <T = any>(obj: T, property: any) => Object.prototype.hasOwnProperty.call(obj, property);
