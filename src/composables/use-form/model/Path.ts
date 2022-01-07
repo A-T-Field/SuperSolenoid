@@ -2,12 +2,12 @@
  * @Author: maggot-code
  * @Date: 2022-01-04 13:16:27
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-07 14:23:40
+ * @LastEditTime: 2022-01-07 14:40:28
  * @Description: file content
  */
 import type { Ref, WatchStopHandle } from 'vue';
 import type { PathPattern, IParser, ISeeks, IPathProps } from '../types/path';
-import type { FieldTree } from '../types/graph';
+import type { FieldGraph } from '../types/graph';
 
 import { unref, ref, reactive, computed, watchEffect } from 'vue';
 import {
@@ -105,7 +105,7 @@ const parser: IParser = (source) => {
     });
 }
 
-class Path<Target = FieldTree>{
+class Path<Target = FieldGraph>{
     private cacheWatch: WatchStopHandle;
     protected cache = new WeakMap<Path<Target>, any>();
     protected selfSource: Ref<PathPattern>;
