@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2022-01-05 17:53:19
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-07 14:57:44
+ * @LastEditTime: 2022-01-09 22:47:50
  * @Description: file content
  */
 import type {
@@ -26,19 +26,17 @@ import {
     getHasOwnProperty,
 } from '../utils';
 
-const BASE_KEY = 'root';
-
 const MAX_CACHE_SIZE = 500;
 
 const isFlase = (state: any): state is boolean => isBoolean(state) ? state === false ? true : false : false;
 
-function setupParent(raw: ISchema, rootKey: string) {
+function setupParent(raw: ISchema) {
     const { parent } = raw;
 
-    if (isVoid(parent)) return rootKey;
+    if (isVoid(parent)) return "";
 
     if (isValid(parent) && !isEmpty(parent) && (isNumber(parent) ||
-        (isString(parent) && parent !== rootKey)
+        (isString(parent) && isValid(parent))
     )) return parent;
 
     return false;
@@ -65,7 +63,7 @@ function setupKeyword(raw: ISchema) {
 function setupAddress(target: StructTree, keyword: string | number, parent: string | number) {
     return getHasOwnProperty(target, parent)
         ? `${target[parent].address}.${keyword}`
-        : `${parent}.${keyword}`;
+        : isEmpty(parent) ? keyword : `${parent}.${keyword}`;
 }
 
 function setupChildren(target: StructTree, keyword: string | number) {
@@ -75,28 +73,25 @@ function setupChildren(target: StructTree, keyword: string | number) {
 }
 
 class Schema {
-    // private MAX_Level: number = 0;
     private TempCache: StructTree = {};
 
     protected schemaUnit: SchemaStruct = [];
-    rootKey!: string;
     structTree = reactive<StructTree>({});
     changeRecord = ref(Date.now());
 
-    constructor(struct: SchemaStruct, rootKey?: string) {
-        this.initialization(struct, rootKey);
+    constructor(struct: SchemaStruct) {
+        this.initialization(struct);
     }
 
-    protected initialization(struct: SchemaStruct, rootKey?: string) {
+    protected initialization(struct: SchemaStruct) {
         this.schemaUnit = struct;
-        this.rootKey = rootKey ?? BASE_KEY;
     }
 
     compiler() {
         if (Object.keys(this.TempCache).length >= MAX_CACHE_SIZE) this.TempCache = {};
 
         each(this.schemaUnit, (raw, index) => {
-            const parent = setupParent(raw, this.rootKey);
+            const parent = setupParent(raw);
 
             if (isFlase(parent)) return;
 
@@ -115,7 +110,7 @@ class Schema {
                 children: setupChildren(this.TempCache, keyword)
             } as StructNode;
 
-            if (parent === this.rootKey) {
+            if (isEmpty(parent)) {
                 this.structTree[keyword] = {
                     ...this.TempCache[keyword],
                 };
@@ -141,8 +136,8 @@ class Schema {
         this.compiler();
     }
 
-    static parsers(struct: SchemaStruct, rootKey?: string) {
-        return new Schema(struct, rootKey ?? BASE_KEY);
+    static parsers(struct: SchemaStruct) {
+        return new Schema(struct);
     }
 }
 

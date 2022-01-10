@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2022-01-06 18:24:53
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-07 14:06:56
+ * @LastEditTime: 2022-01-07 17:47:16
  * @Description: file content
  */
 import type { NonPropertyNames } from './share';
@@ -66,6 +66,7 @@ type OmitVoidField<P> = Omit<
     | "afterSuffix"
     | "componentType"
     | "componentProps"
+    | "children"
 >;
 export type VoidFieldProps = {} & Partial<
     Pick<

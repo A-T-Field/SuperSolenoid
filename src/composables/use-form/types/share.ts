@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2022-01-06 10:41:06
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-07 14:33:38
+ * @LastEditTime: 2022-01-07 17:42:16
  * @Description: file content
  */
 import { Field } from '../model/Field';
@@ -35,3 +35,5 @@ export type RequestType = {
 };
 
 export type GatherFields = Field | VoidField;
+
+export type DataFields = Field;

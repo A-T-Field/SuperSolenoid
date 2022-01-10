@@ -2,12 +2,12 @@
  * @Author: maggot-code
  * @Date: 2022-01-03 14:02:58
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-07 16:38:47
+ * @LastEditTime: 2022-01-09 22:51:47
  * @Description: file content
  */
-import type { WatchStopHandle } from 'vue';
+import { reactive, WatchStopHandle } from 'vue';
 import type { StructTree } from '../types/schema';
-import type { IFormProps } from '../types/form';
+import type { IFormProps, FormStructure } from '../types/form';
 import type { FieldProps, VoidFieldProps } from '../types/field';
 
 import { unref, computed, watchEffect } from 'vue';
@@ -23,6 +23,7 @@ import { VoidField } from './VoidField';
 class Form extends Share {
     designID = uid();
     displayName = "Form";
+    structure!: FormStructure;
 
     private schemaWatch: WatchStopHandle;
     protected schema!: Schema;
@@ -34,20 +35,11 @@ class Form extends Share {
 
         this.initialization(props);
         this.schemaWatch = watchEffect(() => {
-            this.makeGraph(unref(this.context).body);
+            this.makeGraph(this.schema.structTree);
         });
         this.onInit();
     }
 
-    get rootKeyword() {
-        return this.schema.rootKey;
-    }
-    get context() {
-        return computed(() => ({
-            date: this.schema.changeRecord,
-            body: this.schema.structTree
-        }))
-    }
     get values() {
         return computed(() => unref(this.data.dataValues))
     }
@@ -59,6 +51,7 @@ class Form extends Share {
         this.schema = props.schema ?? new Schema([]);
         this.graph = new Graph(this);
         this.data = new Data(this);
+        this.structure = reactive({});
     }
 
     protected makeGraph(structTree: StructTree) {
@@ -73,7 +66,7 @@ class Form extends Share {
             }
 
             this.createField(node);
-        })
+        });
     }
 
     createField = (props: FieldProps): Field => {
@@ -89,6 +82,7 @@ class Form extends Share {
 
         return this.graph.setIn(sign, field) as Field;
     }
+
     createVoidField = (props: VoidFieldProps): VoidField => {
         const path = Path.parser(props.address ?? "");
 
@@ -124,6 +118,7 @@ class Form extends Share {
         this.schemaWatch();
         this.graph.destroy();
         this.data.destroy();
+        this.structure = {};
 
         this.selfUnmounted.value = true;
     }
