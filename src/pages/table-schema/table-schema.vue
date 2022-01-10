@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-22 15:11:39
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-11-30 10:03:27
+ * @LastEditTime: 2022-01-10 10:15:06
  * @Description: file content
 -->
 <script setup lang='ts'>
@@ -22,7 +22,10 @@ const {
     setPageNumber,
     handlerUninstall,
     onWrapEvent
-} = useDataTable();
+} = useDataTable({
+    useIndex: false,
+    useSelect: false,
+});
 
 onWrapEvent((wrapevent) => {
     console.log(wrapevent);
@@ -37,8 +40,7 @@ onMounted(() => {
                 title: "姓名",
                 sortName: "aaa",
                 align: 'center',
-                isSort: true,
-                mode: 'button'
+                isSort: true
             },
             {
                 key: 'date',
