@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-12-23 10:40:21
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-09 22:30:06
+ * @LastEditTime: 2022-01-10 14:25:08
  * @Description: file content
 -->
 <script setup lang='ts'>
@@ -17,11 +17,10 @@ import {
 const form = createForm({
     schema: compileSchema(Schema)
 });
-window['$aa'] = form;
 </script>
 
 <template>
-    <form-provider :form="form">321</form-provider>
+    <form-provider :form="form"></form-provider>
 </template>
 
 <style scoped lang='scss'>

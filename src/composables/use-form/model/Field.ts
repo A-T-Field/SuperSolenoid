@@ -2,15 +2,16 @@
  * @Author: maggot-code
  * @Date: 2022-01-03 14:02:44
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-07 16:32:23
+ * @LastEditTime: 2022-01-10 15:44:18
  * @Description: file content
  */
 import type { CheckValueType, ElementComponent } from '../types/share';
 import type { DataSourceType } from '../types/schema';
 import type { FieldProps } from '../types/field';
 
-import { ref, reactive, unref, computed } from 'vue';
+import { ref, reactive, unref, computed, toRaw } from 'vue';
 import { isEmpty } from '../utils';
+import { Action } from './Action';
 import { Form } from './Form';
 import { Path } from './Path';
 import { BaseField } from './BaseField';
@@ -38,6 +39,7 @@ class Field extends BaseField {
 
         this.initialization(props);
         this.makeValue(props);
+        this.makeReaction(props);
         this.onInit();
     }
 
@@ -151,12 +153,26 @@ class Field extends BaseField {
         this.form.setValueIn(this.keyword, this.value);
         this.form.setDefaultValueIn(this.keyword, this.defaultValue);
     }
+    protected makeReaction(props: FieldProps) {
+        if (!props) return;
+
+        const action = new Action(toRaw(props), this);
+        console.log(action);
+    }
 
     setValue = (val: any) => {
+        this.value = val;
         this.form.setValueIn(this.keyword, val);
     }
     setDefaultValue = (val: any) => {
+        this.defaultValue = val;
         this.form.setDefaultValueIn(this.keyword, val);
+    }
+
+    onBlur = () => { }
+    onFocus = () => { }
+    onUpdateValue = (value: any) => {
+        this.setValue(value);
     }
 
     onInit = () => {

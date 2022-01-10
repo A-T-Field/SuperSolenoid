@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2022-01-07 16:46:02
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-07 17:59:53
+ * @LastEditTime: 2022-01-10 14:27:44
  * @Description: file content
  */
 import type { FormProviderProps } from './types';
@@ -12,7 +12,7 @@ import { formProviderProps } from './props';
 import { useAttach } from '../hooks';
 import { FormSymbol } from '../utils';
 import { NForm } from '@/plugins/naive-ui';
-// import { default as FormRecursion } from './FormRecursion';
+import { default as FormRecursion } from './FormRecursion';
 
 export default defineComponent({
     name: "FormProvider",
@@ -27,11 +27,10 @@ export default defineComponent({
         )
         const body = {
             default: () => [
+                FormRecursion(formRef.value.context.body, formRef.value),
                 slots?.default?.()
             ]
         }
-
-        console.log(formRef.value);
 
         provide(FormSymbol, formRef);
         onBeforeUnmount(() => {

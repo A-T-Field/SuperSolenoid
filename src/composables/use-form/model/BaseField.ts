@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2022-01-03 14:02:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-07 17:56:47
+ * @LastEditTime: 2022-01-10 14:00:52
  * @Description: file content
  */
 import { Ref, unref } from 'vue';
@@ -36,7 +36,7 @@ class BaseField extends Share {
         this.path = path;
         this.parent = props.parent ?? uid();
         this.keyword = props.keyword ?? uid();
-        this.address = props.address ?? "";
+        this.address = this.path.toString();
         this.selfHasVoid = props.hasVoid ?? true;
         this.selfRequired = ref(props.required ?? false);
         this.selfSort = ref(props.sort ?? 0);

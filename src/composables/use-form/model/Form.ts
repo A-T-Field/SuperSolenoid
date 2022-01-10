@@ -2,12 +2,12 @@
  * @Author: maggot-code
  * @Date: 2022-01-03 14:02:58
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-09 22:51:47
+ * @LastEditTime: 2022-01-10 15:22:50
  * @Description: file content
  */
-import { reactive, WatchStopHandle } from 'vue';
+import type { WatchStopHandle } from 'vue';
 import type { StructTree } from '../types/schema';
-import type { IFormProps, FormStructure } from '../types/form';
+import type { IFormProps } from '../types/form';
 import type { FieldProps, VoidFieldProps } from '../types/field';
 
 import { unref, computed, watchEffect } from 'vue';
@@ -23,7 +23,6 @@ import { VoidField } from './VoidField';
 class Form extends Share {
     designID = uid();
     displayName = "Form";
-    structure!: FormStructure;
 
     private schemaWatch: WatchStopHandle;
     protected schema!: Schema;
@@ -35,23 +34,33 @@ class Form extends Share {
 
         this.initialization(props);
         this.schemaWatch = watchEffect(() => {
-            this.makeGraph(this.schema.structTree);
+            this.makeGraph(this.context.body);
         });
         this.onInit();
     }
 
+    get graphMap() {
+        return this.graph.maps;
+    }
+    get context() {
+        return unref(computed(() => {
+            return {
+                record: unref(this.schema.changeRecord),
+                body: this.schema.structTree
+            }
+        }));
+    }
     get values() {
-        return computed(() => unref(this.data.dataValues))
+        return unref(computed(() => unref(this.data.dataValues)))
     }
     get defaultValues() {
-        return computed(() => unref(this.data.dataDefaultValues))
+        return unref(computed(() => unref(this.data.dataDefaultValues)))
     }
 
     protected initialization(props: IFormProps) {
         this.schema = props.schema ?? new Schema([]);
         this.graph = new Graph(this);
         this.data = new Data(this);
-        this.structure = reactive({});
     }
 
     protected makeGraph(structTree: StructTree) {
@@ -69,34 +78,42 @@ class Form extends Share {
         });
     }
 
-    createField = (props: FieldProps): Field => {
-        const path = Path.parser(props.address ?? "");
+    private parserPath(address?: string) {
+        const path = Path.parser(address ?? "");
 
-        const sign = path.toString();
+        return {
+            path,
+            sign: path.toString()
+        }
+    }
+
+    createField = (props: FieldProps): Field => {
+        const { path, sign } = this.parserPath(props.address);
 
         if (this.graph.hasIn(sign)) {
             return this.graph.getIn(sign) as Field;
         }
 
-        const field = new Field({ ...props, address: sign }, path, this);
+        const field = new Field(props, path, this);
 
         return this.graph.setIn(sign, field) as Field;
     }
 
     createVoidField = (props: VoidFieldProps): VoidField => {
-        const path = Path.parser(props.address ?? "");
-
-        const sign = path.toString();
+        const { path, sign } = this.parserPath(props.address);
 
         if (this.graph.hasIn(sign)) {
             return this.graph.getIn(sign) as VoidField;
         }
 
-        const field = new VoidField({ ...props, address: sign }, path, this);
+        const field = new VoidField(props, path, this);
 
         return this.graph.setIn(sign, field) as VoidField;
     }
 
+    hasFieldIn(address: string) {
+        return this.graph.hasIn(address);
+    }
     getFieldIn(address: string) {
         return this.graph.getIn(address);
     }
@@ -118,7 +135,6 @@ class Form extends Share {
         this.schemaWatch();
         this.graph.destroy();
         this.data.destroy();
-        this.structure = {};
 
         this.selfUnmounted.value = true;
     }

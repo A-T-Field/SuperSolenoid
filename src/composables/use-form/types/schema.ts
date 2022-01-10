@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2022-01-06 10:42:09
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-06 18:40:28
+ * @LastEditTime: 2022-01-10 15:44:00
  * @Description: file content
  */
 import type {
@@ -22,14 +22,6 @@ export type DataSourceRaw = {
 };
 
 export type DataSourceType = Array<Partial<DataSourceRaw>>;
-
-export type ActionRaw = Partial<RequestType> & {
-    async: boolean;
-    depend: string;
-    condition: string;
-};
-
-export type DefineAction = Partial<ActionRaw> | Array<Partial<ActionRaw>>;
 
 export interface ISchema {
     type?: CheckValueType;
@@ -54,7 +46,6 @@ export interface ISchema {
     componentProps?: Record<string, any>;
     vesselType?: ElementComponent;
     vesselProps?: Record<string, any>;
-    $action?: DefineAction;
 };
 
 export type SchemaStruct = Array<ISchema>;

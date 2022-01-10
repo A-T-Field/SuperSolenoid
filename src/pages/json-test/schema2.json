@@ -10,7 +10,7 @@
             "sort": 10,
             "vesselType": "Grid",
             "vesselProps": {
-                "cols": "1 600:2 900:3",
+                "cols": "2",
                 "xGap": 12
             }
         },
@@ -28,7 +28,7 @@
             "componentProps": {
                 "placeholder": "请输入姓名"
             },
-            "vesselType": "GridItem",
+            "vesselType": "FormItemGridItem",
             "vesselProps": {
                 "span": "1"
             }
@@ -44,14 +44,9 @@
             "required": false,
             "sort": 11,
             "componentType": "InputNumber",
-            "vesselType": "GridItem",
+            "vesselType": "FormItemGridItem",
             "vesselProps": {
                 "span": "1"
-            },
-            "$action": {
-                "async": false,
-                "depend": "name",
-                "condition": "{{ $self.hidden = $dep[0].value.length > 3 }}"
             }
         }
     ]
