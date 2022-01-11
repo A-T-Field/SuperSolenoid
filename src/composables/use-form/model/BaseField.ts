@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2022-01-03 14:02:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-10 14:00:52
+ * @LastEditTime: 2022-01-11 09:23:13
  * @Description: file content
  */
 import { Ref, unref } from 'vue';
@@ -54,6 +54,9 @@ class BaseField extends Share {
         return unref(computed(() => {
             return [this.selfVesselType, this.selfVesselProps];
         }));
+    }
+    get sort() {
+        return unref(this.selfSort);
     }
     set vesselType(type: ElementComponent) {
         this.selfVesselType = type;
