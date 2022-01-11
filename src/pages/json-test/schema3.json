@@ -1,0 +1,98 @@
+{
+    "url": "",
+    "method": "POST",
+    "format": "json",
+    "submitValidate": true,
+    "$schema": [
+        {
+            "keyword": "layout",
+            "hasVoid": true,
+            "sort": 10,
+            "vesselType": "Grid",
+            "vesselProps": {
+                "cols": "3",
+                "xGap": 12
+            }
+        },
+        {
+            "type": "string",
+            "parent": "layout",
+            "keyword": "sheng",
+            "value": "",
+            "defaultValue": "",
+            "dataSource": [
+                {
+                    "type": "string",
+                    "label": "河北省",
+                    "value": "001"
+                },
+                {
+                    "type": "string",
+                    "label": "东北省",
+                    "value": "002"
+                }
+            ],
+            "title": "省",
+            "hasVoid": false,
+            "sort": 10,
+            "componentType": "Select",
+            "componentProps": {
+                "placeholder": "请选择省份"
+            },
+            "vesselType": "GridItem",
+            "vesselProps": {
+                "span": "1"
+            }
+        },
+        {
+            "type": "string",
+            "parent": "layout",
+            "keyword": "city",
+            "value": "",
+            "defaultValue": "",
+            "title": "市",
+            "hasVoid": false,
+            "sort": 11,
+            "componentType": "Select",
+            "componentProps": {
+                "placeholder": "请选择市区"
+            },
+            "vesselType": "GridItem",
+            "vesselProps": {
+                "span": "1"
+            },
+            "actions": {
+                "async": true,
+                "depend": "layout.sheng",
+                "when": "{{ $self.dataSource = $deps[0].data.context }}",
+                "url": "/city/get",
+                "method": "GET"
+            }
+        },
+        {
+            "type": "string",
+            "parent": "layout",
+            "keyword": "qu",
+            "value": "",
+            "defaultValue": "",
+            "title": "区",
+            "hasVoid": false,
+            "sort": 12,
+            "componentType": "Select",
+            "componentProps": {
+                "placeholder": "请选择街道"
+            },
+            "vesselType": "GridItem",
+            "vesselProps": {
+                "span": "1"
+            },
+            "actions": {
+                "async": true,
+                "depend": "layout.city",
+                "when": "{{ $self.dataSource = $deps[0].data.context }}",
+                "url": "/city/get",
+                "method": "GET"
+            }
+        }
+    ]
+}

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2022-01-03 14:02:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-11 09:23:13
+ * @LastEditTime: 2022-01-11 16:13:38
  * @Description: file content
  */
 import { Ref, unref } from 'vue';
@@ -16,13 +16,13 @@ import { Share } from './Share';
 import { Path } from './Path';
 
 class BaseField extends Share {
-    designID = uid();
     form: Form;
     path: Path;
     parent: string | number;
     keyword: string | number;
     address: string;
 
+    protected selfDesignID = ref(uid());
     protected selfHasVoid: boolean;
     protected selfRequired: Ref<boolean>;
     protected selfSort: Ref<number>;
@@ -47,6 +47,9 @@ class BaseField extends Share {
         this.setInteract(props.interact ?? this.form.interact ?? "modify");
     }
 
+    get designID() {
+        return unref(this.selfDesignID);
+    }
     get hasVoid() {
         return unref(this.selfHasVoid);
     }
@@ -63,6 +66,10 @@ class BaseField extends Share {
     }
     set vesselProps(props: Record<string, any>) {
         this.selfVesselProps = props;
+    }
+
+    updateDesignID = () => {
+        this.selfDesignID.value = uid();
     }
 }
 

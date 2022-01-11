@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2022-01-06 10:42:09
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-10 15:44:00
+ * @LastEditTime: 2022-01-11 15:07:21
  * @Description: file content
  */
 import type {
@@ -22,6 +22,15 @@ export type DataSourceRaw = {
 };
 
 export type DataSourceType = Array<Partial<DataSourceRaw>>;
+
+export type ActionRaw = Partial<RequestType> & {
+    async: boolean;
+    depend?: string | Array<string>;
+    when?: string;
+    protoKey?: string;
+};
+
+export type ActionsType = ActionRaw | Array<ActionRaw>;
 
 export interface ISchema {
     type?: CheckValueType;
@@ -46,6 +55,7 @@ export interface ISchema {
     componentProps?: Record<string, any>;
     vesselType?: ElementComponent;
     vesselProps?: Record<string, any>;
+    actions?: ActionsType;
 };
 
 export type SchemaStruct = Array<ISchema>;

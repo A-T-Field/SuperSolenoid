@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2022-01-03 14:02:58
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-10 15:22:50
+ * @LastEditTime: 2022-01-11 14:48:56
  * @Description: file content
  */
 import type { WatchStopHandle } from 'vue';
@@ -23,6 +23,7 @@ import { VoidField } from './VoidField';
 class Form extends Share {
     designID = uid();
     displayName = "Form";
+    requestSend!: (config: any) => Promise<any>;
 
     private schemaWatch: WatchStopHandle;
     protected schema!: Schema;
@@ -59,6 +60,7 @@ class Form extends Share {
 
     protected initialization(props: IFormProps) {
         this.schema = props.schema ?? new Schema([]);
+        this.requestSend = props.requestSend ?? Promise.resolve;
         this.graph = new Graph(this);
         this.data = new Data(this);
     }

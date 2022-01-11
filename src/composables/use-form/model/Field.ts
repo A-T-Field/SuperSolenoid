@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2022-01-03 14:02:44
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-10 15:44:18
+ * @LastEditTime: 2022-01-11 17:46:15
  * @Description: file content
  */
 import type { CheckValueType, ElementComponent } from '../types/share';
@@ -18,6 +18,7 @@ import { BaseField } from './BaseField';
 
 class Field extends BaseField {
     displayName = "Field";
+    actions!: Action;
 
     protected propsProto = reactive<FieldProps>({});
     protected selfType = ref<CheckValueType>("undefined");
@@ -53,7 +54,7 @@ class Field extends BaseField {
         return unref(this.selfDefaultValue);
     }
     get dataSource() {
-        return unref(this.selfDataSource);
+        return unref(computed(() => this.selfDataSource));
     }
     get component() {
         return unref(computed(() => {
@@ -97,12 +98,15 @@ class Field extends BaseField {
     }
     set value(val: any) {
         this.selfValue.value = val;
+        this.form.setValueIn(this.keyword, val);
     }
     set defaultValue(val: any) {
         this.selfDefaultValue.value = val;
+        this.form.setDefaultValueIn(this.keyword, val);
     }
     set dataSource(data: DataSourceType) {
         this.selfDataSource = data;
+        this.updateDesignID();
     }
     set componentType(type: ElementComponent) {
         this.selfComponentType = type;
@@ -154,19 +158,16 @@ class Field extends BaseField {
         this.form.setDefaultValueIn(this.keyword, this.defaultValue);
     }
     protected makeReaction(props: FieldProps) {
-        if (!props) return;
+        if (!props.actions) return;
 
-        const action = new Action(toRaw(props), this);
-        console.log(action);
+        this.actions = new Action(toRaw(props.actions), this.form, this);
     }
 
     setValue = (val: any) => {
         this.value = val;
-        this.form.setValueIn(this.keyword, val);
     }
     setDefaultValue = (val: any) => {
         this.defaultValue = val;
-        this.form.setDefaultValueIn(this.keyword, val);
     }
 
     onBlur = () => { }
@@ -183,6 +184,7 @@ class Field extends BaseField {
     }
     onUnmount = () => {
         this.path.destroy();
+        this.actions?.uninstall();
 
         this.selfUnmounted.value = true;
     }

@@ -2,10 +2,10 @@
  * @Author: maggot-code
  * @Date: 2021-12-31 14:49:15
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-07 16:16:22
+ * @LastEditTime: 2022-01-11 16:11:43
  * @Description: file content
  */
-import type { GatherFields } from '../types/share';
+import type { GatherFields, DataFields } from '../types/share';
 
 import {
     Form,
@@ -58,3 +58,5 @@ export const isField = (field: unknown): field is Field => field instanceof Fiel
 export const isVoidField = (field: unknown): field is VoidField => field instanceof VoidField && field.displayName === 'VoidField';
 
 export const isGatherField = (field: unknown): field is GatherFields => isField(field) || isVoidField(field);
+
+export const isDataField = (field: unknown): field is DataFields => isField(field);

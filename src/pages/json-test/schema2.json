@@ -23,30 +23,38 @@
             "title": "姓名",
             "hasVoid": false,
             "required": true,
-            "sort": 11,
+            "sort": 10,
             "componentType": "Input",
             "componentProps": {
                 "placeholder": "请输入姓名"
             },
-            "vesselType": "FormItemGridItem",
+            "vesselType": "GridItem",
             "vesselProps": {
                 "span": "1"
             }
         },
         {
-            "type": "number",
+            "type": "string",
             "parent": "layout",
             "keyword": "age",
-            "value": 0,
-            "defaultValue": 0,
+            "value": "",
+            "defaultValue": "",
             "title": "年龄",
             "hasVoid": false,
             "required": false,
-            "sort": 10,
-            "componentType": "InputNumber",
-            "vesselType": "FormItemGridItem",
+            "sort": 11,
+            "componentType": "Input",
+            "componentProps": {
+                "placeholder": "请输入年龄"
+            },
+            "vesselType": "GridItem",
             "vesselProps": {
                 "span": "1"
+            },
+            "actions": {
+                "async": false,
+                "depend": "layout.name",
+                "when": "{{ $self.value = $deps[0].value }}"
             }
         }
     ]
