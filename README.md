@@ -72,9 +72,9 @@
 ```typescript
 // $self.dataSource = @request("/atf/get","GET",$deps[0].value).data.context
 
-// $ : 特殊指针标识符号 [ $self | $deps | $values ]
-// @ : 方法调用标识符号 [ @request ]
-// . : 属性连接符号
+// $ : 特殊指针标识符号,期望后续标识为 [self | deps | values]
+// @ : 方法调用标识符号,期望后续标识为 [request]
+// . : 属性连接符号,期望后续标识为
 // [ : 下标开始标识符号
 // ] : 下标结束标识符号
 // ( : 函数调用开始标识符号
