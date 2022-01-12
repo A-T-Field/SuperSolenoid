@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-11-15 17:46:34
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-12-23 10:47:26
+ * @LastEditTime: 2022-01-12 09:47:38
  * @Description: file content
  */
 import { MockMethod } from 'vite-plugin-mock';
@@ -10,6 +10,31 @@ import { default as useMockServer, wrapperContext } from '@m/_utils';
 
 // 获取路由表
 const workerRoutingData = [
+    {
+        name: "string_to",
+        path: "/st",
+        redirect: '/st/code',
+        meta: {
+            async: true,
+            view: 'home-page',
+            title: "字符串转换",
+            isMenuRoute: true,
+            hasPower: true
+        },
+        children: [
+            {
+                name: 'string_to_code',
+                path: '/st/code',
+                meta: {
+                    async: true,
+                    view: 'string-to-code',
+                    parent: 'string_to',
+                    title: '字符串转换代码',
+                    isMenuRoute: true,
+                }
+            }
+        ]
+    },
     {
         name: 'form',
         path: "/form",
