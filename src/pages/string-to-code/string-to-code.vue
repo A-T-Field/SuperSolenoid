@@ -2,17 +2,15 @@
  * @Author: maggot-code
  * @Date: 2022-01-12 09:42:34
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-13 14:00:12
+ * @LastEditTime: 2022-01-13 16:48:29
  * @Description: file content
 -->
 <script setup lang='ts'>
-// import {} from '@/composables/use-form';
-import { parse } from '@babel/parser';
-const stringCodeSync = `$self.hidden = $deps[0].value.length > 3`;
-// const stringCodeAsync = `$self.dataSource = $request("/atf/get","GET",$deps[0].value).data.context`;
-
-const File = parse(stringCodeSync);
-console.log(File)
+import { Tokenizer } from '@/composables/use-form';
+// const stringCode = `$self.hidden=$deps[0].value.length>3`;
+const stringCode = `$self.dataSource = @request("/get/select",'GET',[$deps[0],$deps[1]]).data.context`;
+const tk = new Tokenizer(stringCode);
+console.log(tk);
 </script>
 
 <template>
