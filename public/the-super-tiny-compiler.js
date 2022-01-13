@@ -1032,7 +1032,12 @@ function compiler(input) {
   let output = codeGenerator(newAst);
 
   // and simply return the output!
-  return output;
+  return {
+    tokens,
+    ast,
+    newAst,
+    output
+  };
 }
 
 /**
@@ -1041,7 +1046,8 @@ function compiler(input) {
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!YOU MADE IT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  * ============================================================================
  */
-
+const aa = compiler('(add 2 2)');
+console.log(aa);
 // Now I'm just exporting everything...
 module.exports = {
   tokenizer,
